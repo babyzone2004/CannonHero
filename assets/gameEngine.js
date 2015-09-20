@@ -1,33 +1,3 @@
-/*
- * Copyright (C) 2012 David Geary. This code is from the book
- * Core HTML5 Canvas, published by Prentice-Hall in 2012.
- *
- * License:
- *
- * Permission is hereby granted, free of charge, to any person 
- * obtaining a copy of this software and associated documentation files
- * (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge,
- * publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * The Software may not be used to create training material of any sort,
- * including courses, books, instructional videos, presentations, etc.
- * without the express written consent of David Geary.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
-*/
 
 var getTimeNow = function () {
    return +new Date();
@@ -105,13 +75,6 @@ var Game = function (gameName, canvasId) {
       var audio = new Audio();
       this.soundChannels.push(audio);
    }
-
-   // The this object in the following event handlers is the
-   // DOM window, which is why the functions call
-   // self.keyPressed() instead of this.keyPressed(e).
-
-   window.onkeypress = function (e) { self.keyPressed(e)  };
-   window.onkeydown  = function (e) { self.keyPressed(e); };
 
    return this;
 };
@@ -377,56 +340,6 @@ Game.prototype = {
 
    clearHighScores: function () {
       localStorage[this.gameName + this.HIGH_SCORES_SUFFIX] = JSON.stringify([]);
-   },
-
-   // Key listeners..............................................................
-
-   // Add a (key, listener) pair to the keyListeners array.
-   
-   addKeyListener: function (keyAndListener) {
-      this.keyListeners.push(keyAndListener);
-   },
-   
-   // Given a key, return the associated listener.
-
-   findKeyListener: function (key) {
-      var listener = undefined;
-      
-      for(var i=0; i < this.keyListeners.length; ++i) {
-         var keyAndListener = this.keyListeners[i],
-             currentKey = keyAndListener.key;
-         if (currentKey === key) {
-            listener = keyAndListener.listener;
-         }
-      };
-      return listener;
-   },
-
-   // This method is the call back for key down and key press
-   // events.
-   
-   keyPressed: function (e) {
-      var listener = undefined,
-          key = undefined;
-
-      switch (e.keyCode) {
-         // Add more keys as needed
-
-         case 32: key = 'space';        break;
-         case 68: key = 'd';            break;
-         case 75: key = 'k';            break;
-         case 83: key = 's';            break;
-         case 80: key = 'p';            break;
-         case 37: key = 'left arrow';   break;
-         case 39: key = 'right arrow';  break;
-         case 38: key = 'up arrow';     break;
-         case 40: key = 'down arrow';   break;
-      }
-
-      listener = this.findKeyListener(key);
-      if (listener) { // listener is a function
-         listener();  // invoke the listener function
-      }
    },
 
    // Sound......................................................................
