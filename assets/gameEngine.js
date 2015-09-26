@@ -174,6 +174,7 @@ Game.prototype = {
 
       window.requestNextAnimationFrame(
          function (time) {
+
             // The this variable in this function is the window, not the game,
             // which is why we do not simply do this: animate.call(time).
             
@@ -245,8 +246,12 @@ Game.prototype = {
    // for the last animation frame only.
    
    updateFrameRate: function (time) {
-      if (this.lastTime === 0) this.fps = this.STARTING_FPS;
-      else                     this.fps = 1000 / (time - this.lastTime);
+      if (this.lastTime === 0) {
+         this.fps = this.STARTING_FPS;
+      }
+      else {
+         this.fps = Math.floor(1000 / (time - this.lastTime));
+      }             
    },
 
    // Clear the entire canvas.

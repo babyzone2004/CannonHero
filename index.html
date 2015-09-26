@@ -6,7 +6,7 @@
 <link rel='stylesheet' type='text/css' href='index.css'/>
 </head>
 <body>
-      <canvas id='gameCanvas' width='360' height='750'>
+      <canvas id='gameCanvas' width='360' height='640'>
          Canvas not supported
       </canvas>
 
@@ -17,6 +17,9 @@
          </span>
          <div id='progressDiv'></div>
       </div>
+
+      <!-- fps................................................................ -->
+      <div id='fps' class='fps'></div>
 
       <!-- Scores................................................................ -->
       <div id='scoreToast' class='score'></div>
@@ -67,6 +70,8 @@
     <script src = 'assets/requestNextAnimationFrame.js'></script>
     <script src = 'assets/roundedRectangle.js'></script>
     <script src = 'progressbar.js'></script>
+    <script src = 'assets/sprites.js'></script>
+    <script src = 'assets/player.js'></script>
     <script src = 'assets/gameEngine.js'></script>
     <script src = 'index.js'></script>
   </body>

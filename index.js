@@ -1,5 +1,15 @@
 
+function id(elem) {
+   return document.getElementById(elem);
+}
 var game = new Game('Cannon', 'gameCanvas'),
+
+// fps
+lastFpsUpdateTime = +new Date();
+fps = id('fps'),
+
+// player
+player = null,
 
 // Loading....................................................
 
@@ -53,9 +63,6 @@ SUN_TOP = 80,
 SUN_LEFT = 80,
 SUN_RADIUS = 30,
 
-// Key Listeners..............................................
-
-lastKeyListenerTime = 0,  // For throttling arrow keys, see below
 
 // Lose life..................................................
 
@@ -64,7 +71,7 @@ loseLifeButton = document.getElementById('loseLifeButton'),
    
 // Scrolling the background...................................
 
-translateDelta = 0.025,
+translateDelta = 0.01,
 translateOffset = 0,
 
 scrollBackground = function () {
@@ -293,6 +300,7 @@ updateScore = function () {
 game.paintOverSprites = function () {
    paintNearCloud(game.context, 120, 20);
    paintNearCloud(game.context, game.context.canvas.width+120, 20);
+   player && player.draw(game.context, game.lastTime);
 }
    
 game.paintUnderSprites = function () { // Draw things other than sprites
@@ -303,7 +311,12 @@ game.paintUnderSprites = function () { // Draw things other than sprites
       paintSun(game.context);
       paintFarCloud(game.context, 20, 20);
       paintFarCloud(game.context, game.context.canvas.width+20, 20);
-
+      var now = +new Date();
+      if (now - lastFpsUpdateTime > 1000) {
+         fps.innerHTML = game.fps;
+         lastFpsUpdateTime = now;
+      }
+      
       if (!gameOver) {
          updateScore();
       }
@@ -330,6 +343,7 @@ clearHighScoresCheckbox.onclick = function (e) {
 // Load game..................................................
 
 loading = true;
+player = new Player(game.context);
 
 loadButton.onclick = function (e) {
    var interval,
@@ -344,24 +358,16 @@ loadButton.onclick = function (e) {
   
    progressDiv.appendChild(progressbar.domElement);
 
-   game.queueImage('images/image1.png');
-   game.queueImage('images/image2.png');
-   game.queueImage('images/image3.png');
-   game.queueImage('images/image4.png');
-   game.queueImage('images/image5.png');
-   game.queueImage('images/image6.png');
-   game.queueImage('images/image7.png');
-   game.queueImage('images/image8.png');
-   game.queueImage('images/image9.png');
-   game.queueImage('images/image10.png');
-   game.queueImage('images/image11.png');
-   game.queueImage('images/image12.png');
+   game.queueImage('images/enemy_weapons_2.png');
+   game.queueImage('images/fighter.png');
    
    interval = setInterval( function (e) {
       loadingPercentComplete = game.loadImages();
 
       if (loadingPercentComplete === 100) {
          clearInterval(interval);
+
+         
 
          setTimeout( function (e) {
             loadingMessage.style.display = 'none';
