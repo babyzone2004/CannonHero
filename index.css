@@ -43,7 +43,7 @@
 #livesCanvas {
    background: rgba(255,255,255,0.3);
    position: absolute;
-   left: 475px;
+   right: 12px;
    top: 25px;
    border: thin solid rbga(100,140,230,0.8);
    -webkit-box-shadow: rgba(100,140,230,0.5) 2px 2px 6px;
@@ -53,10 +53,11 @@
 }
       
 #gameCanvas {
-   background: rgba(120,168,249,0.7);
+   background: url(images/bg.jpg) 0 0 no-repeat;
 	position: absolute;
 	left: 0px;
 	top: 0px;
+   background-size: contain;
 }
 
 .floatingControls {
@@ -131,7 +132,7 @@
 
 #pausedToast {
    padding: 5px 40px 20px 40px;
-   margin-left: 175px;
+   margin-left: 50px;
    margin-top: 100px;
    color: blue;
 }
@@ -143,15 +144,6 @@
 #pausedToast p.title {
    font-size: 1.50em;
    color: blue;
-}
-
-#scoreToast {
-   background: rgba(255,255,255,0.5);
-   left: 25px;
-   top: 25px;
-   padding: 5px; 
-   font-size: 1.25em;
-   color: rgba(0,0,250,1.0);
 }
 
 div .title { 
@@ -192,7 +184,7 @@ p.title {
 #loseLifeToast {
    padding: 10px;
    position: absolute;
-   left: 250px;
+   left: 150px;
    top: 300px;
 }
 
@@ -218,3 +210,16 @@ p.title {
    font: 13px Helvetica;
    padding-left: 20px;
 } 
+
+.score{
+   width: 50px;
+   height: 18px;
+   background: url(images/score.png) right center no-repeat;
+   font-size: 15px;
+   color: #9EB8F5;
+   right: 12px;
+   position: absolute;
+   background-size: contain;
+   line-height: 18px;
+   text-indent: 10px;
+}

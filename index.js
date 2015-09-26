@@ -35,8 +35,6 @@ clearHighScoresCheckbox = document.getElementById('clearHighScoresCheckbox'),
 
 // Lives......................................................
 
-livesCanvas = document.getElementById('livesCanvas'),
-livesContext = livesCanvas.getContext('2d'),
 livesLeft = 3,
 life = 100,
 
@@ -80,9 +78,8 @@ scrollBackground = function () {
 paintSun = function (context) {
    context.save();
 
-   context.strokeStyle = 'orange';
-   context.fillStyle = 'yellow';
-   context.strokeStyle = 'orange';
+   context.strokeStyle = '#e5a100';
+   context.fillStyle = '#e5a100';
    context.lineWidth = 1;
 
    context.beginPath();
@@ -98,18 +95,14 @@ paintFarCloud = function (context, x, y) {
    context.save();
    scrollBackground();
    context.lineWidth=0.5;
-   context.strokeStyle='rgba(100, 140, 230, 0, 0.8)';
-   context.fillStyle='rgba(255,255,255,0.4)';
+   context.strokeStyle='rgba(255,255,255, 0.3)';
+   context.fillStyle='rgba(255,255,255,0.3)';
    context.beginPath();
 
    context.moveTo(x+102, y+91);
-   context.quadraticCurveTo(x+180, y+110, x+250, y+90);
-   context.quadraticCurveTo(x+312, y+87, x+279, y+60);
-   context.quadraticCurveTo(x+321, y+20, x+265, y+20);
-   context.quadraticCurveTo(x+219, y+4, x+171, y+23);
-   context.quadraticCurveTo(x+137, y+5, x+104, y+18);
-   context.quadraticCurveTo(x+57, y+23, x+79, y+48);
-   context.quadraticCurveTo(x+57, y+74, x+104, y+92);
+   context.quadraticCurveTo(x+105, y+71, x+130, y+81);
+   context.quadraticCurveTo(x+150, y+71, x+150, y+91);
+   context.quadraticCurveTo(x+150, y+93, x+104, y+92);
    context.closePath();
    context.stroke();
    context.fill();
@@ -121,19 +114,16 @@ paintNearCloud = function (context, x, y) {
    scrollBackground();
    scrollBackground();
    context.lineWidth=0.5;
-   context.strokeStyle='rgba(100, 140, 230, 0, 0.8)';
+   context.strokeStyle='rgba(255,255,255, 0.4)';
    context.fillStyle='rgba(255,255,255,0.4)';
    context.beginPath();
 
-   context.fillStyle='rgba(255,255,255,0.7)';
+   context.fillStyle='rgba(255,255,255,0.5)';
 
-   context.moveTo(x+364, y+37);
-   context.quadraticCurveTo(x+426, y+28, x+418, y+72);
-   context.quadraticCurveTo(x+450, y+123, x+388, y+114);
-   context.quadraticCurveTo(x+357, y+144, x+303,y+ 115);
-   context.quadraticCurveTo(x+251, y+118, x+278, y+83);
-   context.quadraticCurveTo(x+254, y+46, x+320, y+46);
-   context.quadraticCurveTo(x+326, y+12, x+362, y+37);
+   context.moveTo(x+130, y+137);
+   context.quadraticCurveTo(x+134, y+108, x+184, y+121);
+   context.quadraticCurveTo(x+210, y+111, x+210, y+137);
+   context.quadraticCurveTo(x+198, y+139, x+133, y+138);
    context.closePath();
    context.stroke();
    context.fill();
@@ -288,7 +278,6 @@ nameInput.onkeyup = function (e) {
 updateScore = function () {
    if ( !loading && game.lastScoreUpdate !== undefined) {
       if (game.gameTime - game.lastScoreUpdate > 1000) {
-         scoreToast.style.display = 'inline';
          score += 10;
          scoreToast.innerHTML = score.toFixed(0);
          game.lastScoreUpdate = game.gameTime;
@@ -296,25 +285,6 @@ updateScore = function () {
    }
    else {
       game.lastScoreUpdate = game.gameTime;
-   }
-};
-
-// Lives Display..............................................
-
-updateLivesDisplay = function () {
-   var x, y, RADIUS = 10;
-      
-   livesContext.clearRect(0,0,livesCanvas.width,livesCanvas.height);
-
-   for (var i=0; i < livesLeft; ++i) {
-      x = 20 + i*25;
-      y = 20;
-         
-      livesContext.beginPath();
-      livesContext.arc(x, y, RADIUS, 0, Math.PI*2, false);
-      livesContext.fill();
-      livesContext.strokeText(parseInt(i+1), x-RADIUS/3, y+RADIUS/3);
-      livesContext.stroke();
    }
 };
 
@@ -337,14 +307,8 @@ game.paintUnderSprites = function () { // Draw things other than sprites
       if (!gameOver) {
          updateScore();
       }
-      updateLivesDisplay();
    }
 };
-
-// Initialization.............................................
-
-livesContext.strokeStyle = 'slateblue';
-livesContext.fillStyle = 'yellow';
 
 // End game button............................................
 
