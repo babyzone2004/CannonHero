@@ -3,23 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=360,user-scalable=no">
-<link rel='stylesheet' type='text/css' href='index.css'/>
 </head>
 <body>
       <canvas id='gameCanvas' width='360' height='640'>
          Canvas not supported
       </canvas>
 
-      <div id='loadingToast' class=''>
+     <!--  <div id='loadingToast' class=''>
          <span id='loadButtonSpan'>
             <input type='button' id='loadButton' value='Load Game...' autofocus='true'/>
             <span id='loadingMessage'>Loading...</span>
          </span>
          <div id='progressDiv'></div>
-      </div>
+      </div> -->
 
       <!-- fps................................................................ -->
-      <div id='fps' class='fps'></div>
+      
 
       <!-- Scores................................................................ -->
       <div id='scoreToast' class='score'></div>
@@ -59,20 +58,31 @@
       
       <!-- Sounds................................................................. -->
       <audio id='pop' preload='auto'>
-         <source src='sounds/pop.ogg' type='audio/ogg'>
-         <source src='sounds/pop.mp3' type='audio/mp3'>
+         <source src='/assets/sounds/pop.ogg' type='audio/ogg'>
+         <source src='/assets/sounds/pop.mp3' type='audio/mp3'>
       </audio>
 
       <audio id='whoosh' preload='auto'>
-         <source src='sounds/whoosh.ogg' type='audio/ogg'>
-         <source src='sounds/whoosh.mp3' type='audio/mp3'>
+         <source src='/assets/sounds/whoosh.ogg' type='audio/ogg'>
+         <source src='/assets/sounds/whoosh.mp3' type='audio/mp3'>
       </audio>
+
+    <script src = '/assets/js/lib/mod.js'></script>
+    <script src = '/assets/js/lib/zepto.js'></script>
+    <!--RESOURCEMAP_PLACEHOLDER-->
+    <!--SCRIPT_PLACEHOLDER-->
+    <script>
+      require.async('views/index/index.js');
+    </script>
+      <!-- 
     <script src = 'assets/requestNextAnimationFrame.js'></script>
     <script src = 'assets/roundedRectangle.js'></script>
+    <script src = 'assets/stopwatch.js'></script>
+    <script src = 'assets/animationTimer.js'></script>
     <script src = 'progressbar.js'></script>
     <script src = 'assets/sprites.js'></script>
     <script src = 'assets/player.js'></script>
     <script src = 'assets/gameEngine.js'></script>
-    <script src = 'index.js'></script>
+    <script src = 'index.js'></script> -->
   </body>
 </html>

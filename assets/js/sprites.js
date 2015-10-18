@@ -86,6 +86,11 @@ SpriteSheetPainter.prototype = {
                                      cell.width, cell.height,
                                      sprite.left, sprite.top,
                                      cell.width, cell.height);
+      cell = this.cells[this.cellIndex + 1];
+      context.drawImage(this.spritesheet, cell.left, cell.top,
+                                     cell.width, cell.height,
+                                     sprite.left, sprite.top,
+                                     cell.width, cell.height);
    }
 };
 
