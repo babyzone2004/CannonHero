@@ -5,32 +5,9 @@ var getTimeNow = function () {
 
 // Game.......................................................................
 
-// This game engine implements a game loop that draws sprites. See sprites.js.
-//
-// The game engine also has support for:
-//
-// Time-based motion (game.pixelsPerFrame())
-// Pause (game.togglePaused())
-// High Scores (game.setHighScore(), game.getHighScores(), game.clearHighScores())
-// Sound (game.canPlaySound(), game.playSound())
-// Accessing frame rate (game.fps)
-// Accessing game time (game.gameTime)
-// Key processing (game.addKeyListener())
-//
-// The game engine's animate() method invokes the following methods,
-// in the order listed:
-//
-//     game.startAnimate()
-//     game.paintUnderSprites()
-//     game.paintOverSprites()
-//     game.endAnimate()
-//
-// Those four methods are implemented by the game engine to do nothing.
-// You override those do-nothing implementations to make the game come alive.
-
 var Game = function (gameName, canvasId) {
    var canvas = document.getElementById(canvasId),
-       self = this; // Used by key event handlers below
+       self = this;
 
    // General
    
@@ -153,66 +130,32 @@ Game.prototype = {
    
    // Game loop..................................................................
 
-   // Starts the animation by invoking window.requestNextAnimationFrame().
-   //
-   // window.requestNextAnimationFrame() is a polyfill method implemented in
-   // requestNextAnimationFrame.js. You pass requestNextAnimationFrame() a
-   // reference to a function that the browser calls when it's time to draw
-   // the next animation frame.
-   //
-   // When it's time to draw the next animation frame, the browser invokes
-   // the function that you pass to requestNextAnimationFrame(). Because that
-   // function is invoked by the browser (the window object, to be more exact),
-   // the this variable in that function will be the window object. We want
-   // the this variable to be the game instead, so we use JavaScript's built-in
-   // call() function to call the function, with the game specified as the
-   // this variable.
-   
    start: function () {
-      var self = this;               // The this variable is the game
-      this.startTime = getTimeNow(); // Record game's startTime (used for pausing)
+      // The this variable is the game
+      var self = this;
+      // Record game's startTime (used for pausing)
+      this.startTime = getTimeNow();
 
-      window.requestNextAnimationFrame(
+      window.requestAnimationFrame(
          function (time) {
-
-            // The this variable in this function is the window, not the game,
-            // which is why we do not simply do this: animate.call(time).
-            
-            self.animate.call(self, time); // self is the game
+            self.animate.call(self, time);
          });
    },
 
-   // Drives the game's animation. This method is called by the browser when
-   // it's time for the next animation frame.
-   //
-   // If the game is paused, animate() reschedules another call to animate()
-   // in PAUSE_TIMEOUT (100) ms.
-   //
-   // If the game is not paused, animate() paints the next animation frame and
-   // reschedules another call to animate() when it's time to draw the
-   // next animation frame.
-   //
-   // The implementations of this.startAnimate(), this.paintUnderSprites(),
-   // this.paintOverSprites(), and this.endAnimate() do nothing. You override
-   // those methods to create the animation frame.
-
    animate: function (time) {
-      var self = this; // window.requestNextAnimationFrame() called by DOMWindow
+      var self = this;
       
       if (this.paused) {
-         // In PAUSE_TIMEOUT (100) ms, call this method again to see if the game
-         // is still paused. There's no need to check more frequently.
-         
          setTimeout( function () {
-            window.requestNextAnimationFrame(
+            window.requestAnimationFrame(
                function (time) {
                   self.animate.call(self, time);
                });
          }, this.PAUSE_TIMEOUT);
       }
-      else {                       // Game is not paused
-         this.tick(time);          // Update fps, game time
-         this.clearScreen();       // Clear the screen in preparation for next frame
+      else {
+         this.tick(time); // Update fps, game time
+         this.clearScreen(); // Clear the screen in preparation for next frame
 
          this.startAnimate(time);  // Override as you wish
          this.paintUnderSprites(); // Override as you wish
@@ -227,7 +170,7 @@ Game.prototype = {
 
          // Call this method again when it's time for the next animation frame
 
-         window.requestNextAnimationFrame(
+         window.requestAnimationFrame(
             function (time) {
                self.animate.call(self, time); // The this variable refers to the window
             });
@@ -418,3 +361,5 @@ Game.prototype = {
    paintOverSprites:  function ()     { }, // are listed. Override them
    endAnimate:        function ()     { }  // as you wish.
 };
+
+return Game;

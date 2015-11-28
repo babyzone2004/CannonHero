@@ -1,5 +1,6 @@
 html,body{
    height: 100%;
+   background: #000;
 }
 #loadingToast {
    padding: 20px;
@@ -224,9 +225,3 @@ p.title {
    text-indent: 10px;
 }
 
-.fps{
-   position: absolute;
-   left: 12px;
-   top: 12px;
-   color: #9EB8F5;
-}
