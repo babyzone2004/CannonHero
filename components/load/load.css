@@ -1,0 +1,21 @@
+
+.load{
+   width: 180px;
+   height: 12px;
+}
+.load-bar{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #29d;
+  background: #fff;
+}
+.load-progress{
+  width: 0;
+  height: 100%;
+  background: #29d;
+  transition: width 1s ease;
+}
+.load-txt{
+  margin: 0;
+  color: #fff;
+}

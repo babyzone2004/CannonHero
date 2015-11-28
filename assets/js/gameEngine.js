@@ -30,7 +30,7 @@ var Game = function (gameName, canvasId) {
    this.imagesIndex = 0;
 
    // Time
-   
+   // 游戏开始时间，会根据暂停等情况，修正startTime
    this.startTime = 0;
    this.lastTime = 0;
    this.gameTime = 0;
@@ -185,9 +185,6 @@ Game.prototype = {
       this.gameTime = (getTimeNow()) - this.startTime;
    },
 
-   // Update the frame rate, based on the amount of time it took
-   // for the last animation frame only.
-   
    updateFrameRate: function (time) {
       if (this.lastTime === 0) {
          this.fps = this.STARTING_FPS;
