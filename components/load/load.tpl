@@ -1,5 +1,5 @@
 
-<div class="load">
+<div class="load-contain">
   <div class="load-bar">
     <div id="J_loadProgress" class="load-progress"></div>
   </div>

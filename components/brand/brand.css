@@ -1,0 +1,34 @@
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+@keyframes fadeOut{
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.brand{
+  position: absolute;
+  background: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: fadeIn 1.5s linear;
+  text-align: center;
+}
+.brand svg{
+  margin-top: 200px;
+}
+
+.brand-hide{
+  animation: fadeOut 1s linear forwards;
+}

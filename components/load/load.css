@@ -1,8 +1,19 @@
 
 .load{
+   position: absolute;
+   width: 180px;
+   height: 100px;
+   margin: auto;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+}
+.load-contain{
    width: 180px;
    height: 12px;
 }
+
 .load-bar{
   width: 100%;
   height: 100%;
@@ -13,7 +24,7 @@
   width: 0;
   height: 100%;
   background: #29d;
-  transition: width 1s ease;
+  transition: width .5s ease;
 }
 .load-txt{
   margin: 0;

@@ -24,7 +24,7 @@ init.prototype.hide = function() {
  */
 var render = function() {
   var domLoad = document.createElement('div'); 
-  domLoad.className = 'J_load load';
+  domLoad.className = 'load hide';
   document.body.appendChild(domLoad);
   return new init(domLoad);
 }

@@ -17,17 +17,8 @@ var Game = function (gameName, canvasId) {
    this.keyListeners = [];
 
    // High scores
-
    this.HIGH_SCORES_SUFFIX = '_highscores';
 
-   // Image loading
-   
-   this.imageLoadingProgressCallback;
-   this.images = {};
-   this.imageUrls = [];
-   this.imagesLoaded = 0;
-   this.imagesFailedToLoad = 0;
-   this.imagesIndex = 0;
 
    // Time
    // 游戏开始时间，会根据暂停等情况，修正startTime
@@ -41,92 +32,12 @@ var Game = function (gameName, canvasId) {
    this.startedPauseAt = 0;
    this.PAUSE_TIMEOUT = 100;
 
-   // Sound
-
-   this.soundOn = true;
-   this.soundChannels = [];
-   this.audio = new Audio();
-   this.NUM_SOUND_CHANNELS = 10;
-
-   for (var i=0; i < this.NUM_SOUND_CHANNELS; ++i) {
-      var audio = new Audio();
-      this.soundChannels.push(audio);
-   }
-
    return this;
 };
 
 // Game methods...............................................................
 
 Game.prototype = {
-   // Given a URL, return the associated image
-   
-   getImage: function (imageUrl) {
-      return this.images[imageUrl];
-   },
-   
-   // This method is called by loadImage() when
-   // an image loads successfully.
-
-   imageLoadedCallback: function (e) {
-      this.imagesLoaded++;
-   },
-   
-   // This method is called by loadImage() when
-   // an image does not load successfully.
-
-   imageLoadErrorCallback: function (e) {
-      this.imagesFailedToLoad++;
-   },
-
-   // Loads a particular image
-   
-   loadImage: function (imageUrl) {
-      var image = new Image(),
-          self = this; // load and error event handlers called by DOMWindow
-
-      image.src = imageUrl;
-
-      image.addEventListener('load',
-         function (e) {
-            self.imageLoadedCallback(e); 
-         });
-
-      image.addEventListener('error',
-         function (e) {
-            self.imageLoadErrorCallback(e);
-         });
-
-      this.images[imageUrl] = image;
-   },
-
-   // You call this method repeatedly to load images that have been
-   // queued (by calling queueImage()). This method returns the
-   // percent of the games images that have been processed. When
-   // the method returns 100, all images are loaded, and you can
-   // quit calling this method.
-   
-   loadImages: function () {
-
-      // If there are images left to load
-
-      if (this.imagesIndex < this.imageUrls.length) {
-         this.loadImage(this.imageUrls[this.imagesIndex]);
-         this.imagesIndex++;
-      }
-
-      // Return the percent complete
-
-      return (this.imagesLoaded + this.imagesFailedToLoad) /
-              this.imageUrls.length * 100;
-   },
-
-   // Call this method to add an image to the queue. The image
-   // will be loaded by loadImages().
-   
-   queueImage: function (imageUrl) {
-      this.imageUrls.push(imageUrl);
-   },
    
    // Game loop..................................................................
 
@@ -287,47 +198,7 @@ Game.prototype = {
       localStorage[this.gameName + this.HIGH_SCORES_SUFFIX] = JSON.stringify([]);
    },
 
-   // Sound......................................................................
-
-   // Returns true if the browser can play sounds in the ogg file format.
-
-   canPlayOggVorbis: function () {
-      return "" != this.audio.canPlayType('audio/ogg; codecs="vorbis"');
-   },
-
-   // Returns true if the browser can play sounds in the mp3 file format.
-
-   canPlayMp3: function () {
-      return "" != this.audio.canPlayType('audio/mpeg');
-   },
-
-   // Returns the first available sound channel from the array of sound channels.
-
-   getAvailableSoundChannel: function () {
-      var audio;
-      
-      for (var i=0; i < this.NUM_SOUND_CHANNELS; ++i) {
-         audio = this.soundChannels[i];
-
-         if (audio.played.length === 0 || audio.ended) {
-            return audio;
-         }
-      }
-      return undefined; // all channels in use
-   },
-
-   // Given an identifier, play the associated sound.
    
-   playSound: function (id) {
-      var channel = this.getAvailableSoundChannel(),
-          element = document.getElementById(id);
-
-      if (channel && element) {
-         channel.src = element.src === '' ? element.currentSrc : element.src;
-         channel.load();
-         channel.play();
-      }
-   },
 
    
    // Sprites....................................................................
