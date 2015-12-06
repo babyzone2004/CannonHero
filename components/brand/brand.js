@@ -3,23 +3,18 @@
   @ require zepto.js
 */
 var brandIcon = __inline('brand.tpl');
-var sounder = require('/assets/js/module/sounder.js');
 var $brand;
-var SOUNDER_COIN = __uri('coin.mp3');
 
 function show () {
-  $brand = $('<div class="brand brand-show">' + brandIcon + '</div>');
-  $('body').append($brand);
-  $brand.on('animationend', function(e) {
-    sounder.play(SOUNDER_COIN);
-  });
-
+  $brand = $('<div class="brand">' + brandIcon + '</div>');
+  $('body').prepend($brand);
 }
 
-function hide() {
+function hide(cb) {
   $brand.addClass('brand-hide');
-  $brand.on('animationend', function(e) {
+  $brand.on('animationend webkitAnimationEnd', function(e) {
     $brand.remove();
+    cb();
   });
 }
 

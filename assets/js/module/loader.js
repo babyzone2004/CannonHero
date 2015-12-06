@@ -8,7 +8,7 @@ var completeCb = function() {};
 
 // This method is called by loadImage() when
 // an image loads successfully.
-function imageLoadedCallback (e) {
+function loadedCallBack () {
    resLoaded++;
    loadingCb(Math.floor(100 * resLoaded / resLength));
    if(resLoaded === resLength) {
@@ -17,18 +17,31 @@ function imageLoadedCallback (e) {
 }
 
 // Loads a particular image
-
 function loadImage (imageUrl) {
    var image = new Image();
    image.src = imageUrl;
    image.addEventListener('load',
       function (e) {
-         imageLoadedCallback(e); 
+         loadedCallBack(e); 
       });
    image.addEventListener('error',
       function (e) {
          loadImage(imageUrl);
       });
+}
+
+function loadAudio (url) {
+   var audio = new Audio(url);
+   audio.addEventListener('canplaythrough',
+      function () {
+        console.log('loadAudio end');
+         loadedCallBack(); 
+      });
+   audio.addEventListener('error',
+      function () {
+         loadAudio(url);
+      });
+   audio.load();
 }
 
 function load(resources) {
@@ -39,7 +52,7 @@ function load(resources) {
       return;
     }
     if(elem.search(/\.(mp3|ogg)$/ig) !== -1) {
-      // queueImage(elem);
+      loadAudio(elem);
     }
   });
 }

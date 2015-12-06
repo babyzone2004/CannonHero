@@ -1,4 +1,4 @@
-<svg width="160" height="120" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+<svg class="logo" width="320" height="240" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
  <g>
   <title>Layer 1</title>
