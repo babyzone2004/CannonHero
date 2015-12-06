@@ -1,39 +1,38 @@
 
-// Sound......................................................................
-
-// Returns true if the browser can play sounds in the ogg file format.
-
-// Sound
-var soundChannels = [];
-var NUM_SOUND_CHANNELS = 5;
-
-for (var i=0; i < NUM_SOUND_CHANNELS; ++i) {
-  var audio = new Audio();
-  soundChannels.push(audio);
+/*
+ * 声音事件，多线程处理声音 Date: 2011-5-23
+ */
+function Sound(src,multi)
+{
+  this.myInstanceArray = new Array();
+  this.myNumInstances = multi ;
+  this.myInstanceIndex = 0;
+  for ( var i = 0; i < this.myNumInstances; ++i )
+  {
+    this.myInstanceArray[i] = new Audio(src);
+    this.myInstanceArray[i].load();
+  }
 }
 
-// Returns the first available sound channel from the array of sound channels.
-
-function getAvailableSoundChannel () {
-   var audio;
-   for (var i=0; i <NUM_SOUND_CHANNELS; ++i) {
-      audio =soundChannels[i];
-      if (audio.played.length === 0 || audio.ended) {
-         return audio;
-      }
-   }
-   return undefined; // all channels in use
-}
-
-// Given an identifier, play the associated sound.
-
-function play (src) {
-   var channel =getAvailableSoundChannel();
-   if (channel) {
-      channel.src = src;
-      channel.load();
-      channel.play();
+//
+Sound.prototype.play = function()
+{
+   this.myInstanceArray[this.myInstanceIndex].play();
+   this.myInstanceIndex++;
+   if ( this.myInstanceIndex >= this.myNumInstances)
+   {
+      this.myInstanceIndex = 0;
    }
 }
+Sound.prototype.stopbg = function()
+{
+   this.myInstanceArray[this.myInstanceIndex].pause();
+}
 
-exports.play = play;
+
+function init(src,multi) {
+  return new Sound(src,multi);
+}
+
+
+module.exports = init;

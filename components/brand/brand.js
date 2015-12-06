@@ -14,7 +14,7 @@ function hide(cb) {
   $brand.addClass('brand-hide');
   $brand.on('animationend webkitAnimationEnd', function(e) {
     $brand.remove();
-    cb();
+    cb && cb();
   });
 }
 

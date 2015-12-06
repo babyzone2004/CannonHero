@@ -1,0 +1,25 @@
+
+/*
+ * @require '/assets/css/animate.css'
+*/
+
+.cover{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url(cover.png) #fff center 30% no-repeat;
+  background-size: 45px 53px;
+  -webkit-animation: fadeIn 1s linear forwards;
+  animation: fadeIn 1s linear forwards;
+  text-align: center;
+}
+
+.cover-start{
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  padding: 12px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
