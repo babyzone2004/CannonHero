@@ -8,6 +8,7 @@ var resources = [
   __uri('/components/bg/tree-twotrunks.png'),
   __uri('/components/bg/grass.png'),
   __uri('/components/bg/grass2.png'),
+  __uri('/components/role/player/player.png'),
   __uri('/components/bg/sky.png')
 ];
 // 加载资源.......................................................................
@@ -41,7 +42,9 @@ var game = new Game('Cannon', 'gameCanvas');
 function initGame() {
   initFps(game);
   var bg = require('/components/bg/bg.js');
+  var player = require('/components/role/player/player.js');
   game.addSprite(bg);
+  game.addSprite(player);
   // bg.start();
   game.start();
 }

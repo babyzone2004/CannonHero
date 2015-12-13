@@ -6,10 +6,9 @@ var getTimeNow = function () {
 // Game.......................................................................
 /*
  * Game engin，提供以下功能：
- 更新sprite
- 暂停
- FPS
- pixelsPerFrame
+ * 更新sprite
+ * 暂停
+ * FPS
 */
 
 var Game = function (gameName, canvasId) {
@@ -111,12 +110,6 @@ Game.prototype = {
       if (!this.paused) {
          this.lastTime = now;
       }
-   },
-
-   // Given a velocity of some object, calculate the number of pixels to
-   // move that object for the current frame.
-   pixelsPerFrame: function (time, velocity) {
-      return velocity / this.fps;  // pixels / frame
    },
 
    // Sprites....................................................................

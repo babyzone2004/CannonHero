@@ -40,43 +40,43 @@ var grassHeight = grass.height;
 
 // Functions.....................................................
 
-function paint(context, canvasWidth, canvasHeight) {
-  context.save();
-  context.translate(-skyOffset, 0);
-  context.drawImage(sky, 0, 0, skyWidth, skyHeight);
-  context.drawImage(sky,skyWidth, 0, skyWidth, skyHeight);
-  context.restore();
+function paint(ctx, canvasWidth, canvasHeight) {
+  ctx.save();
+  ctx.translate(-skyOffset, 0);
+  ctx.drawImage(sky, 0, 0, skyWidth, skyHeight);
+  ctx.drawImage(sky,skyWidth, 0, skyWidth, skyHeight);
+  ctx.restore();
 
-  context.save();
-  context.translate(-treeOffset, 0);
-  context.drawImage(tree, firstTreeX, 1010);
-  context.drawImage(tree, secTreeX, 1010);
-  context.drawImage(tree, lastTreeX, 1010);
-  context.drawImage(tree, firstTreeX + canvasWidth, 1010);
-  context.drawImage(tree, secTreeX + canvasWidth, 1010);
-  context.drawImage(tree, secTreeX + canvasWidth, 1010);
-  context.restore();
+  ctx.save();
+  ctx.translate(-treeOffset, 0);
+  ctx.drawImage(tree, firstTreeX, 1010);
+  ctx.drawImage(tree, secTreeX, 1010);
+  ctx.drawImage(tree, lastTreeX, 1010);
+  ctx.drawImage(tree, firstTreeX + canvasWidth, 1010);
+  ctx.drawImage(tree, secTreeX + canvasWidth, 1010);
+  ctx.drawImage(tree, secTreeX + canvasWidth, 1010);
+  ctx.restore();
 
-  context.save();
-  context.translate(-nearTreeOffset, 0);
-  context.drawImage(nearTree, firstNearTreeX, 970);
-  context.drawImage(nearTree, secNearTree, 970);
-  context.drawImage(nearTree, firstNearTreeX + canvasWidth, 970);
-  context.drawImage(nearTree, secNearTree + canvasWidth, 970);
-  context.restore();
+  ctx.save();
+  ctx.translate(-nearTreeOffset, 0);
+  ctx.drawImage(nearTree, firstNearTreeX, 970);
+  ctx.drawImage(nearTree, secNearTree, 970);
+  ctx.drawImage(nearTree, firstNearTreeX + canvasWidth, 970);
+  ctx.drawImage(nearTree, secNearTree + canvasWidth, 970);
+  ctx.restore();
 
-  context.save();
-  context.translate(-grassOffset, 0);
-  context.drawImage(grass, 0, canvasHeight-grass.height);
-  context.drawImage(grass, grass.width,
+  ctx.save();
+  ctx.translate(-grassOffset, 0);
+  ctx.drawImage(grass, 0, canvasHeight-grass.height);
+  ctx.drawImage(grass, grass.width,
                     canvasHeight-grass.height);
-  context.drawImage(grass2, 0, canvasHeight-grass2.height);
-  context.drawImage(grass2, grass2.width,
+  ctx.drawImage(grass2, 0, canvasHeight-grass2.height);
+  ctx.drawImage(grass2, grass2.width,
                     canvasHeight-grass2.height);
-  context.restore();
+  ctx.restore();
 }
 
-function update (context, fps, canvasWidth, canvasHeight) {
+function update (ctx, fps, canvasWidth, canvasHeight) {
   if(paused) return;
   // sky
   var skyStep = SKY_VELOCITY/fps;
