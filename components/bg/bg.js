@@ -1,10 +1,5 @@
 
-var $bgContain = $('<div class="bg"></div>');
-var $canvas = $('<canvas class="bg-canvas" width="1080" height="1200">Canvas not supported</canvas>');
-$bgContain.append($canvas);
-var canvas = $canvas[0],
-    context = canvas.getContext('2d'),
-    tree = new Image(),
+var tree = new Image(),
     nearTree = new Image(),
     grass = new Image(),
     grass2 = new Image(),
@@ -22,9 +17,6 @@ var canvas = $canvas[0],
     SKY_VELOCITY = 8,
     GRASS_VELOCITY = 75;
 
-var canvasHeight = canvas.height;
-var canvasWidth = canvas.width;
-
 // Initialization................................................
 
 tree.src = __uri('smalltree.png');
@@ -33,40 +25,27 @@ grass.src = __uri('grass.png');
 grass2.src = __uri('grass2.png');
 sky.src = __uri('sky.png');
 
+var skyWidth = sky.width * 3;
+var skyHeight = sky.height * 3;
+
+var firstTreeX = 200;
+var secTreeX = 550;
+var lastTreeX = 900;
+
+var firstNearTreeX = 350;
+var secNearTree = 850;
+
+var grassWidth = grass.width;
+var grassHeight = grass.height;
+
 // Functions.....................................................
 
-function erase() {
-   context.clearRect(0,0,canvasWidth,canvasHeight);
-}
-
-function draw(fps) {
-  // 一张图片总宽度
-  var skyWidth = sky.width * 3;
-  var skyHeight = sky.height * 3;
-  context.save();
-  var skyStep = SKY_VELOCITY/fps;
-  var skyTranslateX = skyOffset + skyStep;
-  if(skyTranslateX < (skyWidth * 2 - canvasWidth)) {
-    skyOffset = skyTranslateX;
-  } else {
-    skyOffset = skyWidth - canvasWidth + skyStep;
-  }
-
+function paint(context, canvasWidth, canvasHeight) {
   context.save();
   context.translate(-skyOffset, 0);
   context.drawImage(sky, 0, 0, skyWidth, skyHeight);
   context.drawImage(sky,skyWidth, 0, skyWidth, skyHeight);
   context.restore();
-
-  var firstTreeX = 200;
-  var secTreeX = 550;
-  var lastTreeX = 900;
-  treeTranslateX = treeOffset + TREE_VELOCITY/fps;
-  if(treeTranslateX < canvasWidth) {
-    treeOffset = treeTranslateX;
-  } else {
-    treeOffset = canvasWidth - treeOffset + skyStep;
-  }
 
   context.save();
   context.translate(-treeOffset, 0);
@@ -78,15 +57,6 @@ function draw(fps) {
   context.drawImage(tree, secTreeX + canvasWidth, 1010);
   context.restore();
 
-
-  var firstNearTreeX = 350;
-  var secNearTree = 850;
-  nearTreeTranslateX = nearTreeOffset + FAST_TREE_VELOCITY / fps;
-  if(nearTreeTranslateX < canvasWidth) {
-    nearTreeOffset = nearTreeTranslateX;
-  } else {
-    nearTreeOffset = canvasWidth - nearTreeOffset + skyStep;
-  }
   context.save();
   context.translate(-nearTreeOffset, 0);
   context.drawImage(nearTree, firstNearTreeX, 970);
@@ -95,16 +65,6 @@ function draw(fps) {
   context.drawImage(nearTree, secNearTree + canvasWidth, 970);
   context.restore();
 
-
-  var grassWidth = grass.width;
-  var grassHeight = grass.height;
-  var grassStep = GRASS_VELOCITY/fps;
-  var grassTranslateX = grassOffset + grassStep;
-  if(grassTranslateX < (grassWidth * 2 - canvasWidth)) {
-    grassOffset = grassTranslateX;
-  } else {
-    grassOffset = grassWidth - canvasWidth + grassStep;
-  }
   context.save();
   context.translate(-grassOffset, 0);
   context.drawImage(grass, 0, canvasHeight-grass.height);
@@ -116,28 +76,56 @@ function draw(fps) {
   context.restore();
 }
 
-function update(fps) {
-   if (!paused) {
-    erase();
-    draw(fps);
-   }
+function update (context, fps, canvasWidth, canvasHeight) {
+  if(paused) return;
+  // sky
+  var skyStep = SKY_VELOCITY/fps;
+  var skyTranslateX = skyOffset + skyStep;
+  if(skyTranslateX < (skyWidth * 2 - canvasWidth)) {
+    skyOffset = skyTranslateX;
+  } else {
+    skyOffset = skyWidth - canvasWidth + skyStep;
+  }
+
+  // firstTree
+  treeTranslateX = treeOffset + TREE_VELOCITY/fps;
+  if(treeTranslateX < canvasWidth) {
+    treeOffset = treeTranslateX;
+  } else {
+    treeOffset = canvasWidth - treeOffset + skyStep;
+  }
+
+  // nearTree
+  nearTreeTranslateX = nearTreeOffset + FAST_TREE_VELOCITY / fps;
+  if(nearTreeTranslateX < canvasWidth) {
+    nearTreeOffset = nearTreeTranslateX;
+  } else {
+    nearTreeOffset = canvasWidth - nearTreeOffset + skyStep;
+  }
+
+  // grass
+  var grassStep = GRASS_VELOCITY/fps;
+  var grassTranslateX = grassOffset + grassStep;
+  if(grassTranslateX < (grassWidth * 2 - canvasWidth)) {
+    grassOffset = grassTranslateX;
+  } else {
+    grassOffset = grassWidth - canvasWidth + grassStep;
+  }
 }
 
 // Event handlers................................................
-function start (e) {
+function start () {
    paused = false;
 };
-function stop (e) {
+
+function stop () {
    paused = true;
-};
-function show() {
-  $('body').prepend($bgContain);
-  draw(60);
 }
 
 module.exports = {
-  update: update,
-  show: show,
   start: start,
   stop: stop,
+  update: update,
+  paint: paint,
+  visible: true
 };

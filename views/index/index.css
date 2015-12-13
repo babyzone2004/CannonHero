@@ -7,3 +7,11 @@ html,body{
 .hide{
    display: none;
 }
+.body{
+  background-color: #7ab0f9;
+}
+.canvas{
+  width: 360px;
+  height: 400px;
+  vertical-align: middle;
+}

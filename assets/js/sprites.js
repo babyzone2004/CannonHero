@@ -86,11 +86,6 @@ SpriteSheetPainter.prototype = {
                                      cell.width, cell.height,
                                      sprite.left, sprite.top,
                                      cell.width, cell.height);
-      cell = this.cells[this.cellIndex + 1];
-      context.drawImage(this.spritesheet, cell.left, cell.top,
-                                     cell.width, cell.height,
-                                     sprite.left, sprite.top,
-                                     cell.width, cell.height);
    }
 };
 
@@ -165,16 +160,16 @@ var Sprite = function (name, painter, behaviors) {
 };
 
 Sprite.prototype = {
-   left: 0,
-   top: 0,
-   width: 10,
-   height: 10,
-	velocityX: 0,
-	velocityY: 0,
-   visible: true,
-   animating: false,
-   painter: undefined, // object with paint(sprite, context)
-   behaviors: [], // objects with execute(sprite, context, time)
+  left: 0,
+  top: 0,
+  width: 10,
+  height: 10,
+  velocityX: 0,
+  velocityY: 0,
+  visible: true,
+  animating: false,
+  painter: undefined, // object with paint(sprite, context)
+  behaviors: [], // objects with execute(sprite, context, time)
 
 	paint: function (context) {
      if (this.painter !== undefined && this.visible) {
@@ -182,9 +177,9 @@ Sprite.prototype = {
      }
 	},
 
-   update: function (context, time) {
-      for (var i = this.behaviors.length; i > 0; --i) {
-         this.behaviors[i-1].execute(this, context, time);
-      }
-   }
+  update: function (context, time) {
+    for (var i = this.behaviors.length; i > 0; --i) {
+       this.behaviors[i-1].execute(this, context, time);
+    }
+  }
 };

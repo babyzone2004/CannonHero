@@ -3,7 +3,6 @@ var sounder = require('/assets/js/module/sounder.js');
 
 var resources = [
   __uri('/assets/img/enemy_weapons_2.png'),
-  __uri('/assets/img/fighter.png'),
   __uri('/components/cover/coin.mp3'),
   __uri('/components/bg/smalltree.png'),
   __uri('/components/bg/tree-twotrunks.png'),
@@ -37,27 +36,16 @@ loader.registCompleteCb(function() {
 // Init Game.......................................................................
 
 var Game = require('/assets/js/gameEngine.js');
-$('body').prepend('<canvas id="gameCanvas" width="360" height="500">Canvas not supported</canvas>');
+$('body').prepend('<canvas id="gameCanvas" class="canvas" width="1080" height="1200">Canvas not supported</canvas>');
 var game = new Game('Cannon', 'gameCanvas');
 function initGame() {
-  game.start();
   initFps(game);
-  initBg();
-}
-
-// 背景
-function initBg() {
   var bg = require('/components/bg/bg.js');
-  bg.show();
-
-  var updateBg = function() {
-    requestAnimationFrame(function() {
-      bg.update(game.fps);
-      updateBg();
-    });
-  }
-  updateBg();
+  game.addSprite(bg);
+  // bg.start();
+  game.start();
 }
+
 
 // FPS
 function initFps(game) {
