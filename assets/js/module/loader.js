@@ -22,7 +22,8 @@ function loadImage (imageUrl) {
    image.src = imageUrl;
    image.addEventListener('load',
       function (e) {
-         loadedCallBack(e); 
+        console.log(image);
+         loadedCallBack(); 
       });
    image.addEventListener('error',
       function (e) {
@@ -35,7 +36,8 @@ function loadAudio (url) {
    audio.addEventListener('canplaythrough',
       function () {
         console.log('loadAudio end');
-         loadedCallBack(); 
+        console.log(audio);
+        loadedCallBack(); 
       });
    audio.addEventListener('error',
       function () {

@@ -57,7 +57,6 @@ function initBg() {
     });
   }
   updateBg();
-  bg.start();
 }
 
 // FPS

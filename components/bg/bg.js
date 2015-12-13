@@ -20,7 +20,7 @@ var canvas = $canvas[0],
     TREE_VELOCITY = 20,
     FAST_TREE_VELOCITY = 40,
     SKY_VELOCITY = 8,
-    GRASS_VELOCITY = 175;
+    GRASS_VELOCITY = 75;
 
 var canvasHeight = canvas.height;
 var canvasWidth = canvas.width;
