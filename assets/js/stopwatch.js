@@ -77,3 +77,9 @@ Stopwatch.prototype = {
      this.elapsed = 0;
    }
 };
+
+function stopwatch () {
+   return new Stopwatch();
+}
+
+return stopwatch;

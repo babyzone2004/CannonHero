@@ -42,12 +42,11 @@
 // non-linear motion, such as: ease-in, ease-out, elastic, etc.
 
 AnimationTimer = function (duration, timeWarp)  {
-   this.timeWarp = timeWarp;
+   this.timeWarp = AnimationTimer[timeWarp](1);
 
    if (duration !== undefined) this.duration = duration;
    else                        this.duration = 1000;
-
-   this.stopwatch = new Stopwatch();
+   this.stopwatch = require('stopwatch.js')();
 };
 
 AnimationTimer.prototype = {
@@ -68,7 +67,6 @@ AnimationTimer.prototype = {
           percentComplete = elapsedTime / this.duration;
       if (!this.stopwatch.running)    return undefined;
       if (this.timeWarp == undefined) return elapsedTime;
-
       return elapsedTime * (this.timeWarp(percentComplete) / percentComplete);
    },
 
@@ -124,3 +122,9 @@ AnimationTimer.makeLinear = function () {
       return percentComplete;
    };
 };
+
+function animationTimer(duration, timeWarp) {
+   return new AnimationTimer(duration, timeWarp);
+}
+
+return animationTimer;
