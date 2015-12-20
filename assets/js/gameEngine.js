@@ -41,9 +41,10 @@ Game.prototype = {
       // The this variable is the game
       var self = this;
 
-      window.requestAnimationFrame(
+      requestAnimationFrame(
          function (time) {
-            self.animate.call(self, time);
+            self.animate(time);
+            // self.animate.call(self, time);
          });
    },
 
@@ -52,9 +53,10 @@ Game.prototype = {
       
       if (this.paused) {
          setTimeout( function () {
-            window.requestAnimationFrame(
+            requestAnimationFrame(
                function (time) {
-                  self.animate.call(self, time);
+                  self.animate(time);
+                  // self.animate.call(self, time);
                });
          }, this.PAUSE_TIMEOUT);
       }
@@ -75,9 +77,10 @@ Game.prototype = {
 
          // Call this method again when it's time for the next animation frame
 
-         window.requestAnimationFrame(
+         requestAnimationFrame(
             function (time) {
-               self.animate.call(self, time); // The this variable refers to the window
+               self.animate(time);
+               // self.animate.call(self, time); // The this variable refers to the window
             });
       }
    },

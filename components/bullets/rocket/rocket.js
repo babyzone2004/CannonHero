@@ -7,7 +7,7 @@ img.src = __uri('rocket.png');
 var dWidth = 48;
 var dHeight = 24;
 
-var velocityX = 300;
+var velocityX = 500;
 
 function rocket (x, y) {
   this.x = x;
@@ -19,9 +19,7 @@ rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
 }
 
 rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {
-  ctx.save();
   ctx.drawImage(img, this.x, this.y, dWidth, dHeight);
-  ctx.restore();
 }
 
 function create(x, y) {

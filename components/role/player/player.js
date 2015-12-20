@@ -49,7 +49,6 @@ function update(context, fps, stageWidth, stageHeight) {
 
 function paint(ctx, stageWidth, stageHeight) {
   ctx.save();
-  
   ctx.translate(offsetX, offsetY);
   ctx.globalAlpha = 0.5;
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);

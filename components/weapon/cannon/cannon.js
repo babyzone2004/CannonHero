@@ -19,9 +19,7 @@ function updatePositon(context, _offsetX, _offsetY) {
 }
 
 function paint(ctx, stageWidth, stageHeight) {
-  ctx.save();
   ctx.drawImage(cannon, offsetX, offsetY, dWidth, dHeight);
-  ctx.restore();
 }
 
 function fire() {

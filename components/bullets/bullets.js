@@ -10,14 +10,12 @@ function update(context, fps, stageWidth, stageHeight) {
     var bulletX = bullet.x;
     var bulletY = bullet.y;
     if(bulletX < 0 || bulletX > stageWidth || bulletY < 0 || bulletY > stageHeight) {
-      console.log('destroy bullet');
       return false;
     } else {
       bullet.update(context, fps, stageWidth, stageHeight);
       return true;
     }
   });
-console.log(fps);
 }
 
 function paint(ctx, stageWidth, stageHeight) {
