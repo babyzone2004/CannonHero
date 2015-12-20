@@ -9,7 +9,8 @@ var resources = [
   __uri('/components/bg/grass.png'),
   __uri('/components/bg/grass2.png'),
   __uri('/components/role/player/player.png'),
-  __uri('/components/bg/sky.png')
+  __uri('/components/bg/sky.png'),
+  __uri('/components/weapon/cannon/cannon.png')
 ];
 // 加载资源.......................................................................
 
@@ -43,8 +44,12 @@ function initGame() {
   initFps(game);
   var bg = require('/components/bg/bg.js');
   var player = require('/components/role/player/player.js');
+  var cannon = require('/components/weapon/cannon/cannon.js');
+  var bullets = require('/components/bullets/bullets.js');
+  player.equip(cannon);
   game.addSprite(bg);
   game.addSprite(player);
+  game.addSprite(bullets);
   // bg.start();
   game.start();
 }

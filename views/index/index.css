@@ -11,6 +11,8 @@ html,body{
   background-color: #7ab0f9;
 }
 .canvas{
+  position: relative;
+  z-index: 1000;
   width: 360px;
   height: 400px;
   vertical-align: middle;

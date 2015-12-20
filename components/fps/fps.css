@@ -1,6 +1,7 @@
 .fps{
    position: absolute;
    right: 12px;
-   top: 12px;
+   bottom: 12px;
    color: #9EB8F5;
+   z-index: 1;
 }
