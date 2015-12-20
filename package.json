@@ -1,0 +1,25 @@
+{
+  "name": "CannonHero",
+  "version": "1.0.0",
+  "description": "Have Fun Game",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babyzone2004/CannonHero.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "babyzone2004",
+  "license": "GPL 2.0",
+  "bugs": {
+    "url": "https://github.com/babyzone2004/CannonHero/issues"
+  },
+  "homepage": "https://github.com/babyzone2004/CannonHero#readme",
+  "devDependencies": {
+      
+  }
+}

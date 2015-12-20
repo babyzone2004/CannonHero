@@ -1,1 +1,3 @@
 # gameShot
+
+npm install -g 

@@ -42,7 +42,7 @@
 // non-linear motion, such as: ease-in, ease-out, elastic, etc.
 
 AnimationTimer = function (duration, timeWarp)  {
-   this.timeWarp = AnimationTimer[timeWarp](1);
+   this.timeWarp = timeWarp;
 
    if (duration !== undefined) this.duration = duration;
    else                        this.duration = 1000;
@@ -123,8 +123,4 @@ AnimationTimer.makeLinear = function () {
    };
 };
 
-function animationTimer(duration, timeWarp) {
-   return new AnimationTimer(duration, timeWarp);
-}
-
-return animationTimer;
+return AnimationTimer;

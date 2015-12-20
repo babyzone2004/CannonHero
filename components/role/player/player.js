@@ -1,5 +1,6 @@
 
-var animationTimer = require('/assets/js/animationTimer.js')(800, 'makeElastic');
+var AnimationTimer = require('/assets/js/animationTimer.js');
+var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
 
 var player = new Image();
 player.src = __uri('player.png');
