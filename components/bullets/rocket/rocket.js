@@ -15,7 +15,7 @@ function rocket (x, y) {
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
-  this.x += velocityX / fps;
+  this.x += (0.5 + velocityX / fps) << 0;
 }
 
 rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {

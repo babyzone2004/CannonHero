@@ -61,6 +61,7 @@ function initFps(game) {
   var cFps = require('/components/fps/fps.js');
   game.paintUnderSprites = function () {
     var now = +new Date();
+    // console.log('fps', game.fps);
     if(now - lastFpsUpdateTime > 1000) {
       cFps.update(game.fps);
       lastFpsUpdateTime = now;

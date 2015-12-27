@@ -39,7 +39,8 @@ function updatePositon(context, _offsetX, _offsetY) {
   }
   lastTime = elapsedTime;
 
-  offsetX = _offsetX + moveDistantX;
+  offsetX = _offsetX + (0.5 + moveDistantX) << 0;
+  // console.log('offsetX', offsetX, _offsetY);
   offsetY = _offsetY;
 }
 

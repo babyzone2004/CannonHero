@@ -17,8 +17,8 @@ var Game = function (gameName, canvasId) {
 
    // General
    this.context = canvas.getContext('2d');
-   this.stageWidth = canvas.width;;
-   this.stageHeight = canvas.height;;
+   this.stageWidth = canvas.width;
+   this.stageHeight = canvas.height;
    this.sprites = [];
    this.keyListeners = [];
 
@@ -61,9 +61,8 @@ Game.prototype = {
          }, this.PAUSE_TIMEOUT);
       }
       else {
-         this.fps = Math.floor(1000 / (time - this.lastTime)); // Update fps, game time
+         this.fps = (0.5 + 1000 / (time - this.lastTime)) << 0; // Update fps, game time
          this.clearScreen(); // Clear the screen in preparation for next frame
-
          this.startAnimate(time);  // Override as you wish
          this.paintUnderSprites(); // Override as you wish
 
