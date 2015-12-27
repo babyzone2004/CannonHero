@@ -12,52 +12,53 @@ function createParticle(radius, velocity, x, y){
   var particle = {};
   particle.x = x;
   particle.y = y;
-  particle.xSpeed = randomRange(-1.2 * velocity , 0);
-  particle.ySpeed = randomRange(-0.05 , 0.1);
-  particle.radius  = randomRange(3, radius);
+  particle.xSpeed = randomRange(-1.5 * velocity , 0);
+  particle.ySpeed = randomRange(-0.05 , 0.05);
+  particle.radius  = randomRange(5, radius);
   particle.strokeSize  = 13;
 
   return particle;
 }
 
 function ParticleGenerator(particles, radius, velocity) {
-  this.COLOR = "rgba(255, 198, 152, 0.8)";
+  this.COLOR = "rgba(255, 255, 255, 0.8)";
   this.STROKE_COLOR = "rgba(251, 88, 0, 0.15)";
-  this.PARTICLES = particles || 50;
+  // 每秒生成粒子数
+  this.num = this.PARTICLES = particles || 1;
   this.radius = radius;
   this.VELOCITY = velocity;
 
-  var particleArray = this.particleArray = [];
+  this.particleArray = [];
 }
 
 ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   var PARTICLES = this.PARTICLES;
+  var num = this.num;
   var particleArray = this.particleArray;
   var radius = this.radius;
   var velocity = this.VELOCITY;
+  
+  var rate = 1 / num;
+  if(rate > 1) {
+    this.num = num + this.PARTICLES;
+  } else {
+    this.num = this.PARTICLES;
+  }
 
-  if(particleArray.length < PARTICLES) {
+  for(var i = 1; i <= num; i++) {
     particleArray.push(createParticle(radius, velocity, offsetX, offsetY));
   }
 
-  for(var i = 0, ii =  particleArray.length; i < ii; i++){
-    var particle = particleArray[i];
-
-    // 如果没有初始化坐标，采用第一次调用的坐标
-    if(particle.x === undefined) {
-      particle.x = offsetX;
-      particle.y = offsetY;
-    }
-
+  this.particleArray = particleArray.filter(function (particle, i) {
     particle.x = particle.x + particle.xSpeed;
     particle.y = particle.y + particle.ySpeed;
-    var scaleRate = (0.9 + (randomRange(1, 10) / 100));
+    var scaleRate = (0.92 + (randomRange(1, 8) / 100));
     particle.radius = particle.radius * scaleRate;
     particle.strokeSize = particle.strokeSize * scaleRate;
-    if(particle.radius <= 0.5){
-      particleArray[i] = createParticle(radius, velocity, offsetX, offsetY);
-    }
-  }
+
+    return  particle.radius > 1
+  })
+  console.log(this.particleArray.length);
 }
 
 ParticleGenerator.prototype.paint = function(ctx) {
@@ -74,8 +75,8 @@ ParticleGenerator.prototype.paint = function(ctx) {
     ctx.arc(particle.x, particle.y, particle.radius, 0, angle, false);
     ctx.fill();
     ctx.stroke();
-    ctx.closePath();
   }
+  ctx.closePath();
 }
 
 function init (particles, radius, velocity) {

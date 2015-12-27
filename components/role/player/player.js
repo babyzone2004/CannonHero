@@ -32,7 +32,7 @@ var weapon = {
 var weaponX = 18;
 var weaponY = 0;
 
-var particleGenerator = require('assets/js/module/particleGenerator.js')(20, 5, 1);
+var particleGenerator = require('assets/js/module/particleGenerator.js')(0.2, 8, 1);
 var particleX = 25;
 var particleY = 50;
 
@@ -55,6 +55,7 @@ function update(context, fps, stageWidth, stageHeight) {
 }
 
 function paint(ctx, stageWidth, stageHeight) {
+  particleGenerator.paint(ctx);
   ctx.save();
   ctx.translate(offsetX, offsetY);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
@@ -66,7 +67,6 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
-  particleGenerator.paint(ctx);
 }
 
 function equip(_weapon) {
