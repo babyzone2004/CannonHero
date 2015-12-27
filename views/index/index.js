@@ -46,6 +46,7 @@ function initGame() {
   var player = require('/components/role/player/player.js');
   var cannon = require('/components/weapon/cannon/cannon.js');
   var bullets = require('/components/bullets/bullets.js');
+  bullets.init(1080, 1200);
   player.equip(cannon);
   game.addSprite(bg);
   game.addSprite(player);
