@@ -34,12 +34,12 @@ function updatePositon(context, _offsetX, _offsetY) {
         animationTimer.stop();
       }
     } else {
-      moveDistantX += velocityX * (elapsedTime - lastTime) / 1000;
+      moveDistantX += (0.5 + velocityX * (elapsedTime - lastTime) / 1000) << 0;
     }
   }
   lastTime = elapsedTime;
 
-  offsetX = _offsetX + (0.5 + moveDistantX) << 0;
+  offsetX = _offsetX + moveDistantX;
   // console.log('offsetX', offsetX, _offsetY);
   offsetY = _offsetY;
 }

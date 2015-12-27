@@ -7,7 +7,7 @@ img.src = __uri('rocket.png');
 var dWidth = 48;
 var dHeight = 24;
 
-var velocityX = 500;
+var velocityX = 800;
 
 function rocket (x, y) {
   this.x = x;

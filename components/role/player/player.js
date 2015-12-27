@@ -32,6 +32,10 @@ var weapon = {
 var weaponX = 18;
 var weaponY = 0;
 
+var particleGenerator = require('assets/js/module/particleGenerator.js')(20, 5, 1);
+var particleX = 25;
+var particleY = 50;
+
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
   if(lastTime) {
@@ -46,6 +50,7 @@ function update(context, fps, stageWidth, stageHeight) {
   offsetY = fisrtY + moveDistantY;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
+  particleGenerator.update(offsetX + particleX, offsetY + particleY);
   lastTime = elapsedTime;
 }
 
@@ -61,6 +66,7 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
+  particleGenerator.paint(ctx);
 }
 
 function equip(_weapon) {
