@@ -10,13 +10,17 @@ var dHeight = 24;
 var velocityX = 600;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js')({
-	numPerFrame: 0.5,
-	radius: 5,
-	velocity: 1,
-	fillColor: "rgba(247, 67, 2, 0.5)",
-	strokeColor: "rgba(255, 255, 255, 0.9)",
-	strokeSize: 8
+  numPerFrame: 0.5,
+  radius: 5,
+  velocityMinX: -1.5,
+  velocityMaxX: 0,
+  velocityMinY: -0.05,
+  velocitymaxY: 0.05,
+  fillColor: "rgba(251, 88, 0, 0.85)",
+  strokeColor: "rgba(255, 255, 255, 0.9)",
+  strokeSize: 8
 });
+
 var particleX = 5;
 var particleY = 12;
 

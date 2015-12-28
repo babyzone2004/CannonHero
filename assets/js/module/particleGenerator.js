@@ -8,14 +8,14 @@ var angle =  2 * Math.PI;
 function randomRange(min, max) {
   return ((Math.random() * (max - min)) + min);
 }
-function createParticle(radius, velocity, x, y, strokeSize){
+function createParticle(x, y, opt){
   var particle = {};
   particle.x = x;
   particle.y = y;
-  particle.xSpeed = randomRange(-1.5 * velocity , 0);
-  particle.ySpeed = randomRange(-0.05 , 0.05);
-  particle.radius  = randomRange(5, radius);
-  particle.strokeSize = strokeSize || 13;
+  particle.xSpeed = randomRange(opt.velocityMinX, opt.velocityMaxX);
+  particle.ySpeed = randomRange(opt.velocityMinY , opt.velocitymaxY);
+  particle.radius  = randomRange(5, opt.radius);
+  particle.strokeSize = opt.strokeSize || 13;
 
   return particle;
 }
@@ -38,9 +38,9 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   var num = this.num;
   var particleArray = this.particleArray;
   var radius = this.radius;
-  var velocity = this.VELOCITY;
   var strokeSize = this.strokeSize;
-  
+  var opt = this.opt;
+
   var rate = 1 / num;
   if(rate > 1) {
     this.num = num + this.numPerFrame;
@@ -49,7 +49,7 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   }
 
   for(var i = 1; i <= num; i++) {
-    particleArray.push(createParticle(radius, velocity, offsetX, offsetY, strokeSize));
+    particleArray.push(createParticle(offsetX, offsetY, opt));
   }
 
   this.particleArray = particleArray.filter(function (particle, i) {

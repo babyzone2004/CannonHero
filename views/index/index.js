@@ -44,12 +44,14 @@ function initGame() {
   initFps(game);
   var bg = require('/components/bg/bg.js');
   var player = require('/components/role/player/player.js');
+  var pea = require('/components/role/enemy/pea/pea.js');
   var cannon = require('/components/weapon/cannon/cannon.js');
   var bullets = require('/components/bullets/bullets.js');
   bullets.init(1080, 1200);
   player.equip(cannon);
   game.addSprite(bg);
   game.addSprite(player);
+  game.addSprite(pea);
   game.addSprite(bullets);
   // bg.start();
   game.start();
