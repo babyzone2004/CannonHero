@@ -3,6 +3,7 @@
 */
 
 var bullets = [];
+var targets = [];
 var buffer = 500;
 var left;
 var right;
@@ -14,7 +15,12 @@ function update(context, fps, stageWidth, stageHeight) {
   bullets = bullets.filter(function(bullet) {
     var bulletX = bullet.x;
     var bulletY = bullet.y;
-    if(bulletX < left || bulletX > right || bulletY < top || bulletY > bottom) {
+    var isOutStage = bulletX < left || bulletX > right || bulletY < top || bulletY > bottom;
+    var isCollision = false;
+    targets.forEach(function (target, i) {
+      isCollision = bullet.shape.collidesWith(target.shape);
+    })
+    if(isOutStage || isCollision) {
       return false;
     } else {
       bullet.update(context, fps, stageWidth, stageHeight);
@@ -33,6 +39,9 @@ function paint(ctx, stageWidth, stageHeight) {
 function add(bullet) {
   bullets.push(bullet);
 }
+function addTarget(target) {
+  targets.push(target);
+}
 function init (stageWidth, stageHeight) {
   left = 0 - buffer;
   right = stageWidth + buffer;
@@ -45,5 +54,6 @@ module.exports = {
   paint: paint,
   update: update,
   add: add,
+  addTarget: addTarget,
   visible: true
 };

@@ -53,6 +53,7 @@ function initGame() {
   game.addSprite(player);
   game.addSprite(pea);
   game.addSprite(bullets);
+  bullets.addTarget(pea);
   // bg.start();
   game.start();
 }

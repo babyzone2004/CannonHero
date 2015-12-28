@@ -24,19 +24,27 @@ var particleGenerator = require('assets/js/module/particleGenerator.js')({
 var particleX = 5;
 var particleY = 12;
 
+var shapes = require('/assets/js/module/shapes.js');
+
 function rocket (x, y) {
   this.x = x;
   this.y = y;
+  var pointY = y + 5;
+  this.shape = shapes.initPolygon([{x: x, y: pointY}, {x: x, y: pointY + 10}, {x: x + 40, y: pointY + 10}, {x: x + 40, y: pointY}]);
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
-  this.x += (0.5 + velocityX / fps) << 0;
+  var dx = (0.5 + velocityX / fps) << 0;
+  this.x += dx;
+  this.shape.move(dx, 0);
   particleGenerator.update(this.x + particleX, this.y + particleY);
 }
 
 rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {
   ctx.drawImage(img, this.x, this.y, dWidth, dHeight);
   particleGenerator.paint(ctx);
+  // this.shape.stroke(ctx);
+  // this.shape.fill(ctx);
 }
 
 function create(x, y) {

@@ -7,7 +7,8 @@ player.src = __uri('pea.png');
 
 // 出场位置
 var fisrtY = 780;
-var offsetX = 800;
+var fisrtX = 800;
+var offsetX;
 var offsetY;
 // 源尺寸
 var sWidth = 140;
@@ -45,21 +46,30 @@ var particleGenerator = require('assets/js/module/particleGenerator.js')({
 var particleX = 121;
 var particleY = 50;
 
+var shapes = require('/assets/js/module/shapes.js');
+var pointX = fisrtX + 30;
+var pointy = fisrtY + 30;
+var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 45}, {x: pointX + 80, y: pointy + 45}, {x: pointX + 100, y: pointy}]);
+
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
+  var dy = 0;
   if(lastTime) {
     if(animationTimer.isOver()) {
       velocityY = -velocityY;
       animationTimer.start();
       elapsedTime = null;
     } else {
-      moveDistantY += velocityY * (elapsedTime - lastTime) / 1000;
+      dy = velocityY * (elapsedTime - lastTime) / 1000;
+      moveDistantY += dy;
     }
   }
   offsetY = fisrtY + moveDistantY;
+  offsetX = fisrtX;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
   particleGenerator.update(offsetX + particleX, offsetY + particleY);
+  shape.move(0, dy);
   lastTime = elapsedTime;
 }
 
@@ -69,13 +79,11 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.translate(offsetX, offsetY);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.drawImage(player, 0, 127, sWidth, sHeight, 0, 0, dWidth, dHeight);
-  if(globalAlpha !== 0) {
-    ctx.globalAlpha = globalAlpha;
-    ctx.drawImage(player, 0, 250, sWidth, sHeight, 0, 0, dWidth, dHeight);
-  }
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
+  // shape.stroke(ctx);
+  // shape.fill(ctx);
 }
 
 function equip(_weapon) {
@@ -90,5 +98,6 @@ module.exports = {
   paint: paint,
   update: update,
   visible: true,
+  shape: shape,
   equip: equip
 };

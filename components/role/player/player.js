@@ -69,10 +69,6 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.translate(offsetX, offsetY);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.drawImage(player, 0, 127, sWidth, sHeight, 0, 0, dWidth, dHeight);
-  if(globalAlpha !== 0) {
-    ctx.globalAlpha = globalAlpha;
-    ctx.drawImage(player, 0, 250, sWidth, sHeight, 0, 0, dWidth, dHeight);
-  }
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
