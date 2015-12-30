@@ -24,6 +24,14 @@ function createParticle(x, y, opt){
   return particle;
 }
 
+function ExplosionGenerator (opt) {
+  
+}
+
+ExplosionGenerator.prototype.excute = function () {
+  console.log('excute');
+}
+
 function ParticleGenerator(opt) {
   this.opt = opt;
   // 每秒生成粒子数
@@ -50,17 +58,19 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   for(var i = 1; i <= num; i++) {
     particles.push(createParticle(offsetX, offsetY, opt));
   }
+  // console.log(this.particleArray.length);
+}
 
+function update() {
   particles = particles.filter(function (particle, i) {
     particle.x = particle.x + particle.xSpeed;
     particle.y = particle.y + particle.ySpeed;
-    var scaleRate = (0.95 + (randomRange(1, 5) / 100));
+    var scaleRate = (0.93 + (randomRange(1, 7) / 100));
     particle.radius = particle.radius * scaleRate;
     particle.strokeSize = particle.strokeSize * scaleRate;
 
     return  particle.radius > 1
   })
-  // console.log(this.particleArray.length);
 }
 
 function paint (ctx) {
@@ -77,14 +87,17 @@ function paint (ctx) {
   ctx.closePath();
 }
 
-function init (opt) {
+function initParticle (opt) {
   return new ParticleGenerator(opt);
+}
+function initExplosion (opt) {
+  return new ExplosionGenerator(opt);
 }
 
 module.exports = {
-  init: init,
-  particles: particles,
+  initParticle: initParticle,
+  initExplosion: initExplosion,
   paint: paint,
-  update: function () {},
+  update: update,
   visible: true
 };

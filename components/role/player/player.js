@@ -32,7 +32,7 @@ var weapon = {
 var weaponX = 18;
 var weaponY = 0;
 
-var particleGenerator = require('assets/js/module/particleGenerator.js').init({
+var particleGenerator = require('assets/js/module/particleGenerator.js').initParticle({
   numPerFrame: 0.2,
   radius: 5,
   velocityMinX: -1.5,

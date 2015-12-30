@@ -4,7 +4,7 @@
 
 var bullets = [];
 var targets = [];
-var buffer = 500;
+var buffer = 50;
 var left;
 var right;
 var top;
@@ -21,6 +21,7 @@ function update(context, fps, stageWidth, stageHeight) {
       isCollision = bullet.shape.collidesWith(target.shape);
     })
     if(isOutStage || isCollision) {
+      bullet.removeCb();
       return false;
     } else {
       bullet.update(context, fps, stageWidth, stageHeight);
