@@ -4,6 +4,7 @@
 */
 
 var angle =  2 * Math.PI;
+var scaleRate = (0.92 + (randomRange(1, 8) / 100));
 // 所有实例的粒子
 var particles = [];
 
@@ -13,6 +14,7 @@ function randomRange(min, max) {
 function createParticle(x, y, opt){
   var particle = {};
   particle.x = x;
+  particle.scaleRate = opt.scaleRate || scaleRate;
   particle.y = y;
   particle.xSpeed = randomRange(opt.velocityMinX, opt.velocityMaxX);
   particle.ySpeed = randomRange(opt.velocityMinY , opt.velocitymaxY);
@@ -20,32 +22,32 @@ function createParticle(x, y, opt){
   particle.strokeSize = opt.strokeSize || 13;
   particle.color = opt.fillColor || "rgba(255, 255, 255, 0.8)";
   particle.stroke_color = opt.strokeColor || "rgba(251, 88, 0, 0.15)";
+  particle.gravity = opt.gravity || 0;
 
   return particle;
 }
 
 function ExplosionGenerator (opt) {
-  
+  this.opt = opt;
 }
 
-ExplosionGenerator.prototype.excute = function () {
+ExplosionGenerator.prototype.excute = function (offsetX, offsetY) {
   console.log('excute');
+  var opt = this.opt;
+  for(var i = 1; i <= 20; i++) {
+    particles.push(createParticle(offsetX, offsetY, opt));
+  }
 }
 
 function ParticleGenerator(opt) {
   this.opt = opt;
   // 每秒生成粒子数
   this.num = this.numPerFrame = opt.numPerFrame || 1;
-  this.radius = opt.radius;
-  this.VELOCITY = opt.velocity;
-  this.strokeSize = opt.strokeSize;
 }
 
 ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   var numPerFrame = this.numPerFrame;
   var num = this.num;
-  var radius = this.radius;
-  var strokeSize = this.strokeSize;
   var opt = this.opt;
 
   var rate = 1 / num;
@@ -64,8 +66,8 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
 function update() {
   particles = particles.filter(function (particle, i) {
     particle.x = particle.x + particle.xSpeed;
-    particle.y = particle.y + particle.ySpeed;
-    var scaleRate = (0.93 + (randomRange(1, 7) / 100));
+    particle.y = particle.y + particle.ySpeed + particle.gravity;
+    var scaleRate = particle.scaleRate;
     particle.radius = particle.radius * scaleRate;
     particle.strokeSize = particle.strokeSize * scaleRate;
 
