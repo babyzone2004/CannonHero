@@ -47,9 +47,11 @@ function initGame() {
   var pea = require('/components/role/enemy/pea/pea.js');
   var cannon = require('/components/weapon/cannon/cannon.js');
   var bullets = require('/components/bullets/bullets.js');
+  var particleSprite = require('assets/js/module/particleGenerator.js');
   bullets.init(1080, 1200);
   player.equip(cannon);
   game.addSprite(bg);
+  game.addSprite(particleSprite);
   game.addSprite(player);
   game.addSprite(pea);
   game.addSprite(bullets);

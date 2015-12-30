@@ -9,7 +9,7 @@ var dHeight = 24;
 
 var velocityX = 600;
 
-var particleGenerator = require('assets/js/module/particleGenerator.js')({
+var particleGenerator = require('assets/js/module/particleGenerator.js').init({
   numPerFrame: 0.5,
   radius: 5,
   velocityMinX: -1.5,
@@ -42,7 +42,6 @@ rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
 
 rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {
   ctx.drawImage(img, this.x, this.y, dWidth, dHeight);
-  particleGenerator.paint(ctx);
   // this.shape.stroke(ctx);
   // this.shape.fill(ctx);
 }

@@ -4,6 +4,8 @@
 */
 
 var angle =  2 * Math.PI;
+// 所有实例的粒子
+var particles = [];
 
 function randomRange(min, max) {
   return ((Math.random() * (max - min)) + min);
@@ -16,27 +18,24 @@ function createParticle(x, y, opt){
   particle.ySpeed = randomRange(opt.velocityMinY , opt.velocitymaxY);
   particle.radius  = randomRange(5, opt.radius);
   particle.strokeSize = opt.strokeSize || 13;
+  particle.color = opt.fillColor || "rgba(255, 255, 255, 0.8)";
+  particle.stroke_color = opt.strokeColor || "rgba(251, 88, 0, 0.15)";
 
   return particle;
 }
 
 function ParticleGenerator(opt) {
   this.opt = opt;
-  this.COLOR = opt.fillColor || "rgba(255, 255, 255, 0.8)";
-  this.STROKE_COLOR = opt.strokeColor || "rgba(251, 88, 0, 0.15)";
   // 每秒生成粒子数
   this.num = this.numPerFrame = opt.numPerFrame || 1;
   this.radius = opt.radius;
   this.VELOCITY = opt.velocity;
   this.strokeSize = opt.strokeSize;
-
-  this.particleArray = [];
 }
 
 ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   var numPerFrame = this.numPerFrame;
   var num = this.num;
-  var particleArray = this.particleArray;
   var radius = this.radius;
   var strokeSize = this.strokeSize;
   var opt = this.opt;
@@ -49,13 +48,13 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   }
 
   for(var i = 1; i <= num; i++) {
-    particleArray.push(createParticle(offsetX, offsetY, opt));
+    particles.push(createParticle(offsetX, offsetY, opt));
   }
 
-  this.particleArray = particleArray.filter(function (particle, i) {
+  particles = particles.filter(function (particle, i) {
     particle.x = particle.x + particle.xSpeed;
     particle.y = particle.y + particle.ySpeed;
-    var scaleRate = (0.92 + (randomRange(1, 8) / 100));
+    var scaleRate = (0.95 + (randomRange(1, 5) / 100));
     particle.radius = particle.radius * scaleRate;
     particle.strokeSize = particle.strokeSize * scaleRate;
 
@@ -64,17 +63,13 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
   // console.log(this.particleArray.length);
 }
 
-ParticleGenerator.prototype.paint = function(ctx) {
-  var particleArray = this.particleArray;
-  var COLOR = this.COLOR;
-  var STROKE_COLOR = this.STROKE_COLOR;
-
-  for(var i = 0, ii = particleArray.length; i < ii; i++){
-    var particle = particleArray[i];
+function paint (ctx) {
+  for(var i = 0, ii = particles.length; i < ii; i++){
+    var particle = particles[i];
     ctx.beginPath();
     ctx.lineWidth = particle.strokeSize;
-    ctx.fillStyle = COLOR;
-    ctx.strokeStyle = STROKE_COLOR;
+    ctx.fillStyle = particle.color;
+    ctx.strokeStyle = particle.stroke_color;
     ctx.arc(particle.x, particle.y, particle.radius, 0, angle, false);
     ctx.fill();
     ctx.stroke();
@@ -86,4 +81,10 @@ function init (opt) {
   return new ParticleGenerator(opt);
 }
 
-module.exports = init;
+module.exports = {
+  init: init,
+  particles: particles,
+  paint: paint,
+  update: function () {},
+  visible: true
+};

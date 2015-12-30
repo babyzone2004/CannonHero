@@ -32,7 +32,7 @@ var weapon = {
 var weaponX = 18;
 var weaponY = 0;
 
-var particleGenerator = require('assets/js/module/particleGenerator.js')({
+var particleGenerator = require('assets/js/module/particleGenerator.js').init({
   numPerFrame: 0.2,
   radius: 5,
   velocityMinX: -1.5,
@@ -64,7 +64,6 @@ function update(context, fps, stageWidth, stageHeight) {
 }
 
 function paint(ctx, stageWidth, stageHeight) {
-  particleGenerator.paint(ctx);
   ctx.save();
   ctx.translate(offsetX, offsetY);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
