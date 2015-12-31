@@ -21,9 +21,10 @@ var particle = particleGenerator.initParticle({
   strokeColor: "rgba(255, 255, 255, 0.9)",
   strokeSize: 8
 });
+var particleX = 5;
+var particleY = 12;
 
 var explosion = particleGenerator.initExplosion({
-  numPerFrame: 0.5,
   radius: 5,
   velocityMinX: -1,
   velocityMaxX: 1,
@@ -32,11 +33,11 @@ var explosion = particleGenerator.initExplosion({
   fillColor: "rgba(251, 88, 0, 0.85)",
   strokeColor: "rgba(255, 255, 255, 0.9)",
   strokeSize: 8,
-  gravity: 0.1
+  gravity: 0.1,
+  num: 20
 });
-
-var particleX = 5;
-var particleY = 12;
+var explosionX = 30;
+var explosionY = 5;
 
 var shapes = require('/assets/js/module/shapes.js');
 
@@ -47,8 +48,13 @@ function rocket (x, y) {
   this.shape = shapes.initPolygon([{x: x, y: pointY}, {x: x, y: pointY + 10}, {x: x + 40, y: pointY + 10}, {x: x + 40, y: pointY}]);
 }
 
-rocket.prototype.removeCb = function () {
+rocket.prototype.collisiontRemoveCb = function () {
+  console.log('collisiontRemoveCb');
   explosion.excute(this.x + 30, this.y + 5);
+}
+rocket.prototype.outStageRemoveCb = function () {
+  console.log('outStageRemoveCb');
+  // explosion.excute(this.x + 30, this.y + 5);
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {

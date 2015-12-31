@@ -22,6 +22,22 @@ var fireReady = true;
 var bullets = require('/components/bullets/bullets.js');
 var rocket = require('/components/bullets/rocket/rocket.js');
 
+var particleGenerator = require('assets/js/module/particleGenerator.js');
+var fireExplosion = particleGenerator.initExplosion({
+  radius: 25,
+  velocityMinX: -0.8,
+  velocityMaxX: 0.8,
+  velocityMinY: -0.8,
+  velocitymaxY: 0.8,
+  fillColor: "rgb(255, 255, 255)",
+  strokeColor: "rgba(255, 79, 0, 0.23)",
+  strokeSize: 10,
+  num: 5,
+  scaleRate: 0.85
+});
+var exposionX = 70;
+var exposionY = 15;
+
 function updatePositon(context, _offsetX, _offsetY) {
   var elapsedTime = animationTimer.getElapsedTime();
   if(lastTime) {
@@ -53,6 +69,7 @@ function fire() {
     bullets.add(rocket.create(offsetX + bulletsX, offsetY));
     animationTimer.start();
     fireReady = false;
+    fireExplosion.excute(offsetX + exposionX, offsetY + exposionY);
   }
 }
 

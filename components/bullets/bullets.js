@@ -15,18 +15,24 @@ function update(context, fps, stageWidth, stageHeight) {
   bullets = bullets.filter(function(bullet) {
     var bulletX = bullet.x;
     var bulletY = bullet.y;
-    var isOutStage = bulletX < left || bulletX > right || bulletY < top || bulletY > bottom;
+    
     var isCollision = false;
     targets.forEach(function (target, i) {
       isCollision = bullet.shape.collidesWith(target.shape);
-    })
-    if(isOutStage || isCollision) {
-      bullet.removeCb();
+    });
+    if(isCollision) {
+      bullet.collisiontRemoveCb();
       return false;
-    } else {
-      bullet.update(context, fps, stageWidth, stageHeight);
-      return true;
     }
+    
+    var isOutStage = bulletX < left || bulletX > right || bulletY < top || bulletY > bottom;
+    if(isOutStage) {
+      bullet.outStageRemoveCb();
+      return false;
+    }
+      
+    bullet.update(context, fps, stageWidth, stageHeight);
+    return true;
   });
 }
 

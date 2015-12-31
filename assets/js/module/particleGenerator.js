@@ -34,7 +34,8 @@ function ExplosionGenerator (opt) {
 ExplosionGenerator.prototype.excute = function (offsetX, offsetY) {
   console.log('excute');
   var opt = this.opt;
-  for(var i = 1; i <= 20; i++) {
+  var num = opt.num;
+  for(var i = 1; i <= num; i++) {
     particles.push(createParticle(offsetX, offsetY, opt));
   }
 }

@@ -51,11 +51,11 @@ function initGame() {
   bullets.init(1080, 1200);
   player.equip(cannon);
   game.addSprite(bg);
-  game.addSprite(particleSprite);
   game.addSprite(player);
   game.addSprite(pea);
   game.addSprite(bullets);
   bullets.addTarget(pea);
+  game.addSprite(particleSprite);
   // bg.start();
   game.start();
 }
