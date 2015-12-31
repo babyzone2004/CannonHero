@@ -33,27 +33,29 @@ var fireExplosion = particleGenerator.initExplosion({
   strokeColor: "rgba(255, 79, 0, 0.23)",
   strokeSize: 10,
   num: 5,
-  scaleRate: 0.85
+  scaleRate: function() {
+    return 0.85;
+  }
 });
 var exposionX = 70;
 var exposionY = 15;
 
 function updatePositon(context, _offsetX, _offsetY) {
-  var elapsedTime = animationTimer.getElapsedTime();
-  if(lastTime) {
+  if(animationTimer.isRunning) {
+    var elapsedTime = animationTimer.getElapsedTime();
     if(animationTimer.isOver()) {
       if(moveDistantX < 0) {
         moveDistantX += 1;
       } else {
         moveDistantX = 0;
         fireReady = true;
-        animationTimer.stop();
       }
+      animationTimer.stop();
     } else {
       moveDistantX += (0.5 + velocityX * (elapsedTime - lastTime) / 1000) << 0;
     }
+    lastTime = elapsedTime;
   }
-  lastTime = elapsedTime;
 
   offsetX = _offsetX + moveDistantX;
   // console.log('offsetX', offsetX, _offsetY);

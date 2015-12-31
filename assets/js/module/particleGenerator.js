@@ -4,7 +4,9 @@
 */
 
 var angle =  2 * Math.PI;
-var scaleRate = (0.92 + (randomRange(1, 8) / 100));
+var scaleRate = function() {
+  return 0.92 + (randomRange(1, 8) / 100);
+};
 // 所有实例的粒子
 var particles = [];
 
@@ -32,7 +34,7 @@ function ExplosionGenerator (opt) {
 }
 
 ExplosionGenerator.prototype.excute = function (offsetX, offsetY) {
-  console.log('excute');
+  // console.log('excute');
   var opt = this.opt;
   var num = opt.num;
   for(var i = 1; i <= num; i++) {
@@ -53,11 +55,10 @@ ParticleGenerator.prototype.update = function(offsetX, offsetY) {
 
   var rate = 1 / num;
   if(rate > 1) {
-    this.num = num + this.numPerFrame;
+    this.num = num + numPerFrame;
   } else {
-    this.num = this.numPerFrame;
+    this.num = numPerFrame;
   }
-
   for(var i = 1; i <= num; i++) {
     particles.push(createParticle(offsetX, offsetY, opt));
   }
@@ -68,7 +69,7 @@ function update() {
   particles = particles.filter(function (particle, i) {
     particle.x = particle.x + particle.xSpeed;
     particle.y = particle.y + particle.ySpeed + particle.gravity;
-    var scaleRate = particle.scaleRate;
+    var scaleRate = particle['scaleRate']();
     particle.radius = particle.radius * scaleRate;
     particle.strokeSize = particle.strokeSize * scaleRate;
 

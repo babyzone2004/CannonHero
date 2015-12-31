@@ -49,11 +49,11 @@ function rocket (x, y) {
 }
 
 rocket.prototype.collisiontRemoveCb = function () {
-  console.log('collisiontRemoveCb');
+  // console.log('collisiontRemoveCb');
   explosion.excute(this.x + 30, this.y + 5);
 }
 rocket.prototype.outStageRemoveCb = function () {
-  console.log('outStageRemoveCb');
+  // console.log('outStageRemoveCb');
   // explosion.excute(this.x + 30, this.y + 5);
 }
 
