@@ -29,7 +29,7 @@ var weapon = {
   fire: function() {},
   paint: function() {}
 };
-var weaponX = 18;
+var weaponX = 25;
 var weaponY = 25;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js').initParticle({
@@ -81,7 +81,13 @@ document.addEventListener('touchend', function() {
   weapon && weapon.fire();
 });
 document.addEventListener('touchstart', function() {
-  weapon.rotate();
+  weapon.rotateStart();
+});
+document.addEventListener('touchcancle', function() {
+  weapon.stopRoate();
+});
+document.addEventListener('touchend', function() {
+  weapon.stopRoate();
 });
 
 module.exports = {
