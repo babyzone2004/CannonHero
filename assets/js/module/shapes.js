@@ -213,6 +213,15 @@ Polygon.prototype.project = function (axis) {
 Polygon.prototype.addPoint = function (x, y) {
    this.points.push(new Point(x,y));
 };
+Polygon.prototype.update = function (points) {
+   var selfPoints = this.points;
+   selfPoints.length = 0;
+   console.log('selfPoints', selfPoints);
+   points.forEach( function (point) {
+      this.points.push(point.x, point.y);
+   });
+   this.points.push(new Point(x,y));
+};
 
 Polygon.prototype.createPath = function (context) {
    if (this.points.length === 0)

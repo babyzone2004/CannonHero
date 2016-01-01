@@ -78,15 +78,13 @@ function equip(_weapon) {
 }
 
 document.addEventListener('touchend', function() {
+  weapon.stopRoate();
   weapon && weapon.fire();
 });
 document.addEventListener('touchstart', function() {
   weapon.rotateStart();
 });
 document.addEventListener('touchcancle', function() {
-  weapon.stopRoate();
-});
-document.addEventListener('touchend', function() {
   weapon.stopRoate();
 });
 

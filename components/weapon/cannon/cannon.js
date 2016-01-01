@@ -14,9 +14,11 @@ var relativeY = -16;
 var dWidth = 73;
 var dHeight = 32;
 var rotageAngle = 0;
+var rotate = 0;
 var isRoate = false;
 var sin = 1;
 var cos = 1;
+var angeleFormule = Math.PI / 180;
 
 // 子弹相对炮筒的坐标
 var bulletsX = 75;
@@ -65,12 +67,12 @@ function updatePositon(context, _offsetX, _offsetY) {
       var distant = (0.5 + velocityX * (elapsedTime - lastTime) / 1000) << 0
       moveDistantX += distant * cos;
       moveDistantY += distant * sin;
-      console.log(distant * cos, distant * sin, distant);
     }
     lastTime = elapsedTime;
   }
-  if(isRoate && rotageAngle >= -90) {
-    rotageAngle--
+  if(isRoate && rotageAngle > -90) {
+    rotageAngle--;
+    rotate = rotageAngle * angeleFormule;
   }
   offsetX = _offsetX + moveDistantX;
   // console.log('offsetX', offsetX, _offsetY);
@@ -80,20 +82,19 @@ function updatePositon(context, _offsetX, _offsetY) {
 function paint(ctx, stageWidth, stageHeight) {
   ctx.save();
   ctx.translate(offsetX, offsetY);
-  ctx.rotate(rotageAngle * Math.PI / 180);
+  ctx.rotate(rotate);
   ctx.drawImage(cannon, 0, relativeY, dWidth, dHeight);
   ctx.restore();
 }
 
 function fire() {
   if(fireReady) {
-    sin = Math.sin(rotageAngle * Math.PI / 180);
-    cos = Math.cos(rotageAngle * Math.PI / 180);
-    console.log(rotageAngle, sin, cos);
+    sin = Math.sin(rotate);
+    cos = Math.cos(rotate);
     var fireX = offsetX + bulletsX * cos;
     var fireY = offsetY + bulletsX * sin;
     fireExplosion.excute(fireX, fireY);
-    // bullets.add(rocket.create(fireX, fireY));
+    bullets.add(rocket.create(fireX, fireY, sin, cos, rotate));
     animationTimer.start();
     fireReady = false;
   }
@@ -106,7 +107,6 @@ function rotateStart () {
 function stopRoate () {
   isRoate = false;
   fire();
-  console.log('isRoate', isRoate);
 }
 
 module.exports = {
