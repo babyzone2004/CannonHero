@@ -11,6 +11,9 @@ var velocity = 600;
 // 相对绘图句柄Y轴的点
 var relativeY =  -13;
 
+var GRAVITY_FORCE = 9.81;  // 9.81 m/s / s
+// var velocityY = ;
+
 var particleGenerator = require('assets/js/module/particleGenerator.js');
 var particle = particleGenerator.initParticle({
   numPerFrame: 0.5,
@@ -41,12 +44,24 @@ var explosionY = 5;
 
 var shapes = require('/assets/js/module/shapes.js');
 
+function caculatePoint (x, y, px, py, rotate) {
+  var _rotate = Math.atan2(py, px) + rotate;
+  var distant = Math.sqrt(px * px + py * py);
+  var point = {
+    x: x + distant * Math.cos(_rotate),
+    y: y + distant * Math.sin(_rotate)
+  };
+  // console.log('point', distant * Math.cos(_rotate), distant * Math.sin(_rotate));
+  return point;
+}
+
 function rocket (x, y, sin, cos, rotate) {
   this.x = x;
   this.y = y;
   this.rotate = rotate;
   this.sin = sin;
   this.cos = cos;
+  this.gVelocity = 0;
 
   var px = 8;
   var py = -5;
@@ -67,38 +82,11 @@ function rocket (x, y, sin, cos, rotate) {
     y: 0 + py
   };
 
-  var p1Rotate = Math.atan2(p1.y, p1.x) + rotate;
-  var p1Lenght = Math.sqrt(p1.x * p1.x + p1.y * p1.y);
-  var destP1 = {
-    x: x + p1Lenght * Math.cos(p1Rotate),
-    y: y + p1Lenght * Math.sin(p1Rotate)
-  };
-  console.log('destP1', p1Lenght * Math.cos(p1Rotate), p1Lenght * Math.sin(p1Rotate));
+  var destP1 = caculatePoint(x, y, p1.x, p1.y, rotate);
+  var destP2 = caculatePoint(x, y, p2.x, p2.y, rotate);
+  var destP3 = caculatePoint(x, y, p3.x, p3.y, rotate);
+  var destP4 = caculatePoint(x, y, p4.x, p4.y, rotate);
 
-  var p2Rotate = Math.atan2(p2.y, p2.x) + rotate;
-  var p2Lenght = Math.sqrt(p2.x * p2.x + p2.y * p2.y);
-  var destP2 = {
-    x: x + p2Lenght * Math.cos(p2Rotate),
-    y: y + p2Lenght * Math.sin(p2Rotate)
-  };
-  console.log('destP2', p2Lenght * Math.cos(p2Rotate) , p2Lenght * Math.sin(p2Rotate));
-
-  var p3Rotate = Math.atan2(p3.y, p3.x) + rotate;
-  var p3Lenght = Math.sqrt(p3.x * p3.x + p3.y * p3.y);
-  var destP3 = {
-    x: x + p3Lenght * Math.cos(p3Rotate),
-    y: y + p3Lenght * Math.sin(p3Rotate)
-  };
-  console.log('destP3', p3Lenght * Math.sin(p3Rotate), p3Lenght * Math.cos(p3Rotate));
-
-  var p4Rotate = Math.atan2(p4.y, p4.x) + rotate;
-  var p4Lenght = Math.sqrt(p4.x * p4.x + p4.y * p4.y);
-  var destP4 = {
-    x: x + p4Lenght * Math.cos(p4Rotate),
-    y: y + p4Lenght * Math.sin(p4Rotate)
-  };
-  console.log('destP4', p4Lenght * Math.cos(p4Rotate), p4Lenght * Math.sin(p4Rotate));
-  // console.log();
   this.shape = shapes.initPolygon([destP1, destP2, destP3, destP4]);
 }
 
@@ -112,11 +100,14 @@ rocket.prototype.outStageRemoveCb = function () {
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
-  var dx = Math.round(velocity * this.cos / fps);
-  var dy = Math.round(velocity * this.sin / fps);
+  this.gVelocity += GRAVITY_FORCE * 1 / fps * pixelsPerMeter;
+  var dx = velocity * this.cos / fps;
+  var dy = (this.gVelocity + velocity * this.sin) / fps;
   this.x += dx;
   this.y += dy;
+  this.rotate = Math.atan2(dy, dx);
   this.shape.move(dx, dy);
+  console.log('rotate', this.rotate);
   // this.shape = shapes.update([]);
   particle.update(this.x, this.y);
 }
@@ -127,8 +118,8 @@ rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {
   ctx.rotate(this.rotate);
   ctx.drawImage(img, 0, relativeY, dWidth, dHeight);
   ctx.restore();
-  // this.shape.stroke(ctx);
-  // this.shape.fill(ctx);
+  this.shape.stroke(ctx);
+  this.shape.fill(ctx);
 }
 
 function create(x, y, sin, cos, rotate) {
