@@ -30,7 +30,7 @@ var weapon = {
   paint: function() {}
 };
 var weaponX = 18;
-var weaponY = 0;
+var weaponY = 25;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js').initParticle({
   numPerFrame: 0.2,
@@ -47,15 +47,15 @@ var particleY = 50;
 
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
-  if(lastTime) {
-    if(animationTimer.isOver()) {
-      velocityY = -velocityY;
-      animationTimer.start();
-      elapsedTime = null;
-    } else {
-      moveDistantY += velocityY * (elapsedTime - lastTime) / 1000;
-    }
-  }
+  // if(lastTime) {
+  //   if(animationTimer.isOver()) {
+  //     velocityY = -velocityY;
+  //     animationTimer.start();
+  //     elapsedTime = null;
+  //   } else {
+  //     moveDistantY += velocityY * (elapsedTime - lastTime) / 1000;
+  //   }
+  // }
   offsetY = fisrtY + moveDistantY;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
@@ -79,6 +79,9 @@ function equip(_weapon) {
 
 document.addEventListener('touchend', function() {
   weapon && weapon.fire();
+});
+document.addEventListener('touchstart', function() {
+  weapon.rotate();
 });
 
 module.exports = {

@@ -8,10 +8,13 @@ var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 
 var offsetX;
 var offsetY;
+// 相对绘图句柄Y轴的点
+var relativeY = -25;
+var fireRelativeY = -9;
 var dWidth = 73;
 var dHeight = 32;
 
-var bulletsX = 60;
+var bulletsX = 75;
 
 var velocityX = -150;
 var moveDistantX = 0;
@@ -37,8 +40,8 @@ var fireExplosion = particleGenerator.initExplosion({
     return 0.85;
   }
 });
-var exposionX = 70;
-var exposionY = 15;
+// var exposionX = 70;
+// var exposionY = 0;
 
 function updatePositon(context, _offsetX, _offsetY) {
   if(animationTimer.isRunning) {
@@ -63,21 +66,31 @@ function updatePositon(context, _offsetX, _offsetY) {
 }
 
 function paint(ctx, stageWidth, stageHeight) {
-  ctx.drawImage(cannon, offsetX, offsetY, dWidth, dHeight);
+  ctx.save();
+  ctx.translate(offsetX, offsetY);
+  // ctx.rotate(-45 * Math.PI / 180);
+  ctx.drawImage(cannon, 0, relativeY, dWidth, dHeight);
+  ctx.restore();
 }
 
 function fire() {
   if(fireReady) {
-    bullets.add(rocket.create(offsetX + bulletsX, offsetY));
+    var fireX = offsetX + bulletsX;
+    var fireY = offsetY + fireRelativeY;
+    fireExplosion.excute(fireX, fireY);
+    bullets.add(rocket.create(fireX, fireY));
     animationTimer.start();
     fireReady = false;
-    fireExplosion.excute(offsetX + exposionX, offsetY + exposionY);
   }
 }
 
+function rotate () {
+  
+}
 
 module.exports = {
   paint: paint,
   updatePositon: updatePositon,
-  fire: fire
+  fire: fire,
+  rotate: rotate
 };

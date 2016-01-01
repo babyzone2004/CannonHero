@@ -15,12 +15,12 @@ function randomRange(min, max) {
 }
 function createParticle(x, y, opt){
   var particle = {};
-  particle.x = x;
   particle.scaleRate = opt.scaleRate || scaleRate;
+  particle.radius  = randomRange(5, opt.radius);
+  particle.x = x;
   particle.y = y;
   particle.xSpeed = randomRange(opt.velocityMinX, opt.velocityMaxX);
   particle.ySpeed = randomRange(opt.velocityMinY , opt.velocitymaxY);
-  particle.radius  = randomRange(5, opt.radius);
   particle.strokeSize = opt.strokeSize || 13;
   particle.color = opt.fillColor || "rgba(255, 255, 255, 0.8)";
   particle.stroke_color = opt.strokeColor || "rgba(251, 88, 0, 0.15)";
