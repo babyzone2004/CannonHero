@@ -6,11 +6,11 @@ var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 
 
+// 画笔的坐标
 var offsetX;
 var offsetY;
-// 相对绘图句柄Y轴的点
+// 相对画笔Y轴的点
 var relativeY = -16;
-var fireRelativeY = 0;
 var dWidth = 73;
 var dHeight = 32;
 var rotageAngle = 0;
@@ -18,9 +18,11 @@ var isRoate = false;
 var sin = 1;
 var cos = 1;
 
+// 子弹相对炮筒的坐标
 var bulletsX = 75;
 
 var velocityX = -150;
+// 后坐力偏移
 var moveDistantX = 0;
 var moveDistantY = 0;
 var lastTime;
@@ -89,7 +91,7 @@ function fire() {
     cos = Math.cos(rotageAngle * Math.PI / 180);
     console.log(rotageAngle, sin, cos);
     var fireX = offsetX + bulletsX * cos;
-    var fireY = offsetY + fireRelativeY + bulletsX * sin;
+    var fireY = offsetY + bulletsX * sin;
     fireExplosion.excute(fireX, fireY);
     // bullets.add(rocket.create(fireX, fireY));
     animationTimer.start();
