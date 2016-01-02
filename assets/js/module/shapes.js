@@ -164,6 +164,8 @@ Vector.prototype = {
    }
 };
 
+
+var caculatePoint = require('/assets/js/module/caculatePoint.js');
 var Polygon = function () {
    this.points = [];
 };
@@ -213,14 +215,10 @@ Polygon.prototype.project = function (axis) {
 Polygon.prototype.addPoint = function (x, y) {
    this.points.push(new Point(x,y));
 };
-Polygon.prototype.update = function (points) {
-   var selfPoints = this.points;
-   selfPoints.length = 0;
-   console.log('selfPoints', selfPoints);
-   points.forEach( function (point) {
-      this.points.push(point.x, point.y);
+Polygon.prototype.update = function (x, y, rotate) {
+   this.points.forEach(function (point, index, arr) {
+      arr[index] = caculatePoint(x, y, point.originX, point.originY, rotate);
    });
-   this.points.push(new Point(x,y));
 };
 
 Polygon.prototype.createPath = function (context) {
@@ -328,9 +326,7 @@ SpriteShape.prototype.stroke = function (context) {
 
 function initPolygon (points) {
    var polygon = new Polygon();
-   points.forEach( function (point) {
-      polygon.addPoint(point.x, point.y);
-   });
+   polygon.points = points;
 
    return polygon;
 }

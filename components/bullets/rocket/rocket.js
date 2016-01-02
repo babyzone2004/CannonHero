@@ -43,17 +43,7 @@ var explosionX = 30;
 var explosionY = 5;
 
 var shapes = require('/assets/js/module/shapes.js');
-
-function caculatePoint (x, y, px, py, rotate) {
-  var _rotate = Math.atan2(py, px) + rotate;
-  var distant = Math.sqrt(px * px + py * py);
-  var point = {
-    x: x + distant * Math.cos(_rotate),
-    y: y + distant * Math.sin(_rotate)
-  };
-  // console.log('point', distant * Math.cos(_rotate), distant * Math.sin(_rotate));
-  return point;
-}
+var caculatePoint = require('/assets/js/module/caculatePoint.js');
 
 function rocket (x, y, sin, cos, rotate) {
   this.x = x;
@@ -92,7 +82,8 @@ function rocket (x, y, sin, cos, rotate) {
 
 rocket.prototype.collisiontRemoveCb = function () {
   // console.log('collisiontRemoveCb');
-  explosion.excute(this.x + 50, this.y + 5);
+  var explosionPoint = caculatePoint(this.x, this.y, 32, 5, this.rotate);
+  explosion.excute(explosionPoint.x, explosionPoint.y);
 }
 rocket.prototype.outStageRemoveCb = function () {
   // console.log('outStageRemoveCb');
@@ -107,8 +98,8 @@ rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
   this.y += dy;
   this.rotate = Math.atan2(dy, dx);
   this.shape.move(dx, dy);
-  console.log('rotate', this.rotate);
-  // this.shape = shapes.update([]);
+  // console.log('rotate', this.rotate);
+  this.shape.update(this.x, this.y, this.rotate);
   particle.update(this.x, this.y);
 }
 
@@ -118,8 +109,8 @@ rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {
   ctx.rotate(this.rotate);
   ctx.drawImage(img, 0, relativeY, dWidth, dHeight);
   ctx.restore();
-  this.shape.stroke(ctx);
-  this.shape.fill(ctx);
+  // this.shape.stroke(ctx);
+  // this.shape.fill(ctx);
 }
 
 function create(x, y, sin, cos, rotate) {
