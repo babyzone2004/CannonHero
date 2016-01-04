@@ -17,15 +17,25 @@ function update(context, fps, stageWidth, stageHeight) {
     var bulletY = bullet.y;
     
     var isCollision = false;
-    targets.forEach(function (target, i) {
+    var isTouchBottom = false;
+    for(var i = 0, ii = targets.length; i < ii; i++) {
+      var target = targets[i];
+      // 碰到实体
       isCollision = bullet.shape.collidesWith(target.shape);
-    });
-    if(isCollision) {
-      bullet.collisiontRemoveCb();
+      // 着地
+      isTouchBottom = bulletY >= bottom;
+      if(isCollision || isTouchBottom) {
+        bullet.collisiontRemoveCb();
+        break;
+      }
+    }
+    if(isCollision || isTouchBottom) {
+      console.log('isCollision', isCollision);
+      console.log('isTouchBottom', isTouchBottom);
       return false;
     }
-    
-    var isOutStage = bulletX < left || bulletX > right || bulletY < top || bulletY > bottom;
+
+    var isOutStage = bulletX < left || bulletX > right || bulletY < top;
     if(isOutStage) {
       bullet.outStageRemoveCb();
       return false;
@@ -53,7 +63,7 @@ function init (stageWidth, stageHeight) {
   left = 0 - buffer;
   right = stageWidth + buffer;
   top = 0 - buffer;
-  bottom = stageHeight + buffer;
+  bottom = stageHeight - buffer;
 }
 
 module.exports = {

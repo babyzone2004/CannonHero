@@ -50,7 +50,7 @@ function initGame() {
   var particleSprite = require('assets/js/module/particleGenerator.js');
   bullets.init(1080, 1200);
   // 初始化重力系统
-  var PLATFORM_HEIGHT_IN_METERS = 50; // 10 meters
+  var PLATFORM_HEIGHT_IN_METERS = 50; // 50 meters
   window.pixelsPerMeter = 1200 / PLATFORM_HEIGHT_IN_METERS;
   player.equip(cannon);
   game.addSprite(bg);
@@ -58,6 +58,7 @@ function initGame() {
   game.addSprite(pea);
   game.addSprite(bullets);
   bullets.addTarget(pea);
+  bullets.addTarget(player);
   game.addSprite(particleSprite);
   // bg.start();
   game.start();

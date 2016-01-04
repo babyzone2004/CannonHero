@@ -6,8 +6,9 @@ var player = new Image();
 player.src = __uri('player.png');
 
 // 出场位置
-var fisrtY = 800;
-var offsetX = 80;
+var firstY = 800;
+var firstX = 80;
+var offsetX;
 var offsetY;
 // 源尺寸
 var sWidth = 140;
@@ -45,21 +46,30 @@ var particleGenerator = require('assets/js/module/particleGenerator.js').initPar
 var particleX = 18;
 var particleY = 50;
 
+var shapes = require('/assets/js/module/shapes.js');
+var pointX = firstX + 25;
+var pointy = firstY + 30;
+var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX, y: pointy + 45}, {x: pointX + 85, y: pointy + 45}, {x: pointX + 80, y: pointy}]);
+
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
-  // if(lastTime) {
-  //   if(animationTimer.isOver()) {
-  //     velocityY = -velocityY;
-  //     animationTimer.start();
-  //     elapsedTime = null;
-  //   } else {
-  //     moveDistantY += velocityY * (elapsedTime - lastTime) / 1000;
-  //   }
-  // }
-  offsetY = fisrtY + moveDistantY;
+  var dy = 0;
+  if(lastTime) {
+    if(animationTimer.isOver()) {
+      velocityY = -velocityY;
+      animationTimer.start();
+      elapsedTime = null;
+    } else {
+      dy = velocityY * (elapsedTime - lastTime) / 1000;
+      moveDistantY += dy;
+    }
+  }
+  offsetY = firstY + moveDistantY;
+  offsetX = firstX;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
   particleGenerator.update(offsetX + particleX, offsetY + particleY);
+  shape.move(0, dy);
   lastTime = elapsedTime;
 }
 
@@ -71,20 +81,23 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
+  // shape.stroke(ctx);
+  // shape.fill(ctx);
 }
 
 function equip(_weapon) {
   weapon = _weapon;
 }
 
-document.addEventListener('touchend', function() {
+document.addEventListener('touchend', function(e) {
   weapon.stopRoate();
   weapon && weapon.fire();
 });
-document.addEventListener('touchstart', function() {
+document.addEventListener('touchstart', function(e) {
   weapon.rotateStart();
+  e.preventDefault();
 });
-document.addEventListener('touchcancle', function() {
+document.addEventListener('touchcancle', function(e) {
   weapon.stopRoate();
 });
 
@@ -92,5 +105,6 @@ module.exports = {
   paint: paint,
   update: update,
   visible: true,
+  shape: shape,
   equip: equip
 };

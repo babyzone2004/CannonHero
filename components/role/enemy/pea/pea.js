@@ -6,8 +6,8 @@ var player = new Image();
 player.src = __uri('pea.png');
 
 // 出场位置
-var fisrtY = 780;
-var fisrtX = 800;
+var firstY = 780;
+var firstX = 800;
 var offsetX;
 var offsetY;
 // 源尺寸
@@ -47,8 +47,8 @@ var particleX = 121;
 var particleY = 50;
 
 var shapes = require('/assets/js/module/shapes.js');
-var pointX = fisrtX + 30;
-var pointy = fisrtY + 30;
+var pointX = firstX + 30;
+var pointy = firstY + 30;
 var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 45}, {x: pointX + 80, y: pointy + 45}, {x: pointX + 100, y: pointy}]);
 
 function update(context, fps, stageWidth, stageHeight) {
@@ -64,8 +64,8 @@ function update(context, fps, stageWidth, stageHeight) {
       moveDistantY += dy;
     }
   }
-  offsetY = fisrtY + moveDistantY;
-  offsetX = fisrtX;
+  offsetY = firstY + moveDistantY;
+  offsetX = firstX;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
   particleGenerator.update(offsetX + particleX, offsetY + particleY);
