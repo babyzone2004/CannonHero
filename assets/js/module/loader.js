@@ -53,7 +53,7 @@ function load(resources) {
       loadImage(elem);
       return;
     }
-    if(elem.search(/\.(mp3|ogg)$/ig) !== -1) {
+    if(elem.search(/\.(mp3|ogg|wav)$/ig) !== -1) {
       loadAudio(elem);
     }
   });

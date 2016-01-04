@@ -5,6 +5,9 @@ var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
 var player = new Image();
 player.src = __uri('pea.png');
 
+var sounder = require('/assets/js/module/sounder.js');
+var sHited = sounder.init(__uri('/assets/sounds/coin.mp3'), 1);
+
 // 出场位置
 var firstY = 780;
 var firstX = 800;
@@ -89,6 +92,10 @@ function equip(_weapon) {
   weapon = _weapon;
 }
 
+function destroy () {
+  sHited.play();
+}
+
 document.addEventListener('touchend', function() {
   weapon && weapon.fire();
 });
@@ -98,5 +105,6 @@ module.exports = {
   update: update,
   visible: true,
   shape: shape,
-  equip: equip
+  equip: equip,
+  destroy: destroy
 };

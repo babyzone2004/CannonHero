@@ -1,6 +1,8 @@
 
 /*
  * 声音事件，多线程处理声音 Date: 2011-5-23
+ * @Param {String} src 音频地址
+ * @Param {Int} multi 初始化实例数，例如子弹连续射击需要多个实例
  */
 function Sound(src,multi)
 {
@@ -35,4 +37,6 @@ function init(src,multi) {
 }
 
 
-module.exports = init;
+module.exports = {
+  init: init
+};

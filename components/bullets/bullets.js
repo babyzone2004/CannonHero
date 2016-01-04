@@ -24,7 +24,12 @@ function update(context, fps, stageWidth, stageHeight) {
       isCollision = bullet.shape.collidesWith(target.shape);
       // 着地
       isTouchBottom = bulletY >= bottom;
-      if(isCollision || isTouchBottom) {
+      if(isCollision) {
+        bullet.collisiontRemoveCb();
+        target.destroy();
+        break;
+      }
+      if(isTouchBottom) {
         bullet.collisiontRemoveCb();
         break;
       }
