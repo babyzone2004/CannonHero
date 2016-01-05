@@ -89,6 +89,10 @@ function equip(_weapon) {
   weapon = _weapon;
 }
 
+function destroy () {
+  // sHited.play();
+}
+
 document.addEventListener('touchend', function(e) {
   weapon.stopRoate();
   weapon && weapon.fire();
@@ -99,6 +103,7 @@ document.addEventListener('touchstart', function(e) {
 });
 document.addEventListener('touchcancle', function(e) {
   weapon.stopRoate();
+  weapon && weapon.fire();
 });
 
 module.exports = {
@@ -106,5 +111,6 @@ module.exports = {
   update: update,
   visible: true,
   shape: shape,
-  equip: equip
+  equip: equip,
+  destroy: destroy
 };

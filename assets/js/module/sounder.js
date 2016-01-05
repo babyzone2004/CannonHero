@@ -26,9 +26,11 @@ Sound.prototype.play = function()
       this.myInstanceIndex = 0;
    }
 }
-Sound.prototype.stopbg = function()
+Sound.prototype.stop = function()
 {
-   this.myInstanceArray[this.myInstanceIndex].pause();
+  var audio = this.myInstanceArray[this.myInstanceIndex];
+  audio.currentTime = 0;
+  audio.pause();
 }
 
 
