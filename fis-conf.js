@@ -76,8 +76,8 @@ fis.config.merge({
           js: 'jshint',
           css: 'csslint'
         },
-        // postpackager : ['autoload', 'simple', 'inline', 'htmlmin']
-        postpackager : ['autoload', 'simple']
+        postpackager : ['autoload', 'simple', 'htmlmin']
+        // postpackager : ['autoload', 'simple']
     },
     settings : {
         postprocessor : {

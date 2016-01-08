@@ -8,35 +8,6 @@ player.src = __uri('pea.png');
 var sounder = require('/assets/js/module/sounder.js');
 var sHited = sounder.init(__uri('/assets/sounds/coin.ogg'), 1);
 
-var context =  new (window.AudioContext || window.webkitAudioContext || function(){})();
-var source = null;  
-var audioBuffer = null;  
-
-function playSound() {  
-    source = context.createBufferSource();  
-    source.buffer = audioBuffer;  
-    source.loop = true;  
-    source.connect(context.destination);  
-    source.start(); //立即播放  
-}  
-function initSound(arrayBuffer) {  
-    context.decodeAudioData(arrayBuffer, function(buffer) { //解码成功时的回调函数  
-        audioBuffer = buffer;  
-        playSound();  
-    }, function(e) { //解码出错时的回调函数  
-        console.log('Error decoding file', e);  
-    });  
-}  
-function loadAudioFile(url) {  
-    var xhr = new XMLHttpRequest(); //通过XHR下载音频文件  
-    xhr.open('GET', url, true);  
-    xhr.responseType = 'arraybuffer';  
-    xhr.onload = function(e) { //下载完成  
-        initSound(this.response);  
-    };  
-    xhr.send();  
-}  
-context && loadAudioFile(__uri('/assets/sounds/coin.ogg'));  
 
 // 出场位置
 var firstY = 780;

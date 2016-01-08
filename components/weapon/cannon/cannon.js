@@ -110,7 +110,7 @@ function rotateStart () {
 }
 function stopRoate () {
   isRoate = false;
-  // sReload.stop();
+  sReload.stop();
   sFire.play();
   fire();
 }
