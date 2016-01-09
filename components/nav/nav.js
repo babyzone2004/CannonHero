@@ -4,15 +4,17 @@ var navContainer = document.createElement('div');
 navContainer.className = 'nav';
 navContainer.innerHTML = nav;
 document.body.appendChild(navContainer);
-var $startBtn = $('#J_btnStart');
+var $startBtn = $('#J_start');
 
-$(navContainer).on('click', function() {
+$(navContainer).on('click','button', function() {
   var action = $(this).data('action');
   switch(action) {
-    case action:
-      hide();
+    case 'start':
       document.dispatchEvent(new Event('gameStart'));
-      $('#J_start').text('重试');
+      $startBtn.text('重试').data('action', 'restart');
+    break;
+    case 'restart':
+      document.dispatchEvent(new Event('gameRestart'));
     break;
   }
 })
@@ -25,7 +27,7 @@ function hide() {
   navContainer.className = 'nav nav-hide';
 }
 
-exports = {
+module.exports = {
   showRetry: showRetry,
 	hide: hide
 };

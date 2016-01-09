@@ -121,11 +121,15 @@ function start () {
 function stop () {
    paused = true;
 }
+function reset () {
+  
+}
 
 module.exports = {
   start: start,
   stop: stop,
   update: update,
   paint: paint,
+  reset: reset,
   visible: true
 };

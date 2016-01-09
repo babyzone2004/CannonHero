@@ -5,10 +5,10 @@
    margin-right: 12px;
    text-align: center;
    z-index: 1;
-   transition: bottom .5s ease;
-   -webkit-transition: bottom .5s ease;
+   transition: top .5s ease;
+   -webkit-transition: top .5s ease;
 }
 
 .nav-hide{
-  top: -800px;
+  top: 800px;
 }

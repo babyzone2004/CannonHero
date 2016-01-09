@@ -43,20 +43,34 @@ loader.registCompleteCb(function() {
 
 var Game = require('/assets/js/gameEngine.js');
 $('body').prepend('<canvas id="gameCanvas" class="canvas" width="1080" height="1200">Canvas not supported</canvas>');
+
+var bg;
+var player;
+var pea;
+var cannon;
+var bullets = require('/components/bullets/bullets.js');
+bullets.init(1080, 1200);
+var cScore = require('/components/score/score.js');
+var particleSprite = require('assets/js/module/particleGenerator.js');
+// 初始化重力系统
+var PLATFORM_HEIGHT_IN_METERS = 50; // 50 meters
+window.pixelsPerMeter = 1200 / PLATFORM_HEIGHT_IN_METERS;
+
 var game = new Game('Cannon', 'gameCanvas');
+document.addEventListener('gameOver', function (e) {
+  showGameOver();
+});
+// bg.start();
+game.start();
+
 function initGame() {
   initFps(game);
-  var bg = require('/components/bg/bg.js');
-  var player = require('/components/role/player/player.js');
-  var pea = require('/components/role/enemy/pea/pea.js');
-  var cannon = require('/components/weapon/cannon/cannon.js');
-  var bullets = require('/components/bullets/bullets.js');
-  var score = require('/components/score/score.js');
-  var particleSprite = require('assets/js/module/particleGenerator.js');
-  bullets.init(1080, 1200);
-  // 初始化重力系统
-  var PLATFORM_HEIGHT_IN_METERS = 50; // 50 meters
-  window.pixelsPerMeter = 1200 / PLATFORM_HEIGHT_IN_METERS;
+  bg = require('/components/bg/bg.js');
+  player = require('/components/role/player/player.js');
+  player.addEvent();
+  pea = require('/components/role/enemy/pea/pea.js');
+  cannon = require('/components/weapon/cannon/cannon.js');
+  
   player.equip(cannon);
   game.addSprite(bg);
   game.addSprite(player);
@@ -65,13 +79,7 @@ function initGame() {
   bullets.addTarget(pea);
   bullets.addTarget(player);
   game.addSprite(particleSprite);
-  score.addScore(0);
-
-  document.addEventListener('gameOver', function (e) {
-    showGameOver();
-  });
-  // bg.start();
-  game.start();
+  cScore.reset();
 }
 
 
@@ -91,9 +99,23 @@ function initFps(game) {
 
 function showGameOver() {
   console.log('gameOver');
-
+  cOverlay.show();
+  cNav.showRetry();
+  player.removeEvent();
+}
+function restartGame() {
+  cOverlay.hide();
+  cNav.hide();
+  cScore.reset();
+  player.reset();
+  bg.reset();
+  cannon.reset();
 }
 document.addEventListener('gameStart', function (e) {
   cOverlay.hide();
+  cNav.hide();
   initGame();
+});
+document.addEventListener('gameRestart', function (e) {
+  restartGame();
 });

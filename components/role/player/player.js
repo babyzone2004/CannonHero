@@ -25,11 +25,7 @@ var lastTime;
 animationTimer.start();
 
 // 武器相对位置
-var weapon = {
-  updatePositon: function() {},
-  fire: function() {},
-  paint: function() {}
-};
+var weapon;
 var weaponX = 25;
 var weaponY = 25;
 
@@ -67,7 +63,7 @@ function update(context, fps, stageWidth, stageHeight) {
   offsetY = firstY + moveDistantY;
   offsetX = firstX;
   // console.log('offsetY', offsetY);
-  weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
+  weapon && weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
   particleGenerator.update(offsetX + particleX, offsetY + particleY);
   shape.move(0, dy);
   lastTime = elapsedTime;
@@ -80,7 +76,7 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.drawImage(player, 0, 127, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.restore();
 
-  weapon.paint(ctx, stageWidth, stageHeight);
+  weapon && weapon.paint(ctx, stageWidth, stageHeight);
   // shape.stroke(ctx);
   // shape.fill(ctx);
 }
@@ -93,15 +89,36 @@ function destroy () {
   // sHited.play();
   document.dispatchEvent(new Event('gameOver'));
 }
+function reset () {
+  addEvent();
+}
 
 var bullets = require('/components/bullets/bullets.js');
 var isReload = true;
 // var isReload = false;
 // var touchStart = false;
-document.addEventListener('touchend', fire);
-document.addEventListener('touchcancle', fire);
 
-document.addEventListener('touchstart', function(e) {
+function addEvent () {
+  document.addEventListener('touchend', fire);
+  document.addEventListener('touchcancle', fire);
+  document.addEventListener('touchstart', reload);
+}
+
+function removeEvent () {
+  document.removeEventListener('touchend', fire);
+  document.removeEventListener('touchcancle', fire);
+  document.removeEventListener('touchstart', reload);
+}
+
+function fire (e) {
+  if(bullets.getBullets().length === 0 && weapon && isReload) {
+    weapon.stopRoate();
+    weapon.fire();
+  }
+  // isReload = touchStart = false;
+}
+
+function reload(e) {
   touchStart = true;
   if(bullets.getBullets().length === 0) {
     // 需要填单后才能发射逻辑
@@ -118,14 +135,6 @@ document.addEventListener('touchstart', function(e) {
     weapon.rotateStart();
   }
   e.preventDefault();
-});
-
-function fire (e) {
-  if(bullets.getBullets().length === 0 && weapon && isReload) {
-    weapon.stopRoate();
-    weapon.fire();
-  }
-  // isReload = touchStart = false;
 }
 
 module.exports = {
@@ -134,5 +143,8 @@ module.exports = {
   visible: true,
   shape: shape,
   equip: equip,
+  addEvent: addEvent,
+  removeEvent: removeEvent,
+  reset: reset,
   destroy: destroy
 };

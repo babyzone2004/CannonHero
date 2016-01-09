@@ -116,6 +116,9 @@ function rotateStart () {
   isRoate = true;
   console.log('isRoate', isRoate);
 }
+function reset () {
+  rotate = rotageAngle = 0;
+}
 
 function stopRoate () {
   isRoate = false;
@@ -130,5 +133,6 @@ module.exports = {
   fire: fire,
   rotateStart: rotateStart,
   stopRoate: stopRoate,
+  reset: reset,
   reloadBullet: reloadBullet
 };

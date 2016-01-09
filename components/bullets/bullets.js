@@ -34,15 +34,16 @@ function update(context, fps, stageWidth, stageHeight) {
         break;
       }
     }
-    if(isCollision || isTouchBottom) {
+    if(isCollision) {
       console.log('isCollision', isCollision);
-      console.log('isTouchBottom', isTouchBottom);
       return false;
     }
 
     var isOutStage = bulletX < left || bulletX > right || bulletY < top;
-    if(isOutStage) {
-      bullet.outStageRemoveCb();
+    if(isOutStage || isTouchBottom) {
+      console.log('isTouchBottom', isTouchBottom);
+      console.log('isOutStage', isOutStage);
+      bullet.missCb();
       return false;
     }
       

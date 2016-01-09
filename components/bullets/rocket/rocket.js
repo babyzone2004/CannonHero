@@ -85,9 +85,10 @@ rocket.prototype.collisiontRemoveCb = function () {
   var explosionPoint = caculatePoint(this.x, this.y, 32, 5, this.rotate);
   explosion.excute(explosionPoint.x, explosionPoint.y);
 }
-rocket.prototype.outStageRemoveCb = function () {
+rocket.prototype.missCb = function () {
   // console.log('outStageRemoveCb');
   // explosion.excute(this.x + 30, this.y + 5);
+  document.dispatchEvent(new Event('gameOver'));
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {

@@ -100,9 +100,9 @@ function destroy (bingo) {
   // 如果是致命一击
   if(bingo) {
     console.log('bingo');
-    score.addScore(3);
+    score.add(3);
   } else {
-    score.addScore(1);
+    score.add(1);
   }
 }
 

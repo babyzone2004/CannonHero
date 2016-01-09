@@ -4,9 +4,17 @@ domScore.className = 'score';
 document.body.appendChild(domScore);
 var scroe = 0;
 
-function addScore (num) {
+function add (num) {
   scroe += num;
   domScore.innerHTML = scroe;
 }
 
-exports.addScore = addScore;
+function reset () {
+  scroe = 0;
+  domScore.innerHTML = scroe;
+}
+
+module.exports = {
+  add: add,
+  reset: reset
+};
