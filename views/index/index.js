@@ -51,6 +51,7 @@ function initGame() {
   var pea = require('/components/role/enemy/pea/pea.js');
   var cannon = require('/components/weapon/cannon/cannon.js');
   var bullets = require('/components/bullets/bullets.js');
+  var score = require('/components/score/score.js');
   var particleSprite = require('assets/js/module/particleGenerator.js');
   bullets.init(1080, 1200);
   // 初始化重力系统
@@ -64,6 +65,7 @@ function initGame() {
   bullets.addTarget(pea);
   bullets.addTarget(player);
   game.addSprite(particleSprite);
+  score.addScore(0);
   // bg.start();
   game.start();
 }

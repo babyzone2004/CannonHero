@@ -26,7 +26,7 @@ function update(context, fps, stageWidth, stageHeight) {
       isTouchBottom = bulletY >= bottom;
       if(isCollision) {
         bullet.collisiontRemoveCb();
-        target.destroy();
+        target.destroy(bullet.rotate > 1);
         break;
       }
       if(isTouchBottom) {

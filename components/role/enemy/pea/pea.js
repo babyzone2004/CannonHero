@@ -93,8 +93,16 @@ function equip(_weapon) {
   weapon = _weapon;
 }
 
-function destroy () {
+var score = require('/components/score/score.js');
+function destroy (bingo) {
   sHited.play();
+  // 如果是致命一击
+  if(bingo) {
+    console.log('bingo');
+    score.addScore(3);
+  } else {
+    score.addScore(1);
+  }
 }
 
 document.addEventListener('touchend', function() {
