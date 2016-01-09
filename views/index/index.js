@@ -1,7 +1,7 @@
 
 var sounder = require('/assets/js/module/sounder.js');
-
-
+var cNav = require('/components/nav/nav.js');
+var cOverlay = require('/components/overlay/overlay.js');
 
 var resources = [
   __uri('/assets/img/enemy_weapons_2.png'),
@@ -36,7 +36,7 @@ loader.registCompleteCb(function() {
   //   cCover.show();
   //   cCover.registHideCb(initGame);
   // }, 3000);
-  initGame();
+  
 });
 
 // Init Game.......................................................................
@@ -90,5 +90,10 @@ function initFps(game) {
 }
 
 function showGameOver() {
+  console.log('gameOver');
 
 }
+document.addEventListener('gameStart', function (e) {
+  cOverlay.hide();
+  initGame();
+});

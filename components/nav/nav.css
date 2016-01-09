@@ -1,7 +1,13 @@
-.score{
+.nav{
    position: absolute;
-   left: 12px;
-   bottom: 12px;
-   color: #9EB8F5;
+   width: 100%;
+   bottom: 86px;
+   display: flex;
+   justify-content: space-around;
    z-index: 1;
+   transition: bottom .5s ease;
+}
+
+.nav-hide{
+  bottom: -100px;
 }

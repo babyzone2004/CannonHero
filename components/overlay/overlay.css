@@ -1,0 +1,13 @@
+.overlay{
+  position: absolute;
+  z-index: 1001;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 400px;
+  background: rgba(0, 0, 0, .75);
+  transition: top .5s ease;
+}
+.overlay-hide{
+  top: -400px;
+}

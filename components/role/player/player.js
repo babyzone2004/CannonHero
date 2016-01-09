@@ -91,8 +91,7 @@ function equip(_weapon) {
 
 function destroy () {
   // sHited.play();
-  var event = new Event('gameOver');
-  document.dispatchEvent(event);
+  document.dispatchEvent(new Event('gameOver'));
 }
 
 var bullets = require('/components/bullets/bullets.js');

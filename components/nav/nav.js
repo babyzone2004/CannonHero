@@ -1,12 +1,31 @@
-/*计分组件*/
-var domScore = document.createElement('div');
-domScore.className = 'score';
-document.body.appendChild(domScore);
-var scroe = 0;
+/*游戏菜单*/
+var nav = __inline('nav.tpl');
+var navContainer = document.createElement('div');
+navContainer.className = 'nav';
+navContainer.innerHTML = nav;
+document.body.appendChild(navContainer);
+var $startBtn = $('#J_btnStart');
 
-function addScore (num) {
-  scroe += num;
-  domScore.innerHTML = scroe;
+$(navContainer).on('click', function() {
+  var action = $(this).data('action');
+  switch(action) {
+    case action:
+      hide();
+      document.dispatchEvent(new Event('gameStart'));
+      $('#J_start').text('重试');
+    break;
+  }
+})
+
+function showRetry () {
+  navContainer.className = 'nav';
 }
 
-exports.addScore = addScore;
+function hide() {
+  navContainer.className = 'nav nav-hide';
+}
+
+exports = {
+  showRetry: showRetry,
+	hide: hide
+};
