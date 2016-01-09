@@ -1,6 +1,9 @@
 
 var $cover;
-var sounder = require('/assets/js/module/sounder.js').init(__uri('/assets/sounds/coin.wav'), 1);
+// var sounder = require('/assets/js/module/sounder.js').init(__uri('/assets/sounds/coin.wav'), 1);
+var sHited = new Howl({
+  urls: [__uri('/assets/sounds/coin.wav')]
+});
 var hideCb = function() {};
 
 function show () {

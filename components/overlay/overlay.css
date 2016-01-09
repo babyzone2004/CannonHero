@@ -7,6 +7,7 @@
   height: 400px;
   background: rgba(0, 0, 0, .75);
   transition: top .5s ease;
+  -webkit-transition: top .5s ease;
 }
 .overlay-hide{
   top: -400px;

@@ -5,9 +5,14 @@ cannon.src = __uri('cannon.png');
 var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 
-var sounder = require('/assets/js/module/sounder.js');
-var sReload = sounder.init(__uri('reload1.wav'), 1);
-var sFire = sounder.init(__uri('fire1.wav'), 1);
+var sReload = new Howl({
+  urls: [__uri('reload1.wav')]
+});
+var sFire = new Howl({
+  urls: [__uri('fire1.wav')]
+});
+// var sReload = sounder.init(__uri('reload1.wav'), 1);
+// var sFire = sounder.init(__uri('fire1.wav'), 1);
 
 // 画笔的坐标
 var offsetX;

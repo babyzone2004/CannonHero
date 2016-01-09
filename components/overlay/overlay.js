@@ -8,6 +8,7 @@ document.body.appendChild(contain);
 function show () {
   contain.className = 'overlay';
 }
+
 function hide () {
   contain.className = 'overlay overlay-hide';
 }

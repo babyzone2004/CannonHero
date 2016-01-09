@@ -95,23 +95,27 @@ function destroy () {
 }
 
 var bullets = require('/components/bullets/bullets.js');
-var isReload = false;
-var touchStart = false;
+var isReload = true;
+// var isReload = false;
+// var touchStart = false;
 document.addEventListener('touchend', fire);
 document.addEventListener('touchcancle', fire);
 
 document.addEventListener('touchstart', function(e) {
   touchStart = true;
   if(bullets.getBullets().length === 0) {
-    if(isReload) {
-      weapon.rotateStart();
-    } else {
-      weapon.reloadBullet(function() {
-        console.log('reload end');
-        isReload = true
-        touchStart && weapon.rotateStart();
-      });
-    }
+    // 需要填单后才能发射逻辑
+    // if(isReload) {
+    //   weapon.rotateStart();
+    // } else {
+    //   weapon.reloadBullet(function() {
+    //     console.log('reload end');
+    //     isReload = true
+    //     touchStart && weapon.rotateStart();
+    //   });
+    // }
+    weapon.reloadBullet();
+    weapon.rotateStart();
   }
   e.preventDefault();
 });
@@ -121,7 +125,7 @@ function fire (e) {
     weapon.stopRoate();
     weapon.fire();
   }
-  isReload = touchStart = false;
+  // isReload = touchStart = false;
 }
 
 module.exports = {

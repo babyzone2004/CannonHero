@@ -6,8 +6,9 @@ var player = new Image();
 player.src = __uri('pea.png');
 
 var sounder = require('/assets/js/module/sounder.js');
-var sHited = sounder.init(__uri('/assets/sounds/coin.mp3'), 1);
-
+var sHited = new Howl({
+  urls: [__uri('/assets/sounds/coin.mp3')]
+});
 
 // 出场位置
 var firstY = 780;

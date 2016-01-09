@@ -10,9 +10,9 @@ function Sound(src,multi)
   this.myNumInstances = multi;
   this.myInstanceIndex = 0;
   for (var i = 0; i <= multi; i++) {
-    var instance = new Audio(src);
-    instance.load();
-    this.myInstanceArray[i] = instance;
+    var audio = new Audio(src);
+    audio.currentTime=0.1;
+    this.myInstanceArray[i] = audio;
   }
 }
 
@@ -26,6 +26,7 @@ Sound.prototype.play = function(cb)
     instance.removeEventListener('ended', endHandler);
   }
   instance.addEventListener('ended', endHandler);
+  console.log('play');
   instance.play();
 
   this.myInstanceIndex++;

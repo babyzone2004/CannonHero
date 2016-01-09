@@ -1,13 +1,14 @@
 .nav{
    position: absolute;
    width: 100%;
-   bottom: 86px;
-   display: flex;
-   justify-content: space-around;
+   top: 420px;
+   margin-right: 12px;
+   text-align: center;
    z-index: 1;
    transition: bottom .5s ease;
+   -webkit-transition: bottom .5s ease;
 }
 
 .nav-hide{
-  bottom: -100px;
+  top: -800px;
 }
