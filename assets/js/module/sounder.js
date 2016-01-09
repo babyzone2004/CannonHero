@@ -6,25 +6,32 @@
  */
 function Sound(src,multi)
 {
-  this.myInstanceArray = new Array();
-  this.myNumInstances = multi ;
+  var arr = this.myInstanceArray = new Array();
+  this.myNumInstances = multi;
   this.myInstanceIndex = 0;
-  for ( var i = 0; i < this.myNumInstances; ++i )
-  {
-    this.myInstanceArray[i] = new Audio(src);
-    this.myInstanceArray[i].load();
+  for (var i = 0; i <= multi; i++) {
+    var instance = new Audio(src);
+    instance.load();
+    this.myInstanceArray[i] = instance;
   }
 }
 
 //
-Sound.prototype.play = function()
+Sound.prototype.play = function(cb)
 {
-   this.myInstanceArray[this.myInstanceIndex].play();
-   this.myInstanceIndex++;
-   if ( this.myInstanceIndex >= this.myNumInstances)
-   {
-      this.myInstanceIndex = 0;
-   }
+  var instance = this.myInstanceArray[this.myInstanceIndex];
+  var endHandler = function() {
+    console.log('ended');
+    cb && cb();
+    instance.removeEventListener('ended', endHandler);
+  }
+  instance.addEventListener('ended', endHandler);
+  instance.play();
+
+  this.myInstanceIndex++;
+  if ( this.myInstanceIndex >= this.myNumInstances) {
+    this.myInstanceIndex = 0;
+  }
 }
 Sound.prototype.stop = function()
 {

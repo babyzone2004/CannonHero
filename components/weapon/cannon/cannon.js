@@ -6,8 +6,8 @@ var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 
 var sounder = require('/assets/js/module/sounder.js');
-var sReload = sounder.init(__uri('reload.wav'), 1);
-var sFire = sounder.init(__uri('fire.wav'), 1);
+var sReload = sounder.init(__uri('reload1.wav'), 1);
+var sFire = sounder.init(__uri('fire1.wav'), 1);
 
 // 画笔的坐标
 var offsetX;
@@ -103,14 +103,18 @@ function fire() {
   }
 }
 
+function reloadBullet(reloadSuccesCb) {
+  sReload.play(reloadSuccesCb);
+}
+
 function rotateStart () {
   isRoate = true;
-  sReload.play();
   console.log('isRoate', isRoate);
 }
+
 function stopRoate () {
   isRoate = false;
-  sReload.stop();
+  // sReload.stop();
   sFire.play();
   fire();
 }
@@ -120,5 +124,6 @@ module.exports = {
   updatePositon: updatePositon,
   fire: fire,
   rotateStart: rotateStart,
-  stopRoate: stopRoate
+  stopRoate: stopRoate,
+  reloadBullet: reloadBullet
 };

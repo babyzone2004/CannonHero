@@ -71,11 +71,16 @@ function init (stageWidth, stageHeight) {
   bottom = stageHeight - buffer;
 }
 
+function getBullets () {
+  return bullets;
+}
+
 module.exports = {
   init: init,
   paint: paint,
   update: update,
   add: add,
   addTarget: addTarget,
-  visible: true
+  visible: true,
+  getBullets: getBullets
 };

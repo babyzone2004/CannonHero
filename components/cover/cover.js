@@ -18,7 +18,7 @@ function show () {
 function registHideCb(cb) {
   hideCb = cb;
 }
-
+ 
 module.exports = {
   show: show,
   registHideCb: registHideCb

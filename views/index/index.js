@@ -6,8 +6,8 @@ var sounder = require('/assets/js/module/sounder.js');
 var resources = [
   __uri('/assets/img/enemy_weapons_2.png'),
   __uri('/assets/sounds/coin.wav'),
-  __uri('/components/weapon/cannon/reload.wav'),
-  __uri('/components/weapon/cannon/fire.wav'),
+  __uri('/components/weapon/cannon/reload1.wav'),
+  __uri('/components/weapon/cannon/fire1.wav'),
   __uri('/components/bg/smalltree.png'),
   __uri('/components/bg/tree-twotrunks.png'),
   __uri('/components/bg/grass.png'),

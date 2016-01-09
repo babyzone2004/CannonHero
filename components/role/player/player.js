@@ -95,18 +95,35 @@ function destroy () {
   document.dispatchEvent(event);
 }
 
-document.addEventListener('touchend', function(e) {
-  weapon.stopRoate();
-  weapon && weapon.fire();
-});
+var bullets = require('/components/bullets/bullets.js');
+var isReload = false;
+var touchStart = false;
+document.addEventListener('touchend', fire);
+document.addEventListener('touchcancle', fire);
+
 document.addEventListener('touchstart', function(e) {
-  weapon.rotateStart();
+  touchStart = true;
+  if(bullets.getBullets().length === 0) {
+    if(isReload) {
+      weapon.rotateStart();
+    } else {
+      weapon.reloadBullet(function() {
+        console.log('reload end');
+        isReload = true
+        touchStart && weapon.rotateStart();
+      });
+    }
+  }
   e.preventDefault();
 });
-document.addEventListener('touchcancle', function(e) {
-  weapon.stopRoate();
-  weapon && weapon.fire();
-});
+
+function fire (e) {
+  if(bullets.getBullets().length === 0 && weapon && isReload) {
+    weapon.stopRoate();
+    weapon.fire();
+  }
+  isReload = touchStart = false;
+}
 
 module.exports = {
   paint: paint,

@@ -97,7 +97,6 @@ rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
   this.x += dx;
   this.y += dy;
   this.rotate = Math.atan2(dy, dx);
-  console.log(this.rotate);
   this.shape.move(dx, dy);
   // console.log('rotate', this.rotate);
   this.shape.update(this.x, this.y, this.rotate);
