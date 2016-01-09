@@ -6,7 +6,7 @@ var player = new Image();
 player.src = __uri('pea.png');
 
 var sounder = require('/assets/js/module/sounder.js');
-var sHited = sounder.init(__uri('/assets/sounds/coin.ogg'), 1);
+var sHited = sounder.init(__uri('/assets/sounds/coin.mp3'), 1);
 
 
 // 出场位置

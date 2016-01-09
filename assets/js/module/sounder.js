@@ -72,7 +72,7 @@ function init(src,multi) {
 //     };  
 //     xhr.send();  
 // }
-// context && loadAudioFile(__uri('/assets/sounds/coin.ogg'));
+// context && loadAudioFile(__uri('/assets/sounds/coin.wav'));
 
 module.exports = {
   init: init

@@ -91,6 +91,8 @@ function equip(_weapon) {
 
 function destroy () {
   // sHited.play();
+  var event = new Event('gameOver');
+  document.dispatchEvent(event);
 }
 
 document.addEventListener('touchend', function(e) {

@@ -5,7 +5,7 @@ var sounder = require('/assets/js/module/sounder.js');
 
 var resources = [
   __uri('/assets/img/enemy_weapons_2.png'),
-  __uri('/assets/sounds/coin.ogg'),
+  __uri('/assets/sounds/coin.wav'),
   __uri('/components/weapon/cannon/reload.wav'),
   __uri('/components/weapon/cannon/fire.wav'),
   __uri('/components/bg/smalltree.png'),
@@ -66,6 +66,10 @@ function initGame() {
   bullets.addTarget(player);
   game.addSprite(particleSprite);
   score.addScore(0);
+
+  document.addEventListener('gameOver', function (e) {
+    showGameOver();
+  });
   // bg.start();
   game.start();
 }
@@ -83,4 +87,8 @@ function initFps(game) {
       lastFpsUpdateTime = now;
     }
   };
+}
+
+function showGameOver() {
+
 }
