@@ -15,7 +15,7 @@ var tree = new Image(),
     TREE_VELOCITY = 20,
     FAST_TREE_VELOCITY = 40,
     SKY_VELOCITY = 8,
-    GRASS_VELOCITY = 75;
+    GRASS_VELOCITY = 150;
 
 // Initialization................................................
 
@@ -114,15 +114,19 @@ function update (ctx, fps, canvasWidth, canvasHeight) {
 }
 
 // Event handlers................................................
-function start () {
-   paused = false;
+function start (bgVelocity) {
+  bgVelocity && (GRASS_VELOCITY = bgVelocity);
+  paused = false;
 };
 
 function stop () {
    paused = true;
 }
 function reset () {
-  
+  skyOffset = 0;
+  grassOffset = 0;
+  treeOffset = 0;
+  nearTreeOffset = 0;
 }
 
 module.exports = {

@@ -1,14 +1,17 @@
 .nav{
    position: absolute;
    width: 100%;
-   top: 420px;
+   top: 0;
    margin-right: 12px;
    text-align: center;
    z-index: 1;
-   transition: top .5s ease;
-   -webkit-transition: top .5s ease;
+   transform: translateY(420px);
+   -webkit-transform: translateY(420px);
+   transition: transform .5s ease;
+   -webkit-transition: '-webkit-transform' .5s ease;
 }
 
 .nav-hide{
-  top: 800px;
+  transform: translateY(800px);
+  -webkit-transform: translateY(800px);
 }

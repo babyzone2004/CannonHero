@@ -39,7 +39,7 @@ var explosion = particleGenerator.initExplosion({
   gravity: 0.1,
   num: 20
 });
-var explosionX = 30;
+var explosionX = 32;
 var explosionY = 5;
 
 var shapes = require('/assets/js/module/shapes.js');
@@ -82,7 +82,7 @@ function rocket (x, y, sin, cos, rotate) {
 
 rocket.prototype.collisiontRemoveCb = function () {
   // console.log('collisiontRemoveCb');
-  var explosionPoint = caculatePoint(this.x, this.y, 32, 5, this.rotate);
+  var explosionPoint = caculatePoint(this.x, this.y, explosionX, explosionY, this.rotate);
   explosion.excute(explosionPoint.x, explosionPoint.y);
 }
 rocket.prototype.missCb = function () {

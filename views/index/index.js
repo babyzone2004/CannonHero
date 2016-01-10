@@ -60,12 +60,13 @@ var game = new Game('Cannon', 'gameCanvas');
 document.addEventListener('gameOver', function (e) {
   showGameOver();
 });
-// bg.start();
+
 game.start();
 
 function initGame() {
   initFps(game);
   bg = require('/components/bg/bg.js');
+  // bg.start(); 
   player = require('/components/role/player/player.js');
   player.addEvent();
   pea = require('/components/role/enemy/pea/pea.js');
@@ -103,19 +104,26 @@ function showGameOver() {
   cNav.showRetry();
   player.removeEvent();
 }
-function restartGame() {
-  cOverlay.hide();
-  cNav.hide();
-  cScore.reset();
-  player.reset();
-  bg.reset();
-  cannon.reset();
-}
+
 document.addEventListener('gameStart', function (e) {
   cOverlay.hide();
   cNav.hide();
   initGame();
 });
 document.addEventListener('gameRestart', function (e) {
-  restartGame();
+  cOverlay.hide();
+  cNav.hide();
+  cScore.reset();
+  player.reset();
+  bg.reset();
+  cannon.reset();
+  pea.reset();
+});
+document.addEventListener('destroyEnemy', function (e) {
+  bg.start();
+  pea.create();
+  cannon.reset();
+});
+document.addEventListener('enemyReady', function (e) {
+  bg.stop();
 });

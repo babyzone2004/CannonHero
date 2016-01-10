@@ -1,6 +1,7 @@
 
 var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
+var bg = require('/components/bg/bg.js');
 
 var player = new Image();
 player.src = __uri('pea.png');
@@ -25,7 +26,9 @@ var globalAlpha = 0;
 
 // 运动的移动距离
 var moveDistantY = 0;
+var moveDistantX = 0;
 var velocityY = 15;
+var velocityX = 150;
 var lastTime;
 animationTimer.start();
 
@@ -38,7 +41,8 @@ var weapon = {
 var weaponX = 18;
 var weaponY = 0;
 
-var particleGenerator = require('assets/js/module/particleGenerator.js').initParticle({
+var particleGenerator = require('assets/js/module/particleGenerator.js');
+var particle = particleGenerator.initParticle({
   numPerFrame: 0.2,
   radius: 5,
   velocityMinX: 0,
@@ -51,10 +55,33 @@ var particleGenerator = require('assets/js/module/particleGenerator.js').initPar
 var particleX = 121;
 var particleY = 50;
 
+var explosion = particleGenerator.initExplosion({
+  radius: 10,
+  velocityMinX: -2.5,
+  velocityMaxX: 2.5,
+  velocityMinY: -2.5,
+  velocitymaxY: 2.5,
+  fillColor: "rgba(251, 88, 0, 0.85)",
+  strokeColor: "rgba(255, 255, 255, 0.9)",
+  strokeSize: 18,
+  gravity: 0.1,
+  num: 30
+});
+var explosionX = 60;
+var explosionY = 50;
+
 var shapes = require('/assets/js/module/shapes.js');
+
 var pointX = firstX + 30;
 var pointy = firstY + 30;
-var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 45}, {x: pointX + 80, y: pointy + 45}, {x: pointX + 100, y: pointy}]);
+var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 38}, {x: pointX + 80, y: pointy + 38}, {x: pointX + 100, y: pointy}]);
+
+function resetShape() {
+  pointX = firstX + moveDistantX + 30;
+  pointy = firstY + moveDistantY + 30;
+  shape.points = [{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 38}, {x: pointX + 80, y: pointy + 38}, {x: pointX + 100, y: pointy}];
+}
+
 
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
@@ -69,12 +96,19 @@ function update(context, fps, stageWidth, stageHeight) {
       moveDistantY += dy;
     }
   }
+  var dx = 0;
+  if(moveDistantX > 0) {
+    dx = -velocityX / fps
+    moveDistantX += dx;
+  } else {
+    document.dispatchEvent(new Event('enemyReady'));
+  }
   offsetY = firstY + moveDistantY;
-  offsetX = firstX;
+  offsetX = firstX + moveDistantX;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
-  particleGenerator.update(offsetX + particleX, offsetY + particleY);
-  shape.move(0, dy);
+  particle.update(offsetX + particleX, offsetY + particleY);
+  shape.move(dx, dy);
   lastTime = elapsedTime;
 }
 
@@ -86,8 +120,8 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
-  // shape.stroke(ctx);
-  // shape.fill(ctx);
+  shape.stroke(ctx);
+  shape.fill(ctx);
 }
 
 function equip(_weapon) {
@@ -104,11 +138,25 @@ function destroy (bingo) {
   } else {
     score.add(1);
   }
+  document.dispatchEvent(new Event('destroyEnemy'));
 }
 
-document.addEventListener('touchend', function() {
-  weapon && weapon.fire();
-});
+function reset() {
+  moveDistantX = 0;
+  moveDistantY = randomRange(-250, 200);
+  resetShape();
+}
+
+function create() {
+  moveDistantX = 500;
+  moveDistantY = randomRange(-250, 200);
+  resetShape();
+  explosion.excute(offsetX + explosionX, offsetY + explosionY);
+}
+
+function randomRange(min, max) {
+  return ((Math.random() * (max - min)) + min);
+}
 
 module.exports = {
   paint: paint,
@@ -116,5 +164,7 @@ module.exports = {
   visible: true,
   shape: shape,
   equip: equip,
+  create: create,
+  reset: reset,
   destroy: destroy
 };
