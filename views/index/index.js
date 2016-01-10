@@ -14,6 +14,7 @@ var resources = [
   __uri('/components/bg/grass2.png'),
   __uri('/components/role/player/player.png'),
   __uri('/components/bg/sky.png'),
+  __uri('/assets/sounds/bg.mp3'),
   __uri('/components/weapon/cannon/cannon.png')
 ];
 // 加载资源.......................................................................
@@ -29,18 +30,20 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 var cCover = require('/components/cover/cover.js');
 loader.registCompleteCb(function() {
-  cLoad.hide();
-  cBrand.show();
-  setTimeout(function(e) {
-    cBrand.hide();
-    cCover.show();
-    setTimeout(function() {
-      cCover.hide();
-      cOverlay.show();
-      cNav.show();
-    }, 2000);
-    // cCover.registHideCb(initGame);
-  }, 3000);
+  // cLoad.hide();
+  // cBrand.show();
+  // setTimeout(function(e) {
+  //   cBrand.hide();
+  //   cCover.show();
+  //   setTimeout(function() {
+  //     cCover.hide();
+  //     cOverlay.show();
+  //     cNav.show();
+  //   }, 2000);
+  //   // cCover.registHideCb(initGame);
+  // }, 3000);
+  cOverlay.show();
+  cNav.show();
 });
 
 // Init Game.......................................................................
@@ -66,11 +69,8 @@ document.addEventListener('gameOver', function (e) {
 });
 
 game.start();
-var bgMusic = new Howl({
-  urls: [__uri('/assets/sounds/bg.mp3')],
-  loop: true,
-  volume: 0.5
-});
+
+var bgMusic;
 function initGame() {
   initFps(game);
   bg = require('/components/bg/bg.js');
@@ -87,7 +87,14 @@ function initGame() {
   bullets.addTarget(pea);
   bullets.addTarget(player);
   game.addSprite(particleSprite);
-  bgMusic.play();
+  bgMusic = new Howl({
+    urls: [
+      __uri('/assets/sounds/bg.wav'),
+      __uri('/assets/sounds/bg.mp3')
+    ],
+    buffer: true,
+    autoplay: true
+  });
   cScore.reset();
 }
 
@@ -111,6 +118,7 @@ function showGameOver() {
   cOverlay.show();
   cNav.show();
   player.removeEvent();
+  bgMusic.fade(1, 0, 500);
 }
 
 document.addEventListener('gameStart', function (e) {
@@ -126,6 +134,9 @@ document.addEventListener('gameRestart', function (e) {
   bg.reset();
   cannon.reset();
   pea.reset();
+  bgMusic.stop();
+  bgMusic.play();
+  bgMusic.fade(0, 1, 500);
 });
 document.addEventListener('destroyEnemy', function (e) {
   bg.start();
