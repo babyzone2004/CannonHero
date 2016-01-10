@@ -4,8 +4,6 @@
 */
 
 .brand{
-  position: absolute;
-  z-index: 1003;
   background: #fff;
   width: 100%;
   height: 100%;

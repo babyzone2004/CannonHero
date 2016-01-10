@@ -66,7 +66,11 @@ document.addEventListener('gameOver', function (e) {
 });
 
 game.start();
-
+var bgMusic = new Howl({
+  urls: [__uri('/assets/sounds/bg.mp3')],
+  loop: true,
+  volume: 0.5
+});
 function initGame() {
   initFps(game);
   bg = require('/components/bg/bg.js');
@@ -83,6 +87,7 @@ function initGame() {
   bullets.addTarget(pea);
   bullets.addTarget(player);
   game.addSprite(particleSprite);
+  bgMusic.play();
   cScore.reset();
 }
 

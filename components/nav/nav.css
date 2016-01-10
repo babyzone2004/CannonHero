@@ -5,13 +5,13 @@
    margin-right: 12px;
    text-align: center;
    z-index: 1;
-   transform: translateY(420px);
    -webkit-transform: translateY(420px);
+   transform: translateY(420px);
+   -webkit-transition: -webkit-transform .5s ease;
    transition: transform .5s ease;
-   -webkit-transition: '-webkit-transform' .5s ease;
 }
 
 .nav-hide{
-  transform: translateY(800px);
-  -webkit-transform: translateY(800px);
+  -webkit-transform: translateY(640px);
+  transform: translateY(640px);
 }

@@ -6,12 +6,12 @@
   top: 0;
   height: 400px;
   background: rgba(0, 0, 0, .75);
-  transform: translateY(0px);
   -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+  -webkit-transition: -webkit-transform .5s ease;
   transition: transform .5s ease;
-  -webkit-transition: '-webkit-transform' .5s ease;
 }
 .overlay-hide{
-  transform: translateY(-400px);
   -webkit-transform: translateY(-400px);
+  transform: translateY(-400px);
 }
