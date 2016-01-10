@@ -2,19 +2,24 @@
 var domScore = document.createElement('div');
 domScore.className = 'score';
 document.body.appendChild(domScore);
-var scroe = 0;
+var score = 0;
 
 function add (num) {
-  scroe += num;
-  domScore.innerHTML = scroe;
+  score += num;
+  domScore.innerHTML = score;
 }
 
 function reset () {
-  scroe = 0;
-  domScore.innerHTML = scroe;
+  score = 0;
+  domScore.innerHTML = score;
+}
+
+function getScore() {
+  return score;
 }
 
 module.exports = {
   add: add,
-  reset: reset
+  reset: reset,
+  getScore: getScore
 };

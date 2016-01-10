@@ -113,12 +113,14 @@ function initFps(game) {
   };
 }
 
+var cResultScore = require('/components/layout/result/result.js');
 function showGameOver() {
   console.log('gameOver');
   cOverlay.show();
   cNav.show();
   player.removeEvent();
   bgMusic.fade(1, 0, 500);
+  cResultScore.show(cScore.getScore());
 }
 
 document.addEventListener('gameStart', function (e) {
@@ -126,6 +128,7 @@ document.addEventListener('gameStart', function (e) {
   cNav.hide();
   initGame();
 });
+
 document.addEventListener('gameRestart', function (e) {
   cOverlay.hide();
   cNav.hide();
@@ -134,15 +137,18 @@ document.addEventListener('gameRestart', function (e) {
   bg.reset();
   cannon.reset();
   pea.reset();
+  cResultScore.hide();
   bgMusic.stop();
   bgMusic.play();
   bgMusic.fade(0, 1, 500);
 });
+
 document.addEventListener('destroyEnemy', function (e) {
   bg.start();
   pea.create();
   cannon.reset();
 });
+
 document.addEventListener('enemyReady', function (e) {
   bg.stop();
 });
