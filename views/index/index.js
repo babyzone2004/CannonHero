@@ -30,13 +30,17 @@ var cBrand = require('/components/brand/brand.js');
 var cCover = require('/components/cover/cover.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
-  // cBrand.show();
-  // setTimeout(function(e) {
-  //   cBrand.hide();
-  //   cCover.show();
-  //   cCover.registHideCb(initGame);
-  // }, 3000);
-  
+  cBrand.show();
+  setTimeout(function(e) {
+    cBrand.hide();
+    cCover.show();
+    setTimeout(function() {
+      cCover.hide();
+      cOverlay.show();
+      cNav.show();
+    }, 2000);
+    // cCover.registHideCb(initGame);
+  }, 3000);
 });
 
 // Init Game.......................................................................
@@ -66,7 +70,6 @@ game.start();
 function initGame() {
   initFps(game);
   bg = require('/components/bg/bg.js');
-  // bg.start(); 
   player = require('/components/role/player/player.js');
   player.addEvent();
   pea = require('/components/role/enemy/pea/pea.js');
@@ -101,7 +104,7 @@ function initFps(game) {
 function showGameOver() {
   console.log('gameOver');
   cOverlay.show();
-  cNav.showRetry();
+  cNav.show();
   player.removeEvent();
 }
 

@@ -1,7 +1,7 @@
 /*游戏菜单*/
 var nav = __inline('nav.tpl');
 var navContainer = document.createElement('div');
-navContainer.className = 'nav';
+navContainer.className = 'nav nav-hide';
 navContainer.innerHTML = nav;
 document.body.appendChild(navContainer);
 var $startBtn = $('#J_start');
@@ -19,7 +19,7 @@ $(navContainer).on('click','button', function() {
   }
 })
 
-function showRetry () {
+function show () {
   navContainer.className = 'nav';
 }
 
@@ -28,6 +28,6 @@ function hide() {
 }
 
 module.exports = {
-  showRetry: showRetry,
+  show: show,
 	hide: hide
 };

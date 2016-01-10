@@ -1,7 +1,7 @@
 /*游戏菜单*/
 var overlay = __inline('overlay.tpl');
 var contain = document.createElement('div');
-contain.className = 'overlay';
+contain.className = 'overlay overlay-hide';
 contain.innerHTML = overlay;
 document.body.appendChild(contain);
 

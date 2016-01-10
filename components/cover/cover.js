@@ -8,21 +8,28 @@ var hideCb = function() {};
 
 function show () {
   $cover = $('<div class="cover"></div>');
-  $btn = $('<button class="cover-start">开始游戏</button>');
+  $btn = $('<h1 class="cover-title">愤怒的僵尸</h1>');
   $cover.append($btn);
   $('body').prepend($cover);
   $btn.on('touchend', function(e) {
     sounder.play();
-    $cover.remove();
-    hideCb();
+    hide();
   });
 }
 
 function registHideCb(cb) {
   hideCb = cb;
 }
+function hide() {
+  $cover.addClass('cover-hide');
+  $cover.on('animationend webkitAnimationEnd', function(e) {
+    $cover.remove();
+    hideCb();
+  });
+}
  
 module.exports = {
   show: show,
+  hide: hide,
   registHideCb: registHideCb
 }

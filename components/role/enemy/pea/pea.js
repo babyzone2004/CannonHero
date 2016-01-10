@@ -120,8 +120,8 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
-  shape.stroke(ctx);
-  shape.fill(ctx);
+  // shape.stroke(ctx);
+  // shape.fill(ctx);
 }
 
 function equip(_weapon) {
