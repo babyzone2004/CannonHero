@@ -14,7 +14,6 @@ var resources = [
   __uri('/components/bg/grass2.png'),
   __uri('/components/role/player/player.png'),
   __uri('/components/bg/sky.png'),
-  __uri('/assets/sounds/bg.mp3'),
   __uri('/components/weapon/cannon/cannon.png')
 ];
 // 加载资源.......................................................................
@@ -30,20 +29,20 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 var cCover = require('/components/cover/cover.js');
 loader.registCompleteCb(function() {
-  // cLoad.hide();
-  // cBrand.show();
-  // setTimeout(function(e) {
-  //   cBrand.hide();
-  //   cCover.show();
-  //   setTimeout(function() {
-  //     cCover.hide();
-  //     cOverlay.show();
-  //     cNav.show();
-  //   }, 2000);
-  //   // cCover.registHideCb(initGame);
-  // }, 3000);
-  cOverlay.show();
-  cNav.show();
+  cLoad.hide();
+  cBrand.show();
+  setTimeout(function(e) {
+    cBrand.hide();
+    cCover.show();
+    setTimeout(function() {
+      cCover.hide();
+      cOverlay.show();
+      cNav.show();
+    }, 2000);
+    // cCover.registHideCb(initGame);
+  }, 3000);
+  // cOverlay.show();
+  // cNav.show();
 });
 
 // Init Game.......................................................................
