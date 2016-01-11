@@ -35,8 +35,8 @@
   background: #29d;
 }
 .load-txt{
-  margin: 3px 0 3px;
-  line-height: 1;
+  margin: 3px 0 0;
+  line-height: 1.2;
   color: #599100;
   font-size: 13px;
 }
