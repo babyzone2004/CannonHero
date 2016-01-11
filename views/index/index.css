@@ -8,7 +8,6 @@ html,body{
   user-select: none;
   overflow: hidden;
   font-family: "Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
-  text-shadow: 0 1px 0 rgba(255,255,255,.8);
   color: #434343;
   line-height: 1.5;
 }

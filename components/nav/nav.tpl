@@ -1,6 +1,6 @@
-
-<button>个人</button>
-<button>排行</button>
-<button id="J_start" data-action="start">开始</button>
-<button>背景</button>
-<button>关于</button>
+<button><i class="iconfont">&#xe608;</i></button>
+<button><i class="iconfont">&#xe633;</i></button>
+<button id="J_start" data-action="start"><i class="iconfont">&#xe6dd;</i></button>
+<button class="hide"><i class="iconfont">&#xe690;</i></button>
+<button><i class="iconfont">&#xe78e;</i></button>
+<button><i class="iconfont">&#xe698;</i></button>
