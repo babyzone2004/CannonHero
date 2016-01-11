@@ -10,9 +10,9 @@ function init(container) {
 
 init.prototype.showLoading = function(progress) {
   this.container.classList.remove('hide');
-  progress = progress + '%';
-  this.loadTxt.innerHTML = progress;
-  this.loadProgress.style.width = progress;
+  this.loadTxt.innerHTML = progress + '%';
+  var scale = progress / 100;
+  this.loadProgress.style.cssText = '-webkit-transform: scale(' + scale + ', 1);transform: translateY(' + scale + ', 1);';
 }
 
 init.prototype.hide = function() {

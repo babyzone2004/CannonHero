@@ -16,8 +16,10 @@
 }
 
 .brand-hide{
-  animation: fadeOut .2s ease forwards;
-  -webkit-animation: fadeOut .2s ease forwards;
+  position: absolute;
+  z-index: 0;
+  animation: fadeOut .5s ease forwards;
+  -webkit-animation: fadeOut .5s ease forwards;
 }
 
 .logo{

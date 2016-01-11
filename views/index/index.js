@@ -27,20 +27,15 @@ loader.registLoadingCb(function(progress) {
 });
 
 var cBrand = require('/components/brand/brand.js');
-var cCover = require('/components/cover/cover.js');
 loader.registCompleteCb(function() {
-  cLoad.hide();
-  cBrand.show();
-  setTimeout(function(e) {
-    cBrand.hide();
-    cCover.show();
-    setTimeout(function() {
-      cCover.hide();
-      cOverlay.show();
-      cNav.show();
-    }, 2000);
-    // cCover.registHideCb(initGame);
-  }, 3000);
+  // cLoad.hide();
+  // cBrand.show();
+  // setTimeout(function(e) {
+  //   cNav.show();
+  //   cOverlay.show();
+  //   cBrand.hide(initGameContext);
+  //   // cCover.registHideCb(initGame);
+  // }, 3000);
   // cOverlay.show();
   // cNav.show();
 });
@@ -70,14 +65,12 @@ document.addEventListener('gameOver', function (e) {
 game.start();
 
 var bgMusic;
-function initGame() {
+function initGameContext() {
   initFps(game);
   bg = require('/components/bg/bg.js');
   player = require('/components/role/player/player.js');
-  player.addEvent();
   pea = require('/components/role/enemy/pea/pea.js');
   cannon = require('/components/weapon/cannon/cannon.js');
-  
   player.equip(cannon);
   game.addSprite(bg);
   game.addSprite(player);
@@ -86,6 +79,11 @@ function initGame() {
   bullets.addTarget(pea);
   bullets.addTarget(player);
   game.addSprite(particleSprite);
+  cScore.reset();
+  
+}
+function initGame() {
+  player.addEvent();
   bgMusic = new Howl({
     urls: [
       __uri('/assets/sounds/bg.wav'),
@@ -94,7 +92,7 @@ function initGame() {
     buffer: true,
     autoplay: true
   });
-  cScore.reset();
+  
 }
 
 
