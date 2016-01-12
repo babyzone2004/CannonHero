@@ -5,13 +5,15 @@ navContainer.className = 'nav nav-hide';
 navContainer.innerHTML = nav;
 document.body.appendChild(navContainer);
 var $startBtn = $('#J_start');
+var $reStartBtn = $('#J_reStart');
 
 $(navContainer).on('click','button', function() {
   var action = $(this).data('action');
   switch(action) {
     case 'start':
       document.dispatchEvent(new Event('gameStart'));
-      $startBtn.text('重试').data('action', 'restart');
+      $startBtn.remove();
+      $reStartBtn.show();
     break;
     case 'restart':
       document.dispatchEvent(new Event('gameRestart'));
