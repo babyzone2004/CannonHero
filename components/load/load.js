@@ -12,7 +12,7 @@ init.prototype.showLoading = function(progress) {
   this.container.classList.remove('hide');
   this.loadTxt.innerHTML = progress + '%';
   var scale = progress / 100;
-  this.loadProgress.style.cssText = '-webkit-transform: scale(' + scale + ', 1);transform: scale(' + scale + ', 1);';
+  this.loadProgress.style.cssText = '-webkit-transform: scale(' + 0.5 + ', 1);transform: scale(' + 0.5 + ', 1);';
 }
 
 init.prototype.hide = function(cb) {
