@@ -29,7 +29,7 @@ var Game = function (gameName, canvasId) {
 
    this.paused = false;
    // 暂停游戏后的更新频率
-   this.PAUSE_TIMEOUT = 100;
+   this.PAUSE_TIMEOUT = 250;
 
    return this;
 };
