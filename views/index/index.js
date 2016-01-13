@@ -4,15 +4,17 @@ var cNav = require('/components/nav/nav.js');
 var cOverlay = require('/components/overlay/overlay.js');
 
 var resources = [
-  __uri('/assets/img/enemy_weapons_2.png'),
   __uri('/assets/sounds/coin.wav'),
   __uri('/components/weapon/cannon/reload1.wav'),
   __uri('/components/weapon/cannon/fire1.wav'),
+
+  __uri('/assets/img/enemy_weapons_2.png'),
   __uri('/components/bg/smalltree.png'),
   __uri('/components/bg/tree-twotrunks.png'),
   __uri('/components/bg/grass.png'),
   __uri('/components/bg/grass2.png'),
   __uri('/components/role/player/player.png'),
+  __uri('/components/role/enemy/pea/pea.png'),
   __uri('/components/bg/sky.png'),
   __uri('/components/weapon/cannon/cannon.png')
 ];
@@ -28,14 +30,14 @@ loader.registLoadingCb(function(progress) {
 
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
-  // cLoad.hide();
-  // cBrand.show();
+  cLoad.hide();
+  cBrand.show();
   setTimeout(function(e) {
-    // cNav.show();
-    // cOverlay.show();
-    // initGameContext();
-    // cBrand.hide();
-    // // cCover.registHideCb(initGame);
+    cNav.show();
+    cOverlay.show();
+    initGameContext();
+    cBrand.hide();
+    // cCover.registHideCb(initGame);
   }, 3000);
   // cOverlay.show();
   // cNav.show();
@@ -63,8 +65,6 @@ document.addEventListener('gameOver', function (e) {
   showGameOver();
 });
 
-game.start();
-
 var bgMusic;
 function initGameContext() {
   initFps(game);
@@ -81,7 +81,10 @@ function initGameContext() {
   bullets.addTarget(player);
   game.addSprite(particleSprite);
   cScore.reset();
-  
+  game.start();
+  setTimeout(function() {
+    game.togglePaused();
+  }, 0);
 }
 function initGame() {
   player.addEvent();
@@ -119,9 +122,11 @@ function showGameOver() {
   player.removeEvent();
   bgMusic.fade(1, 0, 500);
   cResultScore.show(cScore.getScore());
+  game.togglePaused();
 }
 
 document.addEventListener('gameStart', function (e) {
+  game.togglePaused();
   cOverlay.hide();
   cNav.hide();
   initGame();
@@ -139,6 +144,7 @@ document.addEventListener('gameRestart', function (e) {
   bgMusic.stop();
   bgMusic.play();
   bgMusic.fade(0, 1, 500);
+  game.togglePaused();
 });
 
 document.addEventListener('destroyEnemy', function (e) {

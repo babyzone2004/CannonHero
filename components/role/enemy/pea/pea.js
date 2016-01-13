@@ -1,14 +1,13 @@
 
 var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
-var bg = require('/components/bg/bg.js');
 
 var player = new Image();
 player.src = __uri('pea.png');
 
 var sounder = require('/assets/js/module/sounder.js');
 var sHited = new Howl({
-  urls: [__uri('/assets/sounds/coin.mp3')]
+  urls: [__uri('/assets/sounds/coin.wav')]
 });
 
 // 出场位置
