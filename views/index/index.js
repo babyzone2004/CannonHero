@@ -4,9 +4,9 @@ var cNav = require('/components/nav/nav.js');
 var cOverlay = require('/components/overlay/overlay.js');
 
 var resources = [
-  __uri('/assets/sounds/coin.wav'),
-  __uri('/components/weapon/cannon/reload1.wav'),
-  __uri('/components/weapon/cannon/fire1.wav'),
+  __uri('/assets/sounds/coin.mp3'),
+  __uri('/components/weapon/cannon/reload.mp3'),
+  __uri('/components/weapon/cannon/fire.mp3'),
 
   __uri('/assets/img/enemy_weapons_2.png'),
   __uri('/components/bg/smalltree.png'),
