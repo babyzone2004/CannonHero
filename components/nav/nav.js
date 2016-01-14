@@ -7,6 +7,8 @@ document.body.appendChild(navContainer);
 var $startBtn = $('#J_start');
 var $reStartBtn = $('#J_reStart');
 
+var cUser = require('/components/layout/user/user.js');
+
 $(navContainer).on('click','button', function() {
   var action = $(this).data('action');
   switch(action) {
@@ -17,6 +19,9 @@ $(navContainer).on('click','button', function() {
     break;
     case 'restart':
       document.dispatchEvent(new Event('gameRestart'));
+    break;
+    case 'user':
+      cUser.show();
     break;
   }
 })

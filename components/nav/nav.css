@@ -1,19 +1,7 @@
 
-
-@font-face {font-family: "iconfont";
-  src: url('./icon/iconfont.woff') format('woff'), /* chrome, firefox */
-  url('./icon/iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('./icon/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
-}
-
-.icon-zhongxinkaishi:before { content: "\e690"; }
-.icon-guanyu:before { content: "\e698"; }
-.icon-shengyin:before { content: "\e67f"; }
-.icon-iconfontbofanganniu:before { content: "\e65c"; }
-.icon-geren:before { content: "\e7b6"; }
-.icon-music:before { content: "\e651"; }
-.icon-paixing:before { content: "\e954"; }
-.icon-yinletingzhi24px:before { content: "\e6ef"; }
+/*
+ * @require /assets/css/iconfont.css
+*/
 
 .iconfont {
   font-family:"iconfont" !important;
