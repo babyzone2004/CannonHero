@@ -31,16 +31,16 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
-  // cBrand.show();
-  // setTimeout(function(e) {
-  //   cNav.show();
-  //   cOverlay.show();
-  //   initGameContext();
-  //   cBrand.hide();
-  //   // cCover.registHideCb(initGame);
-  // }, 3000);
-  cOverlay.show();
-  cNav.show();
+  cBrand.show();
+  setTimeout(function(e) {
+    cNav.show();
+    cOverlay.show();
+    initGameContext();
+    cBrand.hide();
+    // cCover.registHideCb(initGame);
+  }, 3000);
+  // cOverlay.show();
+  // cNav.show();
 });
 
 // Init Game.......................................................................

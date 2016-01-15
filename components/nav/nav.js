@@ -6,6 +6,11 @@ navContainer.innerHTML = nav;
 document.body.appendChild(navContainer);
 var $startBtn = $('#J_start');
 var $reStartBtn = $('#J_reStart');
+var $toggleMusic = $('#J_toggleMusic');
+
+var musicStatus = 'on';
+var onMusic = '<i class="iconfont nav-music">&#xe651;</i>';
+var offMusic = '<i class="iconfont nav-music">&#xe6ef;</i>;'
 
 var cUser = require('/components/layout/user/user.js');
 var cRank = require('/components/layout/rank/rank.js');
@@ -30,6 +35,18 @@ $(navContainer).on('click','button', function() {
     break;
     case 'about':
       cAbout.show();
+    break;
+    case 'music':
+      if(musicStatus === 'on') {
+        $toggleMusic.html(offMusic);
+        musicStatus = 'off';
+        Howler.mute();
+      } else {
+        $toggleMusic.html(onMusic);
+        musicStatus = 'on';
+        Howler.unmute();
+      }
+      
     break;
   }
 })
