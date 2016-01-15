@@ -14,11 +14,15 @@ function hide () {
 function render(tpl) {
   var $modal = $(modal).append(tpl);
   $body.append($modal);
-  return {
+  var modalInstant = {
     $modal: $modal,
     show: show,
     hide: hide
-  }
+  };
+  $modal.find('.J_close').on('click', function() {
+    modalInstant.hide();
+  });
+  return modalInstant;
 }
 
 module.exports = {

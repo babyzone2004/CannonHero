@@ -8,6 +8,8 @@ var $startBtn = $('#J_start');
 var $reStartBtn = $('#J_reStart');
 
 var cUser = require('/components/layout/user/user.js');
+var cRank = require('/components/layout/rank/rank.js');
+var cAbout = require('/components/layout/about/about.js');
 
 $(navContainer).on('click','button', function() {
   var action = $(this).data('action');
@@ -22,6 +24,12 @@ $(navContainer).on('click','button', function() {
     break;
     case 'user':
       cUser.show();
+    break;
+    case 'rank':
+      cRank.show();
+    break;
+    case 'about':
+      cAbout.show();
     break;
   }
 })

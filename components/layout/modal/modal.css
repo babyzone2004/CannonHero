@@ -29,6 +29,7 @@
 .modal-close:active{
   background: none;
   border: none;
+  outline: none;
 }
 .modal-close-cirle{
   display: inline-block;
@@ -37,7 +38,7 @@
   padding: 5px;
 }
 .modal-close .iconfont{
-  color: #FFFFFF;
+  color: rgba(255, 255, 255, 0.80);
   font-size: 17px;
 }
 .modal-hide{
