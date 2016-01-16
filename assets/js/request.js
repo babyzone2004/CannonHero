@@ -6,11 +6,11 @@
  * @param {Function} errorCallBack 失败回调
  * @param {Dom} load 是否设置load图标
  */
-var cLoad = require('/components/loading/loading.js');
-var _load = cLoad('#J_load');
+var loading = require('/components/loading/loading.js');
+
 var failOpts = [];
 var getJSON = function(opt) {
-  var load = opt.load || _load;
+  var load = opt.load || loading;
   var url = opt.url;
   var type = opt.type;
   var data = opt.data;

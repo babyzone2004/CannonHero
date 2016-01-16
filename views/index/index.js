@@ -126,6 +126,7 @@ function initFps(game) {
 var cResultScore = require('/components/layout/result/result.js');
 
 var request = require('/assets/js/request.js');
+var loading = require('/components/loading/loading.js');
 
 function showGameOver() {
   console.log('gameOver');
@@ -135,12 +136,14 @@ function showGameOver() {
   bgMusic.fade(1, 0, 500);
   var scrore = cScore.getScore();
   cResultScore.show(scrore);
+  loading.set('存档…', '存档失败！', 'bottom');
   request({
     url: 'http://zz-game.com/score',
     type: 'POST',
     data: {
       score: scrore
     },
+    load: loading,
     success: function(msg) {
       console.log('record success', msg);
     }
