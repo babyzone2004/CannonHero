@@ -9,25 +9,8 @@
         <th>单次击杀</th>
       </tr>
     </thead> 
-    <tr>
-      <td>1</td>
-      <td>战神007</td>
-      <td>123</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>战神007</td>
-      <td>123</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>战神007</td>
-      <td>123</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>战神007</td>
-      <td>123</td>
-    </tr>
+    <tbody>
+      
+    </tbody>
   </table>
 </div>

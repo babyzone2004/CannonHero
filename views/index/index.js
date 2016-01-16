@@ -1,7 +1,12 @@
+window.lang = 'zh';
 
 var sounder = require('/assets/js/module/sounder.js');
 var cNav = require('/components/nav/nav.js');
 var cOverlay = require('/components/overlay/overlay.js');
+
+// 登录
+var login = require('/assets/js/login.js');
+login.check();
 
 var resources = [
   __uri('/assets/sounds/coin.mp3'),
@@ -31,16 +36,18 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
-  cBrand.show();
-  setTimeout(function(e) {
-    cNav.show();
-    cOverlay.show();
-    initGameContext();
-    cBrand.hide();
-    // cCover.registHideCb(initGame);
-  }, 3000);
-  // cOverlay.show();
-  // cNav.show();
+  // cBrand.show();
+  // setTimeout(function(e) {
+  //   cNav.show();
+  //   cOverlay.show();
+  //   initGameContext();
+  //   cBrand.hide();
+  //   // cCover.registHideCb(initGame);
+  // }, 3000);
+
+  cOverlay.show();
+  cNav.show();
+  initGameContext();
 });
 
 // Init Game.......................................................................
@@ -61,11 +68,12 @@ var PLATFORM_HEIGHT_IN_METERS = 50; // 50 meters
 window.pixelsPerMeter = 1200 / PLATFORM_HEIGHT_IN_METERS;
 
 var game = new Game('Cannon', 'gameCanvas');
-document.addEventListener('gameOver', function (e) {
+document.addEventListener('gameOver', function(e) {
   showGameOver();
 });
 
 var bgMusic;
+
 function initGameContext() {
   initFps(game);
   bg = require('/components/bg/bg.js');
@@ -86,6 +94,7 @@ function initGameContext() {
     game.togglePaused();
   }, 0);
 }
+
 function initGame() {
   player.addEvent();
   bgMusic = new Howl({
@@ -96,7 +105,7 @@ function initGame() {
     buffer: true,
     autoplay: true
   });
-  
+
 }
 
 
@@ -104,10 +113,10 @@ function initGame() {
 function initFps(game) {
   var lastFpsUpdateTime = 0;
   var cFps = require('/components/fps/fps.js');
-  game.paintUnderSprites = function () {
+  game.paintUnderSprites = function() {
     var now = +new Date();
     // console.log('fps', game.fps);
-    if(now - lastFpsUpdateTime > 1000) {
+    if (now - lastFpsUpdateTime > 1000) {
       cFps.update(game.fps);
       lastFpsUpdateTime = now;
     }
@@ -115,24 +124,38 @@ function initFps(game) {
 }
 
 var cResultScore = require('/components/layout/result/result.js');
+
+var request = require('/assets/js/request.js');
+
 function showGameOver() {
   console.log('gameOver');
   cOverlay.show();
   cNav.show();
   player.removeEvent();
   bgMusic.fade(1, 0, 500);
-  cResultScore.show(cScore.getScore());
+  var scrore = cScore.getScore();
+  cResultScore.show(scrore);
+  request({
+    url: 'http://zz-game.com/score',
+    type: 'POST',
+    data: {
+      score: scrore
+    },
+    success: function(msg) {
+      console.log('record success', msg);
+    }
+  });
   game.togglePaused();
 }
 
-document.addEventListener('gameStart', function (e) {
+document.addEventListener('gameStart', function(e) {
   game.togglePaused();
   cOverlay.hide();
   cNav.hide();
   initGame();
 });
 
-document.addEventListener('gameRestart', function (e) {
+document.addEventListener('gameRestart', function(e) {
   cOverlay.hide();
   cNav.hide();
   cScore.reset();
@@ -146,13 +169,13 @@ document.addEventListener('gameRestart', function (e) {
   bgMusic.fade(0, 1, 500);
   game.togglePaused();
 });
-
-document.addEventListener('destroyEnemy', function (e) {
+// 敌人被击毁
+document.addEventListener('destroyEnemy', function(e) {
   bg.start();
   pea.create();
   cannon.reset();
 });
-
-document.addEventListener('enemyReady', function (e) {
+// 新敌人出现
+document.addEventListener('enemyReady', function(e) {
   bg.stop();
 });

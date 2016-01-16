@@ -3,11 +3,14 @@ var modal = __inline('modal.tpl');
 var $body = $('body');
 
 
-function show () {
-  this.$modal.removeClass('modal-hide');
+function show() {
+  if (this.beforShow()) {
+    this.$modal.removeClass('modal-hide');
+    this.showCb();
+  }
 }
 
-function hide () {
+function hide() {
   this.$modal.addClass('modal-hide');
 }
 
@@ -17,7 +20,11 @@ function render(tpl) {
   var modalInstant = {
     $modal: $modal,
     show: show,
-    hide: hide
+    hide: hide,
+    beforShow: function() {
+      return true;
+    },
+    showCb: function() {}
   };
   $modal.find('.J_close').on('click', function() {
     modalInstant.hide();
