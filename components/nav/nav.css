@@ -13,7 +13,7 @@
   top: 0;
   margin-right: 12px;
   text-align: center;
-  z-index: 1;
+  z-index: 1002;
   -webkit-transform: translateY(415px);
   transform: translateY(415px);
   -webkit-transition: -webkit-transform .5s ease;

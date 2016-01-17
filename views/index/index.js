@@ -13,8 +13,6 @@ var resources = [
   __uri('/components/weapon/cannon/reload.mp3'),
   __uri('/components/weapon/cannon/fire.mp3'),
 
-  __uri('/assets/img/enemy_weapons_2.png'),
-
   __uri('/components/bg/img/clound.png'),
   __uri('/components/bg/img/clound-l.png'),
   __uri('/components/bg/img/house.png'),
