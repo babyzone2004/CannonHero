@@ -15,10 +15,6 @@ var resources = [
 
   __uri('/assets/img/enemy_weapons_2.png'),
 
-  __uri('/components/bg/smalltree.png'),
-  __uri('/components/bg/tree-twotrunks.png'),
-  __uri('/components/bg/grass.png'),
-  __uri('/components/bg/grass2.png'),
   __uri('/components/bg/img/clound.png'),
   __uri('/components/bg/img/clound-l.png'),
   __uri('/components/bg/img/house.png'),

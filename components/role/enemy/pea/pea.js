@@ -15,12 +15,11 @@ var firstX = 800;
 var offsetX;
 var offsetY;
 // 源尺寸
-var sWidth = 140;
-var sHeight = 98;
+var sWidth = player.width;
+var sHeight = player.height;
 // 目标尺寸
 var dWidth = 140;
 var dHeight = 98;
-var globalAlpha = 0;
 
 // 运动的移动距离
 var moveDistantY = 0;
@@ -40,18 +39,42 @@ var weaponX = 18;
 var weaponY = 0;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js');
-var particle = particleGenerator.initParticle({
-  numPerFrame: 0.2,
+var particleOpt = {
+  numPerFrame: 0.03,
   radius: 5,
+  strokeSize: 1,
   velocityMinX: 0,
-  velocityMaxX: 1.5,
-  velocityMinY: -0.05,
-  velocitymaxY: 0.05,
-  fillColor: "rgba(255, 255, 255, 0.8)",
-  strokeColor: "rgba(251, 88, 0, 0.15)"
-});
-var particleX = 121;
-var particleY = 50;
+  velocityMaxX: 0,
+  velocityMinY: 0,
+  velocitymaxY: 3,
+  fillColor: "#31d7e8",
+  strokeColor: "rgba(19, 31, 29, 0.75)"
+};
+
+var particle2Opt = clone(particleOpt);
+particle2Opt.numPerFrame = 0.01;
+var particle2 = particleGenerator.initParticle(particle2Opt);
+var particle2X = 14;
+var particle2Y = 225;
+
+var particle1Opt = clone(particleOpt);
+particle1Opt.numPerFrame = 0.02;
+var particle1 = particleGenerator.initParticle(particle1Opt);
+var particle1X = 31;
+var particle1Y = 230;
+
+
+var particle = particleGenerator.initParticle(particleOpt);
+var particleX = 57;
+var particleY = 237;
+
+var particle3 = particleGenerator.initParticle(particle2Opt);
+var particle3X = 93;
+var particle3Y = 232;
+
+var particle4 = particleGenerator.initParticle(particle1Opt);
+var particle4X = 112;
+var particle4Y = 224;
 
 var explosion = particleGenerator.initExplosion({
   radius: 10,
@@ -69,39 +92,41 @@ var explosionX = 60;
 var explosionY = 50;
 
 var shapes = require('/assets/js/module/shapes.js');
+var shape = shapes.initPolygon(getPoints(firstX + 30, firstY + 30));
 
-var pointX = firstX + 30;
-var pointy = firstY + 30;
-var shape = shapes.initPolygon([{
-  x: pointX,
-  y: pointy
-}, {
-  x: pointX - 15,
-  y: pointy + 38
-}, {
-  x: pointX + 80,
-  y: pointy + 38
-}, {
-  x: pointX + 100,
-  y: pointy
-}]);
+function getPoints(x, y) {
+  return [{
+    x: x,
+    y: y
+  }, {
+    x: x - 18,
+    y: y + 68
+  }, {
+    x: x + 10,
+    y: y + 98
+  }, {
+    x: x - 15,
+    y: y + 188
+  }, {
+    x: x + 10,
+    y: y + 198
+  }, {
+    x: x + 75,
+    y: y + 198
+  }, {
+    x: x + 100,
+    y: y - 30
+  }];
+}
+
+function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
 
 function resetShape() {
   pointX = firstX + moveDistantX + 30;
   pointy = firstY + moveDistantY + 30;
-  shape.points = [{
-    x: pointX,
-    y: pointy
-  }, {
-    x: pointX - 15,
-    y: pointy + 38
-  }, {
-    x: pointX + 80,
-    y: pointy + 38
-  }, {
-    x: pointX + 100,
-    y: pointy
-  }];
+  shape.points = getPoints(pointX, pointy);
 }
 
 
@@ -125,11 +150,16 @@ function update(context, fps, stageWidth, stageHeight) {
   } else {
     document.dispatchEvent(new Event('enemyReady'));
   }
+  // offsetY = firstY;
   offsetY = firstY + moveDistantY;
   offsetX = firstX + moveDistantX;
   // console.log('offsetY', offsetY);
   weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
   particle.update(offsetX + particleX, offsetY + particleY);
+  particle1.update(offsetX + particle1X, offsetY + particle1Y);
+  particle2.update(offsetX + particle2X, offsetY + particle2Y);
+  particle3.update(offsetX + particle3X, offsetY + particle3Y);
+  particle4.update(offsetX + particle4X, offsetY + particle4Y);
   shape.move(dx, dy);
   lastTime = elapsedTime;
 }
@@ -137,8 +167,7 @@ function update(context, fps, stageWidth, stageHeight) {
 function paint(ctx, stageWidth, stageHeight) {
   ctx.save();
   ctx.translate(offsetX, offsetY);
-  ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
-  ctx.drawImage(player, 0, 127, sWidth, sHeight, 0, 0, dWidth, dHeight);
+  ctx.drawImage(player, 0, 0);
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);

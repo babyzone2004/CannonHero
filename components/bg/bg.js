@@ -1,3 +1,4 @@
+// 云1
 var clound = new Image();
 var cloundVelocity = 8;
 clound.src = __uri('img/clound.png');
@@ -7,7 +8,7 @@ var cloundPos = {
   y: 250
 };
 var cloundDisappearX = -cloundPos.x - clound.width;
-
+// 云2
 var cloundL = new Image();
 var cloundLVelocity = 15;
 cloundL.src = __uri('img/clound-l.png');
@@ -18,7 +19,7 @@ var cloundLPos = {
 };
 var cloundLDisappearX = -cloundLPos.x - cloundL.width;
 
-// 
+// 建筑
 var house = new Image();
 var houseVelocity = 100;
 house.src = __uri('img/house.png');
@@ -29,6 +30,7 @@ var housePos = {
 };
 var houseDisappearX = -housePos.x - house.width;
 
+// 城墙
 var wall = new Image();
 var wallVelocity = 350;
 wall.src = __uri('img/wall.png');
