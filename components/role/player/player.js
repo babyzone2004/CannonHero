@@ -10,12 +10,11 @@ var firstX = 80;
 var offsetX;
 var offsetY;
 // 源尺寸
-var sWidth = 140;
-var sHeight = 98;
+var sWidth = player.width;
+var sHeight = player.height;
 // 目标尺寸
-var dWidth = 140;
-var dHeight = 98;
-var globalAlpha = 0;
+var dWidth = player.width;
+var dHeight = player.height;
 
 // 运动的移动距离
 var moveDistantY = 0;
@@ -26,20 +25,20 @@ animationTimer.start();
 // 武器相对位置
 var weapon;
 var weaponX = 25;
-var weaponY = 25;
+var weaponY = 68;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js').initParticle({
   numPerFrame: 0.2,
   radius: 5,
-  velocityMinX: -1.5,
-  velocityMaxX: 0,
-  velocityMinY: -0.05,
-  velocitymaxY: 0.05,
+  velocityMinX: -0.5,
+  velocityMaxX: -0.6,
+  velocityMinY: 1.5,
+  velocitymaxY: 1.6,
   fillColor: "rgba(255, 255, 255, 0.8)",
   strokeColor: "rgba(251, 88, 0, 0.15)"
 });
-var particleX = 18;
-var particleY = 50;
+var particleX = 10;
+var particleY = 135;
 
 var shapes = require('/assets/js/module/shapes.js');
 var pointX = firstX + 25;
@@ -49,12 +48,12 @@ var shape = shapes.initPolygon([{
   y: pointy
 }, {
   x: pointX,
+  y: pointy + 135
+}, {
+  x: pointX + 55,
   y: pointy + 45
 }, {
-  x: pointX + 85,
-  y: pointy + 45
-}, {
-  x: pointX + 80,
+  x: pointX + 55,
   y: pointy
 }]);
 
@@ -81,15 +80,14 @@ function update(context, fps, stageWidth, stageHeight) {
 }
 
 function paint(ctx, stageWidth, stageHeight) {
+  weapon && weapon.paint(ctx, stageWidth, stageHeight);
   ctx.save();
   ctx.translate(offsetX, offsetY);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
-  ctx.drawImage(player, 0, 127, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.restore();
-
-  weapon && weapon.paint(ctx, stageWidth, stageHeight);
   // shape.stroke(ctx);
-  // shape.fill(ctx);
+// shape.fill(ctx);
+
 }
 
 function equip(_weapon) {

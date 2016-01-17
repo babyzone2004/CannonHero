@@ -6,7 +6,7 @@ player.src = __uri('pea.png');
 
 var sounder = require('/assets/js/module/sounder.js');
 var sHited = new Howl({
-  urls: [__uri('/assets/sounds/coin.wav')]
+  urls: [__uri('/assets/sounds/coin.mp3'), __uri('/assets/sounds/coin.wav')]
 });
 
 // 出场位置
@@ -18,13 +18,13 @@ var offsetY;
 var sWidth = player.width;
 var sHeight = player.height;
 // 目标尺寸
-var dWidth = 140;
-var dHeight = 98;
+var dWidth = player.width;
+var dHeight = player.height;
 
 // 运动的移动距离
 var moveDistantY = 0;
 var moveDistantX = 0;
-var velocityY = 15;
+var velocityY = 5;
 var velocityX = 150;
 var lastTime;
 animationTimer.start();
@@ -103,19 +103,10 @@ function getPoints(x, y) {
     y: y + 68
   }, {
     x: x + 10,
-    y: y + 98
-  }, {
-    x: x - 15,
-    y: y + 188
-  }, {
-    x: x + 10,
-    y: y + 198
+    y: y + 88
   }, {
     x: x + 75,
-    y: y + 198
-  }, {
-    x: x + 100,
-    y: y - 30
+    y: y - 18
   }];
 }
 
@@ -171,6 +162,7 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.restore();
 
   weapon.paint(ctx, stageWidth, stageHeight);
+  // shape.lineWidth = 1;
   // shape.stroke(ctx);
   // shape.fill(ctx);
 }

@@ -101,15 +101,14 @@ function initGameContext() {
 
 function initGame() {
   player.addEvent();
-  bgMusic = new Howl({
-    urls: [
-      __uri('/assets/sounds/bg.wav'),
-      __uri('/assets/sounds/bg.mp3')
-    ],
-    buffer: true,
-    autoplay: true
-  });
-
+  // bgMusic = new Howl({
+  //   urls: [
+  //     __uri('/assets/sounds/bg.wav'),
+  //     __uri('/assets/sounds/bg.mp3')
+  //   ],
+  //   buffer: true,
+  //   autoplay: true
+  // });
 }
 
 
@@ -137,7 +136,7 @@ function showGameOver() {
   cOverlay.show();
   cNav.show();
   player.removeEvent();
-  bgMusic.fade(1, 0, 500);
+  // bgMusic.fade(1, 0, 500);
   var scrore = cScore.getScore();
   cResultScore.show(scrore);
   loading.set('存档…', '存档失败！', 'bottom');
@@ -171,9 +170,9 @@ document.addEventListener('gameRestart', function(e) {
   cannon.reset();
   pea.reset();
   cResultScore.hide();
-  bgMusic.stop();
-  bgMusic.play();
-  bgMusic.fade(0, 1, 500);
+  // bgMusic.stop();
+  // bgMusic.play();
+  // bgMusic.fade(0, 1, 500);
   game.togglePaused();
 });
 // 敌人被击毁
