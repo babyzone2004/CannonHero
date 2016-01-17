@@ -3,7 +3,7 @@ $('body').append($loading);
 var loadTxt = 'Loading';
 var errTxt = 'Error';
 var tplNormal = '<i class="icon-loading"></i> {{Loading}}<span></span>';
-var tplErr = '<p><span>{{errTxt}}</span></p>';
+var tplErr = '<span>{{errTxt}}</span>';
 
 function showLoading() {
   $loading.show();
@@ -18,15 +18,18 @@ function hide() {
 }
 
 function showErr() {
-  $loading.html(tplNormal.replace('{{errTxt}}', errTxt));
+  $loading.html(tplErr.replace('{{errTxt}}', errTxt));
+  setTimeout(function() {
+    $loading.hide();
+  }, 3000);
 }
 
-function set(value, errTxt, position) {
+function set(value, err, position) {
   if (position === 'bottom') {
     $loading.addClass('loading-bottom');
   }
   loadTxt = value;
-  errTxt = errTxt;
+  errTxt = err;
 }
 
 module.exports = {
