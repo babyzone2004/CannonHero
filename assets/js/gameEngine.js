@@ -24,7 +24,8 @@ var Game = function (gameName, canvasId) {
 
    // Time
    this.lastTime = 0;
-   this.fps = 0;
+   this.fps = 0
+;
    this.STARTING_FPS = 60;
 
    this.paused = false;

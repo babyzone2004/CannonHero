@@ -1,4 +1,3 @@
-
 var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
 
@@ -11,7 +10,7 @@ var sHited = new Howl({
 });
 
 // 出场位置
-var firstY = 780;
+var firstY = 1080;
 var firstX = 800;
 var offsetX;
 var offsetY;
@@ -73,20 +72,44 @@ var shapes = require('/assets/js/module/shapes.js');
 
 var pointX = firstX + 30;
 var pointy = firstY + 30;
-var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 38}, {x: pointX + 80, y: pointy + 38}, {x: pointX + 100, y: pointy}]);
+var shape = shapes.initPolygon([{
+  x: pointX,
+  y: pointy
+}, {
+  x: pointX - 15,
+  y: pointy + 38
+}, {
+  x: pointX + 80,
+  y: pointy + 38
+}, {
+  x: pointX + 100,
+  y: pointy
+}]);
 
 function resetShape() {
   pointX = firstX + moveDistantX + 30;
   pointy = firstY + moveDistantY + 30;
-  shape.points = [{x: pointX, y: pointy}, {x: pointX - 15, y: pointy + 38}, {x: pointX + 80, y: pointy + 38}, {x: pointX + 100, y: pointy}];
+  shape.points = [{
+    x: pointX,
+    y: pointy
+  }, {
+    x: pointX - 15,
+    y: pointy + 38
+  }, {
+    x: pointX + 80,
+    y: pointy + 38
+  }, {
+    x: pointX + 100,
+    y: pointy
+  }];
 }
 
 
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
   var dy = 0;
-  if(lastTime) {
-    if(animationTimer.isOver()) {
+  if (lastTime) {
+    if (animationTimer.isOver()) {
       velocityY = -velocityY;
       animationTimer.start();
       elapsedTime = null;
@@ -96,7 +119,7 @@ function update(context, fps, stageWidth, stageHeight) {
     }
   }
   var dx = 0;
-  if(moveDistantX > 0) {
+  if (moveDistantX > 0) {
     dx = -velocityX / fps
     moveDistantX += dx;
   } else {
@@ -128,10 +151,11 @@ function equip(_weapon) {
 }
 
 var score = require('/components/score/score.js');
-function destroy (bingo) {
+
+function destroy(bingo) {
   sHited.play();
   // 如果是致命一击
-  if(bingo) {
+  if (bingo) {
     console.log('bingo');
     score.add(3);
   } else {

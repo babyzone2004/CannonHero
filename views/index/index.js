@@ -14,13 +14,18 @@ var resources = [
   __uri('/components/weapon/cannon/fire.mp3'),
 
   __uri('/assets/img/enemy_weapons_2.png'),
+
   __uri('/components/bg/smalltree.png'),
   __uri('/components/bg/tree-twotrunks.png'),
   __uri('/components/bg/grass.png'),
   __uri('/components/bg/grass2.png'),
+  __uri('/components/bg/img/clound.png'),
+  __uri('/components/bg/img/clound-l.png'),
+  __uri('/components/bg/img/house.png'),
+  __uri('/components/bg/img/wall.png'),
+
   __uri('/components/role/player/player.png'),
   __uri('/components/role/enemy/pea/pea.png'),
-  __uri('/components/bg/sky.png'),
   __uri('/components/weapon/cannon/cannon.png')
 ];
 // 加载资源.......................................................................
@@ -52,15 +57,18 @@ loader.registCompleteCb(function() {
 
 // Init Game.......................................................................
 
+var stageWidth = 1080;
+var stageHeight = 1550;
+
 var Game = require('/assets/js/gameEngine.js');
-$('body').prepend('<canvas id="gameCanvas" class="canvas" width="1080" height="1200">Canvas not supported</canvas>');
+$('body').prepend('<div class="stage"><canvas id="gameCanvas" class="canvas" width="' + stageWidth + '" height="' + stageHeight + '">Canvas not supported</canvas></div>');
 
 var bg;
 var player;
 var pea;
 var cannon;
 var bullets = require('/components/bullets/bullets.js');
-bullets.init(1080, 1200);
+bullets.init(stageWidth, stageHeight);
 var cScore = require('/components/score/score.js');
 var particleSprite = require('assets/js/module/particleGenerator.js');
 // 初始化重力系统

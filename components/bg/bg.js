@@ -1,132 +1,97 @@
+var clound = new Image();
+var cloundVelocity = 8;
+clound.src = __uri('img/clound.png');
+var cloundTranslateX = 0; //位移
+var cloundPos = {
+  x: 250,
+  y: 250
+};
+var cloundDisappearX = -cloundPos.x - clound.width;
 
-var tree = new Image(),
-    nearTree = new Image(),
-    grass = new Image(),
-    grass2 = new Image(),
-    sky = new Image(),
+var cloundL = new Image();
+var cloundLVelocity = 15;
+cloundL.src = __uri('img/clound-l.png');
+var cloundLTranslateX = 0; //位移
+var cloundLPos = {
+  x: 500,
+  y: 220
+};
+var cloundLDisappearX = -cloundLPos.x - cloundL.width;
 
-    paused = true,
+// 
+var house = new Image();
+var houseVelocity = 100;
+house.src = __uri('img/house.png');
+var houseTranslateX = 0; //位移
+var housePos = {
+  x: 0,
+  y: 1220
+};
+var houseDisappearX = -housePos.x - house.width;
 
-    skyOffset = 0,
-    grassOffset = 0,
-    treeOffset = 0,
-    nearTreeOffset = 0,
+var wall = new Image();
+var wallVelocity = 350;
+wall.src = __uri('img/wall.png');
+var wallTranslateX = 0; //位移
+var wallPos = {
+  x: 0,
+  y: 1380
+};
+var wallDisappearX = -wallPos.x - wall.width;
 
-    TREE_VELOCITY = 20,
-    FAST_TREE_VELOCITY = 40,
-    SKY_VELOCITY = 8,
-    GRASS_VELOCITY = 150;
-
-// Initialization................................................
-
-tree.src = __uri('smalltree.png');
-nearTree.src = __uri('tree-twotrunks.png');
-grass.src = __uri('grass.png');
-grass2.src = __uri('grass2.png');
-sky.src = __uri('sky.png');
-
-var skyWidth = sky.width * 3;
-var skyHeight = sky.height * 3;
-
-var firstTreeX = 200;
-var secTreeX = 550;
-var lastTreeX = 900;
-
-var firstNearTreeX = 350;
-var secNearTree = 850;
-
-var grassWidth = grass.width;
-var grassHeight = grass.height;
-
-// Functions.....................................................
+var paused = true;
 
 function paint(ctx, canvasWidth, canvasHeight) {
-  ctx.save();
-  ctx.translate(-skyOffset, 0);
-  ctx.drawImage(sky, 0, 0, skyWidth, skyHeight);
-  ctx.drawImage(sky,skyWidth, 0, skyWidth, skyHeight);
-  ctx.restore();
-
-  ctx.save();
-  ctx.translate(-treeOffset, 0);
-  ctx.drawImage(tree, firstTreeX, 1010);
-  ctx.drawImage(tree, secTreeX, 1010);
-  ctx.drawImage(tree, lastTreeX, 1010);
-  ctx.drawImage(tree, firstTreeX + canvasWidth, 1010);
-  ctx.drawImage(tree, secTreeX + canvasWidth, 1010);
-  ctx.drawImage(tree, secTreeX + canvasWidth, 1010);
-  ctx.restore();
-
-  ctx.save();
-  ctx.translate(-nearTreeOffset, 0);
-  ctx.drawImage(nearTree, firstNearTreeX, 970);
-  ctx.drawImage(nearTree, secNearTree, 970);
-  ctx.drawImage(nearTree, firstNearTreeX + canvasWidth, 970);
-  ctx.drawImage(nearTree, secNearTree + canvasWidth, 970);
-  ctx.restore();
-
-  ctx.save();
-  ctx.translate(-grassOffset, 0);
-  ctx.drawImage(grass, 0, canvasHeight-grass.height);
-  ctx.drawImage(grass, grass.width,
-                    canvasHeight-grass.height);
-  ctx.drawImage(grass2, 0, canvasHeight-grass2.height);
-  ctx.drawImage(grass2, grass2.width,
-                    canvasHeight-grass2.height);
-  ctx.restore();
+  ctx.translate(0, 0);
+  ctx.drawImage(clound, cloundTranslateX + cloundPos.x, cloundPos.y);
+  ctx.drawImage(cloundL, cloundLTranslateX + cloundLPos.x, cloundLPos.y);
+  ctx.drawImage(house, houseTranslateX + housePos.x, housePos.y);
+  ctx.drawImage(house, houseTranslateX + housePos.x + canvasWidth, housePos.y);
+  ctx.drawImage(wall, wallTranslateX + wallPos.x, wallPos.y);
+  ctx.drawImage(wall, wallTranslateX + wallPos.x + canvasWidth, wallPos.y);
 }
 
-function update (ctx, fps, canvasWidth, canvasHeight) {
-  if(paused) return;
-  // sky
-  var skyStep = SKY_VELOCITY/fps;
-  var skyTranslateX = skyOffset + skyStep;
-  if(skyTranslateX < (skyWidth * 2 - canvasWidth)) {
-    skyOffset = skyTranslateX;
-  } else {
-    skyOffset = skyWidth - canvasWidth + skyStep;
+function update(ctx, fps, canvasWidth, canvasHeight) {
+  if (fps === 0) return;
+
+  cloundTranslateX = cloundTranslateX - cloundVelocity / fps;
+  if (cloundTranslateX < cloundDisappearX) {
+    cloundTranslateX = canvasWidth;
   }
 
-  // firstTree
-  treeTranslateX = treeOffset + TREE_VELOCITY/fps;
-  if(treeTranslateX < canvasWidth) {
-    treeOffset = treeTranslateX;
-  } else {
-    treeOffset = canvasWidth - treeOffset + skyStep;
+  cloundLTranslateX = cloundLTranslateX - cloundLVelocity / fps;
+  if (cloundLTranslateX < cloundLDisappearX) {
+    cloundLTranslateX = canvasWidth;
   }
 
-  // nearTree
-  nearTreeTranslateX = nearTreeOffset + FAST_TREE_VELOCITY / fps;
-  if(nearTreeTranslateX < canvasWidth) {
-    nearTreeOffset = nearTreeTranslateX;
-  } else {
-    nearTreeOffset = canvasWidth - nearTreeOffset + skyStep;
+  if (paused) return;
+
+  houseTranslateX = houseTranslateX - houseVelocity / fps;
+  if (houseTranslateX < houseDisappearX) {
+    houseTranslateX = 0;
   }
 
-  // grass
-  var grassStep = GRASS_VELOCITY/fps;
-  var grassTranslateX = grassOffset + grassStep;
-  if(grassTranslateX < (grassWidth * 2 - canvasWidth)) {
-    grassOffset = grassTranslateX;
-  } else {
-    grassOffset = grassWidth - canvasWidth + grassStep;
+  wallTranslateX = wallTranslateX - wallVelocity / fps;
+  if (wallTranslateX < wallDisappearX) {
+    wallTranslateX = 0;
   }
 }
 
 // Event handlers................................................
-function start (bgVelocity) {
+function start(bgVelocity) {
   bgVelocity && (GRASS_VELOCITY = bgVelocity);
   paused = false;
 };
 
-function stop () {
-   paused = true;
+function stop() {
+  paused = true;
 }
-function reset () {
-  skyOffset = 0;
-  grassOffset = 0;
-  treeOffset = 0;
-  nearTreeOffset = 0;
+
+function reset() {
+  cloundTranslateX = 0;
+  cloundLTranslateX = 0;
+  houseTranslateX = 0;
+  wallTranslateX = 0;
 }
 
 module.exports = {

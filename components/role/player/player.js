@@ -1,4 +1,3 @@
-
 var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
 
@@ -6,7 +5,7 @@ var player = new Image();
 player.src = __uri('player.png');
 
 // 出场位置
-var firstY = 800;
+var firstY = 1200;
 var firstX = 80;
 var offsetX;
 var offsetY;
@@ -45,13 +44,25 @@ var particleY = 50;
 var shapes = require('/assets/js/module/shapes.js');
 var pointX = firstX + 25;
 var pointy = firstY + 30;
-var shape = shapes.initPolygon([{x: pointX, y: pointy}, {x: pointX, y: pointy + 45}, {x: pointX + 85, y: pointy + 45}, {x: pointX + 80, y: pointy}]);
+var shape = shapes.initPolygon([{
+  x: pointX,
+  y: pointy
+}, {
+  x: pointX,
+  y: pointy + 45
+}, {
+  x: pointX + 85,
+  y: pointy + 45
+}, {
+  x: pointX + 80,
+  y: pointy
+}]);
 
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
   var dy = 0;
-  if(lastTime) {
-    if(animationTimer.isOver()) {
+  if (lastTime) {
+    if (animationTimer.isOver()) {
       velocityY = -velocityY;
       animationTimer.start();
       elapsedTime = null;
@@ -85,11 +96,12 @@ function equip(_weapon) {
   weapon = _weapon;
 }
 
-function destroy () {
+function destroy() {
   // sHited.play();
   document.dispatchEvent(new Event('gameOver'));
 }
-function reset () {
+
+function reset() {
   addEvent();
 }
 
@@ -98,20 +110,20 @@ var isReload = true;
 // var isReload = false;
 // var touchStart = false;
 
-function addEvent () {
+function addEvent() {
   document.addEventListener('touchend', fire);
   document.addEventListener('touchcancle', fire);
   document.addEventListener('touchstart', reload);
 }
 
-function removeEvent () {
+function removeEvent() {
   document.removeEventListener('touchend', fire);
   document.removeEventListener('touchcancle', fire);
   document.removeEventListener('touchstart', reload);
 }
 
-function fire (e) {
-  if(bullets.getBullets().length === 0 && weapon && isReload) {
+function fire(e) {
+  if (bullets.getBullets().length === 0 && weapon && isReload) {
     weapon.stopRoate();
     weapon.fire();
   }
@@ -120,7 +132,7 @@ function fire (e) {
 
 function reload(e) {
   touchStart = true;
-  if(bullets.getBullets().length === 0) {
+  if (bullets.getBullets().length === 0) {
     // 需要填单后才能发射逻辑
     // if(isReload) {
     //   weapon.rotateStart();
