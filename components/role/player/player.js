@@ -5,7 +5,7 @@ var player = new Image();
 player.src = __uri('player.png');
 
 // 出场位置
-var firstY = 1200;
+var firstY = 1300;
 var firstX = 80;
 var offsetX;
 var offsetY;
@@ -16,16 +16,22 @@ var sHeight = player.height;
 var dWidth = player.width;
 var dHeight = player.height;
 
+// 目标是否存在
+var isLive = true;
+
+var gVelocity = 0;
+
 // 运动的移动距离
 var moveDistantY = 0;
+var moveDistantX = 0;
 var velocityY = 15;
-var lastTime;
+var lastTime = 0;
 animationTimer.start();
 
 // 武器相对位置
 var weapon;
-var weaponX = 25;
-var weaponY = 68;
+var weaponX = 56;
+var weaponY = 58;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js').initParticle({
   numPerFrame: 0.2,
@@ -34,11 +40,12 @@ var particleGenerator = require('assets/js/module/particleGenerator.js').initPar
   velocityMaxX: -0.6,
   velocityMinY: 1.5,
   velocitymaxY: 1.6,
-  fillColor: "rgba(255, 255, 255, 0.8)",
-  strokeColor: "rgba(251, 88, 0, 0.15)"
+  strokeSize: 4,
+  fillColor: "rgba(245, 245, 12, 0.80)",
+  strokeColor: "rgba(255, 66, 0, 0.5)"
 });
-var particleX = 10;
-var particleY = 135;
+var particleX = 20;
+var particleY = 105;
 
 var shapes = require('/assets/js/module/shapes.js');
 var pointX = firstX + 25;
@@ -60,7 +67,7 @@ var shape = shapes.initPolygon([{
 function update(context, fps, stageWidth, stageHeight) {
   var elapsedTime = animationTimer.getElapsedTime();
   var dy = 0;
-  if (lastTime) {
+  if (isLive) {
     if (animationTimer.isOver()) {
       velocityY = -velocityY;
       animationTimer.start();
@@ -69,14 +76,22 @@ function update(context, fps, stageWidth, stageHeight) {
       dy = velocityY * (elapsedTime - lastTime) / 1000;
       moveDistantY += dy;
     }
+    offsetX = firstX + moveDistantX + weapon.moveDistant.x / 2;
+    offsetY = firstY + moveDistantY + weapon.moveDistant.y / 2;
+    // console.log('offsetY', offsetY);
+    weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
+    particleGenerator.update(offsetX + particleX, offsetY + particleY);
+    shape.move(0, dy);
+    lastTime = elapsedTime;
+  } else {
+    gVelocity += GRAVITY_FORCE * 1 / fps * pixelsPerMeter;
+    moveDistantX -= 25;
+    moveDistantY = moveDistantY - 60 + gVelocity;
+    offsetX = firstX + moveDistantX;
+    offsetY = firstY + moveDistantY;
+    weapon.update(fps);
+    // console.log('offsetY', offsetY);
   }
-  offsetY = firstY + moveDistantY;
-  offsetX = firstX;
-  // console.log('offsetY', offsetY);
-  weapon && weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
-  particleGenerator.update(offsetX + particleX, offsetY + particleY);
-  shape.move(0, dy);
-  lastTime = elapsedTime;
 }
 
 function paint(ctx, stageWidth, stageHeight) {
@@ -86,7 +101,7 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.restore();
   // shape.stroke(ctx);
-// shape.fill(ctx);
+  // shape.fill(ctx);
 
 }
 
@@ -96,6 +111,8 @@ function equip(_weapon) {
 
 function destroy() {
   // sHited.play();
+  isLive = false;
+  weapon.destroy();
   document.dispatchEvent(new Event('gameOver'));
 }
 

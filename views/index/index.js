@@ -6,12 +6,13 @@ var cOverlay = require('/components/overlay/overlay.js');
 
 // 登录
 var login = require('/assets/js/login.js');
-login.check();
+// login.check();
 
 var resources = [
-  __uri('/assets/sounds/coin.mp3'),
-  __uri('/components/weapon/cannon/reload.mp3'),
-  __uri('/components/weapon/cannon/fire.mp3'),
+  // __uri('/assets/sounds/coin.mp3'),
+  // __uri('/components/weapon/cannon/reload.mp3'),
+  // __uri('/components/weapon/cannon/fire.mp3'),
+
 
   __uri('/components/bg/img/clound.png'),
   __uri('/components/bg/img/clound-l.png'),
@@ -44,9 +45,13 @@ loader.registCompleteCb(function() {
   //   // cCover.registHideCb(initGame);
   // }, 3000);
 
-  cOverlay.show();
-  cNav.show();
+  // cOverlay.show();
+  // cNav.show();
   initGameContext();
+  game.togglePaused();
+  cOverlay.hide();
+  cNav.hide();
+  initGame();
 });
 
 // Init Game.......................................................................
@@ -66,8 +71,9 @@ bullets.init(stageWidth, stageHeight);
 var cScore = require('/components/score/score.js');
 var particleSprite = require('assets/js/module/particleGenerator.js');
 // 初始化重力系统
-var PLATFORM_HEIGHT_IN_METERS = 50; // 50 meters
+var PLATFORM_HEIGHT_IN_METERS = 18; // 50 meters
 window.pixelsPerMeter = 1200 / PLATFORM_HEIGHT_IN_METERS;
+window.GRAVITY_FORCE = 9.81;
 
 var game = new Game('Cannon', 'gameCanvas');
 document.addEventListener('gameOver', function(e) {
@@ -131,25 +137,26 @@ var loading = require('/components/loading/loading.js');
 
 function showGameOver() {
   console.log('gameOver');
-  cOverlay.show();
-  cNav.show();
-  player.removeEvent();
-  // bgMusic.fade(1, 0, 500);
-  var scrore = cScore.getScore();
-  cResultScore.show(scrore);
-  loading.set('存档…', '存档失败！', 'bottom');
-  request({
-    url: 'http://zz-game.com/score',
-    type: 'POST',
-    data: {
-      score: scrore
-    },
-    load: loading,
-    success: function(msg) {
-      console.log('record success', msg);
-    }
-  });
-  game.togglePaused();
+  // cOverlay.show();
+  // cNav.show();
+  // player.removeEvent();
+  // // bgMusic.fade(1, 0, 500);
+  // var scrore = cScore.getScore();
+  // cResultScore.show(scrore);
+  // loading.set('存档…', '存档失败！', 'bottom');
+  // request({
+  //   url: 'http://zz-game.com/score',
+  //   type: 'POST',
+  //   data: {
+  //     score: scrore
+  //   },
+  //   load: loading,
+  //   success: function(msg) {
+  //     console.log('record success', msg);
+  //   }
+  // });
+  // game.togglePaused();
+
 }
 
 document.addEventListener('gameStart', function(e) {

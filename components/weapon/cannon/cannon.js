@@ -4,10 +4,10 @@ var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 
 var sReload = new Howl({
-  urls: [__uri('reload.mp3'), __uri('reload.wav')]
+  urls: [__uri('/assets/sounds/reload5.wav')]
 });
 var sFire = new Howl({
-  urls: [__uri('fire.mp3'), __uri('fire.wav')]
+  urls: [__uri('/assets/sounds/fire3.wav')]
 });
 // var sReload = sounder.init(__uri('reload1.wav'), 1);
 // var sFire = sounder.init(__uri('fire1.wav'), 1);
@@ -16,8 +16,8 @@ var sFire = new Howl({
 var offsetX;
 var offsetY;
 // 相对画笔Y轴的点
-var relativeY = -37;
-var relativeX = -90;
+var relativeY = -23;
+var relativeX = -70;
 var dWidth = cannon.width;
 var dHeight = cannon.height;
 var rotageAngle = 0;
@@ -27,13 +27,17 @@ var sin = 1;
 var cos = 1;
 var angeleFormule = Math.PI / 180;
 
-// 子弹相对炮筒的坐标
-var bulletsX = 155;
+var isLive = true;
 
-var velocityX = -150;
+// 子弹相对炮筒的坐标
+var bulletsX = 55;
+
+var velocityX = -300;
 // 后坐力偏移
-var moveDistantX = 0;
-var moveDistantY = 0;
+var moveDistant = {
+  x: 0,
+  y: 0
+}
 var lastTime;
 // 发射准备
 var fireReady = true;
@@ -43,47 +47,70 @@ var rocket = require('/components/bullets/rocket/rocket.js');
 
 var particleGenerator = require('assets/js/module/particleGenerator.js');
 var fireExplosion = particleGenerator.initExplosion({
-  radius: 25,
+  radius: 35,
   velocityMinX: -0.8,
   velocityMaxX: 0.8,
   velocityMinY: -0.8,
   velocitymaxY: 0.8,
   fillColor: "rgb(255, 255, 255)",
   strokeColor: "rgba(255, 79, 0, 0.23)",
-  strokeSize: 10,
+  strokeSize: 25,
   num: 5,
   scaleRate: function() {
-    return 0.85;
+    return 0.93;
   }
 });
 // var exposionX = 70;
 // var exposionY = 0;
+var curX;
+var curY;
 
 function updatePositon(context, _offsetX, _offsetY) {
   if (animationTimer.isRunning) {
     var elapsedTime = animationTimer.getElapsedTime();
     if (animationTimer.isOver()) {
-      if (moveDistantX < 0 || moveDistantY > 0) {
-        moveDistantX < 0 ? moveDistantX += 1 * cos : 0;
-        moveDistantY > 0 ? moveDistantY += 1 * sin : 0;
+      if (moveDistant.x < 0 || moveDistant.y > 0) {
+        moveDistant.x < 0 ? moveDistant.x += 1 * cos : 0;
+        moveDistant.y > 0 ? moveDistant.y += 1 * sin : 0;
       } else {
         fireReady = true;
       }
       animationTimer.stop();
     } else {
       var distant = (0.5 + velocityX * (elapsedTime - lastTime) / 1000) << 0
-      moveDistantX += distant * cos;
-      moveDistantY += distant * sin;
+      moveDistant.x += distant * cos;
+      moveDistant.y += distant * sin;
     }
     lastTime = elapsedTime;
   }
   if (isRoate && rotageAngle > -90) {
     rotageAngle--;
-    rotate = rotageAngle * angeleFormule;
   }
-  offsetX = _offsetX + moveDistantX;
+
+  rotate = rotageAngle * angeleFormule;
+  curX = offsetX = _offsetX + moveDistant.x;
   // console.log('offsetX', offsetX, _offsetY);
-  offsetY = _offsetY + moveDistantY;
+  curY = offsetY = _offsetY + moveDistant.y;
+}
+var gVelocity = 0;
+
+
+var moveDistantX = 0;
+var moveDistantY = 0;
+var rotateVelocity = 50;
+
+function update(fps) {
+  if (!isLive) {
+    rotateVelocity -= 1;
+    rotageAngle += rotateVelocity;
+    rotate = rotageAngle * angeleFormule;
+    // 重力速度太大，适度降低
+    gVelocity += (GRAVITY_FORCE * 1 / fps * pixelsPerMeter) / 8;
+    moveDistantX += 20 * Math.random();
+    moveDistantY = moveDistantY - 20 + gVelocity;
+    offsetX = curX + moveDistantX;
+    offsetY = curY + moveDistantY;
+  }
 }
 
 function paint(ctx, stageWidth, stageHeight) {
@@ -108,7 +135,7 @@ function fire() {
 }
 
 function reloadBullet(reloadSuccesCb) {
-  sReload.play(reloadSuccesCb);
+  // sReload.play(reloadSuccesCb);
 }
 
 function rotateStart() {
@@ -123,8 +150,12 @@ function reset() {
 function stopRoate() {
   isRoate = false;
   // sReload.stop();
-  sFire.play();
+  // sFire.play();
   fire();
+}
+
+function destroy() {
+  isLive = false;
 }
 
 module.exports = {
@@ -134,5 +165,8 @@ module.exports = {
   rotateStart: rotateStart,
   stopRoate: stopRoate,
   reset: reset,
-  reloadBullet: reloadBullet
+  moveDistant: moveDistant,
+  reloadBullet: reloadBullet,
+  update: update,
+  destroy: destroy
 };

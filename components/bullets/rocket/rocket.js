@@ -1,30 +1,27 @@
-
-
-
 var img = new Image();
 img.src = __uri('rocket.png');
 
 var dWidth = 48;
 var dHeight = 24;
 
-var velocity = 600;
+var velocity = 1300;
 // 相对绘图句柄Y轴的点
-var relativeY =  -13;
+var relativeY = -13;
 
-var GRAVITY_FORCE = 9.81;  // 9.81 m/s / s
+// var GRAVITY_FORCE = 9.81; // 9.81 m/s / s
 // var velocityY = ;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js');
 var particle = particleGenerator.initParticle({
-  numPerFrame: 0.5,
-  radius: 5,
+  numPerFrame: 1,
+  radius: 3,
   velocityMinX: -0.05,
   velocityMaxX: 0.05,
   velocityMinY: -0.02,
   velocitymaxY: 0.02,
   fillColor: "rgba(251, 88, 0, 0.85)",
   strokeColor: "rgba(255, 255, 255, 0.9)",
-  strokeSize: 8
+  strokeSize: 9
 });
 
 var explosion = particleGenerator.initExplosion({
@@ -45,7 +42,7 @@ var explosionY = 5;
 var shapes = require('/assets/js/module/shapes.js');
 var caculatePoint = require('/assets/js/module/caculatePoint.js');
 
-function rocket (x, y, sin, cos, rotate) {
+function rocket(x, y, sin, cos, rotate) {
   this.x = x;
   this.y = y;
   this.rotate = rotate;
@@ -80,12 +77,12 @@ function rocket (x, y, sin, cos, rotate) {
   this.shape = shapes.initPolygon([destP1, destP2, destP3, destP4]);
 }
 
-rocket.prototype.collisiontRemoveCb = function () {
+rocket.prototype.collisiontRemoveCb = function() {
   // console.log('collisiontRemoveCb');
   var explosionPoint = caculatePoint(this.x, this.y, explosionX, explosionY, this.rotate);
   explosion.excute(explosionPoint.x, explosionPoint.y);
 }
-rocket.prototype.missCb = function () {
+rocket.prototype.missCb = function() {
   // console.log('outStageRemoveCb');
   // explosion.excute(this.x + 30, this.y + 5);
   document.dispatchEvent(new Event('gameOver'));
