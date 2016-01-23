@@ -25,16 +25,18 @@ var particle = particleGenerator.initParticle({
 });
 
 var explosion = particleGenerator.initExplosion({
-  radius: 5,
-  velocityMinX: -1,
-  velocityMaxX: 1,
-  velocityMinY: -1,
-  velocitymaxY: 1,
-  fillColor: "rgba(251, 88, 0, 0.85)",
-  strokeColor: "rgba(255, 255, 255, 0.9)",
-  strokeSize: 8,
-  gravity: 0.1,
-  num: 20
+  radius: 55,
+  velocityMinX: -4,
+  velocityMaxX: 4,
+  velocityMinY: -4,
+  velocitymaxY: 4,
+  fillColor: "rgb(255, 255, 255)",
+  strokeColor: "rgba(255, 79, 0, 0.23)",
+  strokeSize: 45,
+  num: 10,
+  scaleRate: function() {
+    return 0.92;
+  }
 });
 var explosionX = 32;
 var explosionY = 5;
