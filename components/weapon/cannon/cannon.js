@@ -106,8 +106,8 @@ function update(fps) {
     rotate = rotageAngle * angeleFormule;
     // 重力速度太大，适度降低
     gVelocity += (GRAVITY_FORCE * 1 / fps * pixelsPerMeter) / 8;
-    moveDistantX += 20 * Math.random();
-    moveDistantY = moveDistantY - 20 + gVelocity;
+    moveDistantX += 12;
+    moveDistantY = moveDistantY - 25 + gVelocity;
     offsetX = curX + moveDistantX;
     offsetY = curY + moveDistantY;
   }
