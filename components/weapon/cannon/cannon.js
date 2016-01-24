@@ -66,7 +66,7 @@ var curX;
 var curY;
 
 function updatePositon(context, _offsetX, _offsetY) {
-  if (animationTimer.isRunning) {
+  if (animationTimer.isRunning()) {
     var elapsedTime = animationTimer.getElapsedTime();
     if (animationTimer.isOver()) {
       if (moveDistant.x < 0 || moveDistant.y > 0) {
@@ -74,14 +74,19 @@ function updatePositon(context, _offsetX, _offsetY) {
         moveDistant.y > 0 ? moveDistant.y += 1 * sin : 0;
       } else {
         fireReady = true;
+        animationTimer.stop();
+        lastTime = null;
       }
-      animationTimer.stop();
     } else {
-      var distant = (0.5 + velocityX * (elapsedTime - lastTime) / 1000) << 0
-      moveDistant.x += distant * cos;
-      moveDistant.y += distant * sin;
+      if (lastTime) {
+        var distant = velocityX * (elapsedTime - lastTime) / 1000
+        console.log(lastTime);
+        moveDistant.x += distant * cos;
+        moveDistant.y += distant * sin;
+      }
+      lastTime = elapsedTime;
     }
-    lastTime = elapsedTime;
+
   }
   if (isRoate && rotageAngle > -90) {
     rotageAngle--;

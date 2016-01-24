@@ -14,10 +14,14 @@ var resources = [
   // __uri('/components/weapon/cannon/fire.mp3'),
 
 
-  __uri('/components/bg/img/clound.png'),
+  __uri('/components/bg/img/clound-s.png'),
   __uri('/components/bg/img/clound-l.png'),
+  __uri('/components/bg/img/clound-m.png'),
   __uri('/components/bg/img/house.png'),
+  __uri('/components/bg/img/house1.png'),
   __uri('/components/bg/img/wall.png'),
+  __uri('/components/role/barrier/barrier.png'),
+  __uri('/components/role/barrier/repeat.png'),
 
   __uri('/components/role/player/player.png'),
   __uri('/components/role/enemy/pea/pea.png'),
@@ -64,7 +68,7 @@ $('body').prepend('<div class="stage"><canvas id="gameCanvas" class="canvas" wid
 
 var bg;
 var player;
-var pea;
+var barrier;
 var cannon;
 var bullets = require('/components/bullets/bullets.js');
 bullets.init(stageWidth, stageHeight);
@@ -86,14 +90,14 @@ function initGameContext() {
   initFps(game);
   bg = require('/components/bg/bg.js');
   player = require('/components/role/player/player.js');
-  pea = require('/components/role/enemy/pea/pea.js');
+  barrier = require('/components/role/barrier/barrier.js');
   cannon = require('/components/weapon/cannon/cannon.js');
   player.equip(cannon);
   game.addSprite(bg);
   game.addSprite(player);
-  game.addSprite(pea);
+  game.addSprite(barrier);
   game.addSprite(bullets);
-  bullets.addTarget(pea);
+  bullets.addTarget(barrier);
   bullets.addTarget(player);
   game.addSprite(particleSprite);
   cScore.reset();
@@ -173,7 +177,7 @@ document.addEventListener('gameRestart', function(e) {
   player.reset();
   bg.reset();
   cannon.reset();
-  pea.reset();
+  barrier.reset();
   cResultScore.hide();
   // bgMusic.stop();
   // bgMusic.play();
@@ -183,7 +187,7 @@ document.addEventListener('gameRestart', function(e) {
 // 敌人被击毁
 document.addEventListener('destroyEnemy', function(e) {
   bg.start();
-  pea.create();
+  barrier.create();
   cannon.reset();
 });
 // 新敌人出现

@@ -2,7 +2,7 @@ var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
 
 var player = new Image();
-player.src = __uri('pea.png');
+player.src = __uri('devil.png');
 
 var sounder = require('/assets/js/module/sounder.js');
 var sHited = new Howl({
