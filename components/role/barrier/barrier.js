@@ -26,7 +26,7 @@ console.log('reapeat', reapeatWith, pillarHeight, barrierHeight);
 
 // 运动的移动距离
 var moveDistantX = 0;
-var velocityX = 80;
+var velocityX = 60;
 var lastTime;
 
 var shapes = require('/assets/js/module/shapes.js');
@@ -54,6 +54,8 @@ function resetShape() {
   shape.points = getPoints(pointX, pointy);
 }
 
+var enemy = require('/components/role/enemy/devil/devil.js');
+enemy.create(firstX, firstY);
 
 function update(context, fps, stageWidth, stageHeight) {
   var dx = 0;
@@ -73,7 +75,6 @@ function update(context, fps, stageWidth, stageHeight) {
       if (lastTime) {
         dx = (velocityX * (elapsedTime - lastTime) / 1000) || 0;
         moveDistantX += dx;
-        console.log(elapsedTime - lastTime);
       }
       lastTime = elapsedTime;
     }
@@ -84,6 +85,7 @@ function update(context, fps, stageWidth, stageHeight) {
   offsetY = firstY;
   // console.log('offsetY', offsetY);
   shape.move(dx, 0);
+  enemy.update(context, fps, offsetX, offsetY);
 }
 
 function paint(ctx, stageWidth, stageHeight) {
@@ -95,7 +97,7 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.fillStyle = pat;
   ctx.fill();
   ctx.restore();
-
+  enemy.paint(ctx, stageWidth, stageHeight);
   // shape.lineWidth = 1;
   // shape.stroke(ctx);
   // shape.fill(ctx);

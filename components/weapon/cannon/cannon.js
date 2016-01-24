@@ -80,7 +80,6 @@ function updatePositon(context, _offsetX, _offsetY) {
     } else {
       if (lastTime) {
         var distant = velocityX * (elapsedTime - lastTime) / 1000
-        console.log(lastTime);
         moveDistant.x += distant * cos;
         moveDistant.y += distant * sin;
       }

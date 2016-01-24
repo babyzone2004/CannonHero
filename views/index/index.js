@@ -22,6 +22,8 @@ var resources = [
   __uri('/components/bg/img/wall.png'),
   __uri('/components/role/barrier/barrier.png'),
   __uri('/components/role/barrier/repeat.png'),
+  __uri('/components/role/enemy/devil/devil.png'),
+  __uri('/components/role/enemy/devil/weapon.png'),
 
   __uri('/components/role/player/player.png'),
   __uri('/components/role/enemy/pea/pea.png'),
@@ -69,6 +71,7 @@ $('body').prepend('<div class="stage"><canvas id="gameCanvas" class="canvas" wid
 var bg;
 var player;
 var barrier;
+var enemy;
 var cannon;
 var bullets = require('/components/bullets/bullets.js');
 bullets.init(stageWidth, stageHeight);
@@ -91,6 +94,7 @@ function initGameContext() {
   bg = require('/components/bg/bg.js');
   player = require('/components/role/player/player.js');
   barrier = require('/components/role/barrier/barrier.js');
+  enemy = require('/components/role/enemy/devil/devil.js');
   cannon = require('/components/weapon/cannon/cannon.js');
   player.equip(cannon);
   game.addSprite(bg);
@@ -99,6 +103,7 @@ function initGameContext() {
   game.addSprite(bullets);
   bullets.addTarget(barrier);
   bullets.addTarget(player);
+  bullets.addTarget(enemy);
   game.addSprite(particleSprite);
   cScore.reset();
   game.start();
