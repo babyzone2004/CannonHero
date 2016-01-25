@@ -115,7 +115,9 @@ function destroy() {
   // sHited.play();
   isLive = false;
   weapon.destroy();
-  document.dispatchEvent(new Event('gameOver'));
+  setTimeout(function() {
+    document.dispatchEvent(new Event('gameOver'));
+  }, 800);
 }
 
 function reset() {

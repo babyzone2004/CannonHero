@@ -3,12 +3,12 @@ cannon.src = __uri('cannon.png');
 var AnimationTimer = require('/assets/js/animationTimer.js');
 var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 
-var sReload = new Howl({
-  urls: [__uri('/assets/sounds/reload5.wav')]
-});
-var sFire = new Howl({
-  urls: [__uri('/assets/sounds/fire3.wav')]
-});
+// var sReload = new Howl({
+//   urls: [__uri('/assets/sounds/reload5.wav')]
+// });
+// var sFire = new Howl({
+//   urls: [__uri('/assets/sounds/fire3.wav')]
+// });
 // var sReload = sounder.init(__uri('reload1.wav'), 1);
 // var sFire = sounder.init(__uri('fire1.wav'), 1);
 

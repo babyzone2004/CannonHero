@@ -87,7 +87,7 @@ rocket.prototype.collisiontRemoveCb = function() {
 rocket.prototype.missCb = function() {
   // console.log('outStageRemoveCb');
   // explosion.excute(this.x + 30, this.y + 5);
-  document.dispatchEvent(new Event('gameOver'));
+  document.dispatchEvent(new Event('fireMiss'));
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {

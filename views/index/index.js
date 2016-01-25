@@ -43,22 +43,23 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
-  // cBrand.show();
-  // setTimeout(function(e) {
-  //   cNav.show();
-  //   cOverlay.show();
-  //   initGameContext();
-  //   cBrand.hide();
-  //   // cCover.registHideCb(initGame);
-  // }, 3000);
+  cBrand.show();
+  setTimeout(function(e) {
+    cNav.show();
+    cOverlay.show();
+    initGameContext();
+    cBrand.hide();
+    // cCover.registHideCb(initGame);
+  }, 3000);
 
   // cOverlay.show();
   // cNav.show();
-  initGameContext();
-  game.togglePaused();
-  cOverlay.hide();
-  cNav.hide();
-  initGame();
+
+  // initGameContext();
+  // game.togglePaused();
+  // cOverlay.hide();
+  // cNav.hide();
+  // initGame();
 });
 
 // Init Game.......................................................................
@@ -145,16 +146,20 @@ var cResultScore = require('/components/layout/result/result.js');
 var request = require('/assets/js/request.js');
 var loading = require('/components/loading/loading.js');
 
+
+document.addEventListener('fireMiss', function(e) {
+  enemy.fire();
+});
+
 function showGameOver() {
   console.log('gameOver');
   console.log(bullets.getBullets());
-  enemy.fire();
-  // cOverlay.show();
-  // cNav.show();
-  // player.removeEvent();
-  // // bgMusic.fade(1, 0, 500);
-  // var scrore = cScore.getScore();
-  // cResultScore.show(scrore);
+  cOverlay.show();
+  cNav.show();
+  player.removeEvent();
+  // bgMusic.fade(1, 0, 500);
+  var scrore = cScore.getScore();
+  cResultScore.show(scrore);
   // loading.set('存档…', '存档失败！', 'bottom');
   // request({
   //   url: 'http://zz-game.com/score',
@@ -167,7 +172,7 @@ function showGameOver() {
   //     console.log('record success', msg);
   //   }
   // });
-  // game.togglePaused();
+  game.togglePaused();
 
 }
 
