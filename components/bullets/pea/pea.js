@@ -6,15 +6,29 @@ var velocity = -1800;
 var relativePoint = -8;
 
 var particleGenerator = require('assets/js/module/particleGenerator.js');
+var particle = particleGenerator.initParticle({
+  numPerFrame: 5,
+  radius: 3,
+  velocityMinX: -0,
+  velocityMaxX: 0,
+  velocityMinY: -0,
+  velocitymaxY: 0,
+  fillColor: "rgba(57, 59, 2, 0.5)",
+  strokeColor: "rgba(57, 59, 2, 0.5)",
+  strokeSize: 9,
+  scaleRate: function() {
+    return 0.9;
+  }
+});
 var explosion = particleGenerator.initExplosion({
-  radius: 55,
+  radius: 85,
   velocityMinX: -5,
   velocityMaxX: 5,
   velocityMinY: -5,
   velocitymaxY: 5,
   fillColor: "rgb(255, 255, 255)",
   strokeColor: "rgba(255, 79, 0, 0.23)",
-  strokeSize: 45,
+  strokeSize: 55,
   num: 10,
   scaleRate: function() {
     return 0.85;
@@ -46,9 +60,7 @@ function rocket(x, y, sin, cos) {
 }
 
 rocket.prototype.collisiontRemoveCb = function() {
-  // console.log('collisiontRemoveCb');
-  // var explosionPoint = caculatePoint(this.x, this.y, explosionX, explosionY, this.rotate);
-  // explosion.excute(explosionPoint.x, explosionPoint.y);
+  explosion.excute(this.x, this.y);
 }
 
 rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
@@ -58,6 +70,7 @@ rocket.prototype.update = function(context, fps, stageWidth, stageHeight) {
   this.y += dy;
 
   this.shape.move(dx, dy);
+  particle.update(this.x, this.y);
   // console.log('rotate', this.rotate);
 }
 
