@@ -141,7 +141,7 @@ function randomRange(min, max) {
 }
 
 var bullets = require('/components/bullets/bullets.js');
-var pea = require('/components/bullets/pea/pea.js');
+var pea = require('/components/bullets/bullet-pea/bullet-pea.js');
 var player = require('/components/role/player/player.js');
 
 function fire() {
