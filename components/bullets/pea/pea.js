@@ -1,29 +1,12 @@
 var img = new Image();
-img.src = __uri('rocket.png');
+img.src = __uri('pea.png');
 
-var dWidth = 48;
-var dHeight = 24;
-
-var velocity = 1300;
+var velocity = 1500;
 // 相对绘图句柄Y轴的点
 var relativeY = -13;
 
 // var GRAVITY_FORCE = 9.81; // 9.81 m/s / s
 // var velocityY = ;
-
-var particleGenerator = require('assets/js/module/particleGenerator.js');
-var particle = particleGenerator.initParticle({
-  numPerFrame: 1,
-  radius: 3,
-  velocityMinX: -0.05,
-  velocityMaxX: 0.05,
-  velocityMinY: -0.02,
-  velocitymaxY: 0.02,
-  fillColor: "rgba(251, 88, 0, 0.85)",
-  strokeColor: "rgba(255, 255, 255, 0.9)",
-  strokeSize: 9
-});
-
 var explosion = particleGenerator.initExplosion({
   radius: 55,
   velocityMinX: -5,
@@ -42,7 +25,6 @@ var explosionX = 32;
 var explosionY = 5;
 
 var shapes = require('/assets/js/module/shapes.js');
-var caculatePoint = require('/assets/js/module/caculatePoint.js');
 
 function rocket(x, y, sin, cos, rotate) {
   this.x = x;
@@ -70,11 +52,6 @@ function rocket(x, y, sin, cos, rotate) {
     x: 35 + px,
     y: 0 + py
   };
-
-  var destP1 = caculatePoint(x, y, p1.x, p1.y, rotate);
-  var destP2 = caculatePoint(x, y, p2.x, p2.y, rotate);
-  var destP3 = caculatePoint(x, y, p3.x, p3.y, rotate);
-  var destP4 = caculatePoint(x, y, p4.x, p4.y, rotate);
 
   this.shape = shapes.initPolygon([destP1, destP2, destP3, destP4]);
 }
@@ -109,8 +86,8 @@ rocket.prototype.paint = function(ctx, stageWidth, stageHeight) {
   ctx.rotate(this.rotate);
   ctx.drawImage(img, 0, relativeY, dWidth, dHeight);
   ctx.restore();
-  // this.shape.stroke(ctx);
-  // this.shape.fill(ctx);
+  this.shape.stroke(ctx);
+  this.shape.fill(ctx);
 }
 
 function create(x, y, sin, cos, rotate) {

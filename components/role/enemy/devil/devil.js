@@ -1,17 +1,23 @@
-var AnimationTimer = require('/assets/js/animationTimer.js');
-var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
+// var AnimationTimer = require('/assets/js/animationTimer.js');
+// var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
+
+var isLive = true;
 
 var devil = new Image();
 devil.src = __uri('devil.png');
 var devilHeight = devil.height;
-var isLive = true;
+var offsetX;
+var offsetY;
+var relativeX = -devil.width / 2;
+var relativeY = -devilHeight / 2;
+
 var weapon = new Image();
 weapon.src = __uri('weapon.png');
 var weaponHeight = weapon.height;
 var weaponOffsetX;
 var weaponOffsetY;
-var weaponPositiveX = -weapon.width / 2;
-var weaponPositiveY = -weaponHeight / 2;
+var weaponRelativeX = -weapon.width / 2;
+var weaponRelativeY = -weaponHeight / 2;
 
 // var sounder = require('/assets/js/module/sounder.js');
 // var sHited = new Howl({
@@ -21,8 +27,7 @@ var weaponPositiveY = -weaponHeight / 2;
 // 出场位置
 var firstY = 1080;
 var firstX = 800;
-var offsetX;
-var offsetY;
+
 
 var shapes = require('/assets/js/module/shapes.js');
 var shape = shapes.initPolygon(getPoints(firstX, firstY));
@@ -32,16 +37,16 @@ function getPoints(x, y) {
     x: x + 10,
     y: y + 10
   }, {
-    x: x + 30,
+    x: x + 25,
     y: y + 55
   }, {
     x: x,
     y: y + 95
   }, {
-    x: x + 88,
+    x: x + 75,
     y: y + 95
   }, {
-    x: x + 88,
+    x: x + 75,
     y: y
   }];
 }
@@ -59,17 +64,18 @@ var rotateVelocity = 10;
 var rotageAngle = 0;
 var rotate = 0;
 var angeleFormule = Math.PI / 180;
+var downRotate = 180 * angeleFormule;
 
-function update(context, fps, _offsetX, _offsetY) {
-  offsetX = _offsetX;
-  offsetY = _offsetY - devilHeight;
-  weaponOffsetX = offsetX - weaponPositiveX;
-  weaponOffsetY = offsetY - weaponHeight / 1.5 - weaponPositiveY;
+function update(context, fps, _offsetX, _offsetY, dx) {
+  offsetX = _offsetX - relativeX;
+  offsetY = _offsetY - devilHeight - relativeY;
+  weaponOffsetX = offsetX;
+  weaponOffsetY = offsetY - weaponHeight - weaponRelativeY;
   if (isLive) {
 
   } else {
     gVelocity += GRAVITY_FORCE * 1 / fps * pixelsPerMeter;
-    moveDistantX += 3;
+    moveDistantX += 8;
     moveDistantY = moveDistantY - 20 + gVelocity / 10;
     offsetX = offsetX + moveDistantX;
     offsetY = offsetY + moveDistantY;
@@ -77,21 +83,23 @@ function update(context, fps, _offsetX, _offsetY) {
     weaponOffsetY = weaponOffsetY + moveDistantY;
     // rotateVelocity -= 1;
     // rotageAngle += rotateVelocity;
-    rotate = 180 * angeleFormule;
+    rotate = downRotate;
+    // console.log(dx, moveDistantX, moveDistantY);
     // weapon.update(fps);
   }
+  shape.move(dx, 0);
 }
 
 function paint(ctx, stageWidth, stageHeight) {
   ctx.save();
   ctx.translate(offsetX, offsetY);
-  // ctx.rotate(rotate);
-  ctx.drawImage(devil, 0, 0);
+  ctx.rotate(rotate);
+  ctx.drawImage(devil, relativeX, relativeY);
   ctx.restore();
   ctx.save();
   ctx.translate(weaponOffsetX, weaponOffsetY);
   ctx.rotate(rotate);
-  ctx.drawImage(weapon, weaponPositiveX, weaponPositiveY);
+  ctx.drawImage(weapon, weaponRelativeX, weaponRelativeY);
   ctx.restore();
   // shape.lineWidth = 1;
   // shape.stroke(ctx);
@@ -111,18 +119,25 @@ function destroy(bingo) {
     score.add(1);
   }
   isLive = false;
-  console.log('enemy destroy');
-  // document.dispatchEvent(new Event('destroyEnemy'));
+  console.log('enemy destroy', isLive);
+  document.dispatchEvent(new Event('destroyEnemy'));
 }
 
 function reset() {
-  moveDistantX = 0;
-  moveDistantY = randomRange(-250, 200);
-  resetShape();
+  // moveDistantX = 0;
+  // moveDistantY = randomRange(550, 1000);
+  // resetShape();
+  console.log('reset enemy');
 }
 
 function create(firstX, firstY) {
   resetShape(firstX, firstY);
+  isLive = true;
+  rotate = 0;
+  moveDistantX = 0;
+  moveDistantY = 0;
+  gVelocity = 0;
+  console.log('create enemy');
   // explosion.excute(offsetX + explosionX, offsetY + explosionY);
 }
 

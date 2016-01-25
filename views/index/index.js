@@ -42,22 +42,22 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
-  // cBrand.show();
-  // setTimeout(function(e) {
-  //   cNav.show();
-  //   cOverlay.show();
-  //   initGameContext();
-  //   cBrand.hide();
-  //   // cCover.registHideCb(initGame);
-  // }, 3000);
+  cBrand.show();
+  setTimeout(function(e) {
+    cNav.show();
+    cOverlay.show();
+    initGameContext();
+    cBrand.hide();
+    // cCover.registHideCb(initGame);
+  }, 3000);
 
   // cOverlay.show();
   // cNav.show();
-  initGameContext();
-  game.togglePaused();
-  cOverlay.hide();
-  cNav.hide();
-  initGame();
+  // initGameContext();
+  // game.togglePaused();
+  // cOverlay.hide();
+  // cNav.hide();
+  // initGame();
 });
 
 // Init Game.......................................................................
@@ -98,9 +98,9 @@ function initGameContext() {
   cannon = require('/components/weapon/cannon/cannon.js');
   player.equip(cannon);
   game.addSprite(bg);
-  game.addSprite(player);
   game.addSprite(barrier);
   game.addSprite(bullets);
+  game.addSprite(player);
   bullets.addTarget(barrier);
   bullets.addTarget(player);
   bullets.addTarget(enemy);
@@ -192,7 +192,8 @@ document.addEventListener('gameRestart', function(e) {
 // 敌人被击毁
 document.addEventListener('destroyEnemy', function(e) {
   bg.start();
-  barrier.create();
+  // enemy.create();
+  barrier.move();
   cannon.reset();
 });
 // 新敌人出现

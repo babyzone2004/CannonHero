@@ -26,11 +26,15 @@ console.log('reapeat', reapeatWith, pillarHeight, barrierHeight);
 
 // 运动的移动距离
 var moveDistantX = 0;
-var velocityX = 60;
+var fireVelocityX = 60;
+var velocityX = 560;
 var lastTime;
 
 var shapes = require('/assets/js/module/shapes.js');
 var shape = shapes.initPolygon(getPoints(firstX, firstY));
+
+var isMove = false;
+var reCreate = false;
 
 function getPoints(x, y) {
   return [{
@@ -48,9 +52,7 @@ function getPoints(x, y) {
   }];
 }
 
-function resetShape() {
-  pointX = firstX + moveDistantX + 30;
-  pointy = firstY + 30;
+function resetShape(pointX, pointy) {
   shape.points = getPoints(pointX, pointy);
 }
 
@@ -63,29 +65,54 @@ function update(context, fps, stageWidth, stageHeight) {
     var elapsedTime = animationTimer.getElapsedTime();
     if (animationTimer.isOver()) {
       if (moveDistantX > 0) {
-        dx -= 5;
+        dx -= 1;
         moveDistantX += dx;
       } else {
-        // dx = 0;
-        // fireReady = true;
         lastTime = null;
         animationTimer.stop();
       }
+      // console.log('animationTimer.isOver()', moveDistantX);
     } else {
       if (lastTime) {
-        dx = (velocityX * (elapsedTime - lastTime) / 1000) || 0;
+        dx = fireVelocityX * (elapsedTime - lastTime) / 1000;
         moveDistantX += dx;
       }
+
       lastTime = elapsedTime;
     }
   }
+
+  // console.log('moveDistantX', moveDistantX);
+
+  if (isMove) {
+    dx = -velocityX / fps
+    moveDistantX += dx;
+    if (moveDistantX < -1080) {
+      reCreate = true;
+      moveDistantX = 300;
+      firstY = randomRange(850, 1000);
+      pillarHeight = floorY - barrierHeight - firstY;
+      resetShape(firstX + moveDistantX, firstY);
+      enemy.create(firstX + moveDistantX, firstY);
+    }
+  }
+
+  if (reCreate) {
+    if (moveDistantX <= 0) {
+      reCreate = isMove = false;
+      moveDistantX = 0;
+      document.dispatchEvent(new Event('enemyReady'));
+    }
+  }
+
+
   // console.log(moveDistantX);
 
   offsetX = firstX + moveDistantX;
   offsetY = firstY;
   // console.log('offsetY', offsetY);
   shape.move(dx, 0);
-  enemy.update(context, fps, offsetX, offsetY);
+  enemy.update(context, fps, offsetX, offsetY, dx);
 }
 
 function paint(ctx, stageWidth, stageHeight) {
@@ -110,14 +137,12 @@ function destroy() {
 
 function reset() {
   moveDistantX = 0;
-  moveDistantY = randomRange(-250, 200);
+  firstY = randomRange(950, 1000);
   resetShape();
 }
 
-function create() {
-  moveDistantX = 500;
-  moveDistantY = randomRange(-250, 200);
-  resetShape();
+function move() {
+  isMove = true;
 }
 
 function randomRange(min, max) {
@@ -129,7 +154,7 @@ module.exports = {
   update: update,
   visible: true,
   shape: shape,
-  create: create,
+  move: move,
   reset: reset,
   destroy: destroy
 };
