@@ -1,6 +1,6 @@
 /*
  * 子弹工厂
-*/
+ */
 
 var bullets = [];
 var targets = [];
@@ -15,38 +15,39 @@ function update(context, fps, stageWidth, stageHeight) {
   bullets = bullets.filter(function(bullet) {
     var bulletX = bullet.x;
     var bulletY = bullet.y;
-    
+
     var isCollision = false;
     var isTouchBottom = false;
-    for(var i = 0, ii = targets.length; i < ii; i++) {
+    for (var i = 0, ii = targets.length; i < ii; i++) {
       var target = targets[i];
       // 碰到实体
       isCollision = bullet.shape.collidesWith(target.shape);
       // 着地
       isTouchBottom = bulletY >= bottom;
-      if(isCollision) {
+      if (isCollision) {
         bullet.collisiontRemoveCb();
         target.destroy(bullet.rotate > 1);
         break;
       }
-      if(isTouchBottom) {
+      if (isTouchBottom) {
         bullet.collisiontRemoveCb();
         break;
       }
     }
-    if(isCollision) {
+    if (isCollision) {
+      !target.isEnemy && bullet.missCb();
       console.log('isCollision', isCollision);
       return false;
     }
 
     var isOutStage = bulletX < left || bulletX > right || bulletY < top;
-    if(isOutStage || isTouchBottom) {
+    if (isOutStage || isTouchBottom) {
       console.log('isTouchBottom', isTouchBottom);
       console.log('isOutStage', isOutStage);
       bullet.missCb();
       return false;
     }
-      
+
     bullet.update(context, fps, stageWidth, stageHeight);
     return true;
   });
@@ -54,7 +55,7 @@ function update(context, fps, stageWidth, stageHeight) {
 
 function paint(ctx, stageWidth, stageHeight) {
   // 循环遍历子弹
-  for(var i = 0, ii = bullets.length; i < ii; i++) {
+  for (var i = 0, ii = bullets.length; i < ii; i++) {
     bullets[i].paint(ctx, stageWidth, stageHeight);
   }
 }
@@ -62,17 +63,19 @@ function paint(ctx, stageWidth, stageHeight) {
 function add(bullet) {
   bullets.push(bullet);
 }
+
 function addTarget(target) {
   targets.push(target);
 }
-function init (stageWidth, stageHeight) {
+
+function init(stageWidth, stageHeight) {
   left = 0 - buffer;
   right = stageWidth + buffer;
   top = 0 - buffer;
   bottom = stageHeight - buffer;
 }
 
-function getBullets () {
+function getBullets() {
   return bullets;
 }
 

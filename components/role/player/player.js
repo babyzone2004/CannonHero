@@ -7,9 +7,11 @@ player.src = __uri('player.png');
 // 出场位置
 var firstY = 1300;
 var firstX = 80;
-var offsetX;
-var offsetY;
-// 源尺寸
+var offsetPoint = {
+    x: 0,
+    y: 0
+  }
+  // 源尺寸
 var sWidth = player.width;
 var sHeight = player.height;
 // 目标尺寸
@@ -76,28 +78,28 @@ function update(context, fps, stageWidth, stageHeight) {
       dy = velocityY * (elapsedTime - lastTime) / 1000;
       moveDistantY += dy;
     }
-    offsetX = firstX + moveDistantX + weapon.moveDistant.x / 2;
-    offsetY = firstY + moveDistantY + weapon.moveDistant.y / 2;
-    // console.log('offsetY', offsetY);
-    weapon.updatePositon(context, offsetX + weaponX, offsetY + weaponY);
-    particleGenerator.update(offsetX + particleX, offsetY + particleY);
+    offsetPoint.x = firstX + moveDistantX + weapon.moveDistant.x / 2;
+    offsetPoint.y = firstY + moveDistantY + weapon.moveDistant.y / 2;
+    // console.log('offsetPoint.y', offsetPoint.y);
+    weapon.updatePositon(context, offsetPoint.x + weaponX, offsetPoint.y + weaponY);
+    particleGenerator.update(offsetPoint.x + particleX, offsetPoint.y + particleY);
     shape.move(0, dy);
     lastTime = elapsedTime;
   } else {
     gVelocity += GRAVITY_FORCE * 1 / fps * pixelsPerMeter;
     moveDistantX -= 25;
     moveDistantY = moveDistantY - 60 + gVelocity;
-    offsetX = firstX + moveDistantX;
-    offsetY = firstY + moveDistantY;
+    offsetPoint.x = firstX + moveDistantX;
+    offsetPoint.y = firstY + moveDistantY;
     weapon.update(fps);
-    // console.log('offsetY', offsetY);
+    // console.log('offsetPoint.y', offsetPoint.y);
   }
 }
 
 function paint(ctx, stageWidth, stageHeight) {
   weapon && weapon.paint(ctx, stageWidth, stageHeight);
   ctx.save();
-  ctx.translate(offsetX, offsetY);
+  ctx.translate(offsetPoint.x, offsetPoint.y);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.restore();
   // shape.stroke(ctx);
@@ -173,5 +175,6 @@ module.exports = {
   addEvent: addEvent,
   removeEvent: removeEvent,
   reset: reset,
-  destroy: destroy
+  destroy: destroy,
+  point: offsetPoint
 };

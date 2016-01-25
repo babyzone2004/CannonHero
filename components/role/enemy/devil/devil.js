@@ -106,8 +106,6 @@ function paint(ctx, stageWidth, stageHeight) {
   // shape.fill(ctx);
 }
 
-function equip(_weapon) {}
-
 var score = require('/components/score/score.js');
 
 function destroy(bingo) {
@@ -124,9 +122,6 @@ function destroy(bingo) {
 }
 
 function reset() {
-  // moveDistantX = 0;
-  // moveDistantY = randomRange(550, 1000);
-  // resetShape();
   console.log('reset enemy');
 }
 
@@ -145,13 +140,32 @@ function randomRange(min, max) {
   return ((Math.random() * (max - min)) + min);
 }
 
+var bullets = require('/components/bullets/bullets.js');
+var pea = require('/components/bullets/pea/pea.js');
+var player = require('/components/role/player/player.js');
+
+function fire() {
+  console.log('enemy fire');
+  var fireX = weaponOffsetX - 55;
+  var fireY = weaponOffsetY + 25;
+  console.log(fireX, fireY);
+  setTimeout(function() {
+    var rotate = Math.atan2(fireY - player.point.y - 80, fireX - player.point.x);
+    console.log(rotate);
+    bullets.add(pea.create(fireX, fireY, Math.sin(rotate), Math.cos(rotate), rotate));
+    console.log('bullets', bullets.getBullets());
+  });
+
+}
+
 module.exports = {
   paint: paint,
   update: update,
   visible: true,
   shape: shape,
-  equip: equip,
   create: create,
   reset: reset,
-  destroy: destroy
+  destroy: destroy,
+  isEnemy: true,
+  fire: fire
 };

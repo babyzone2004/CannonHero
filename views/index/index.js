@@ -26,8 +26,9 @@ var resources = [
   __uri('/components/role/enemy/devil/weapon.png'),
 
   __uri('/components/role/player/player.png'),
-  __uri('/components/role/enemy/pea/pea.png'),
-  __uri('/components/weapon/cannon/cannon.png')
+  __uri('/components/weapon/cannon/cannon.png'),
+  __uri('/components/bullets/pea/bullet-pea.png'),
+  __uri('/components/bullets/rocket/rocket.png')
 ];
 // 加载资源.......................................................................
 
@@ -42,22 +43,22 @@ loader.registLoadingCb(function(progress) {
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
-  cBrand.show();
-  setTimeout(function(e) {
-    cNav.show();
-    cOverlay.show();
-    initGameContext();
-    cBrand.hide();
-    // cCover.registHideCb(initGame);
-  }, 3000);
+  // cBrand.show();
+  // setTimeout(function(e) {
+  //   cNav.show();
+  //   cOverlay.show();
+  //   initGameContext();
+  //   cBrand.hide();
+  //   // cCover.registHideCb(initGame);
+  // }, 3000);
 
   // cOverlay.show();
   // cNav.show();
-  // initGameContext();
-  // game.togglePaused();
-  // cOverlay.hide();
-  // cNav.hide();
-  // initGame();
+  initGameContext();
+  game.togglePaused();
+  cOverlay.hide();
+  cNav.hide();
+  initGame();
 });
 
 // Init Game.......................................................................
@@ -146,6 +147,8 @@ var loading = require('/components/loading/loading.js');
 
 function showGameOver() {
   console.log('gameOver');
+  console.log(bullets.getBullets());
+  enemy.fire();
   // cOverlay.show();
   // cNav.show();
   // player.removeEvent();

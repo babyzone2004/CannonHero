@@ -132,6 +132,7 @@ function fire() {
     var fireX = offsetX + bulletsX * cos;
     var fireY = offsetY + bulletsX * sin;
     fireExplosion.excute(fireX, fireY);
+    console.log(fireX, fireY, sin, cos, rotate);
     bullets.add(rocket.create(fireX, fireY, sin, cos, rotate));
     animationTimer.start();
     fireReady = false;

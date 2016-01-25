@@ -100,7 +100,7 @@ function update(context, fps, stageWidth, stageHeight) {
   if (reCreate) {
     if (moveDistantX <= 0) {
       reCreate = isMove = false;
-      moveDistantX = 0;
+      dx = moveDistantX = 0;
       document.dispatchEvent(new Event('enemyReady'));
     }
   }
