@@ -40,12 +40,15 @@ var cLoad = require('/components/load/load.js');
 loader.registLoadingCb(function(progress) {
   cLoad.showLoading(progress);
 });
-
+var sStart = new Howl({
+  urls: [__uri('/assets/sounds/coin.mp3')]
+});
 var cBrand = require('/components/brand/brand.js');
 loader.registCompleteCb(function() {
   cLoad.hide();
   cBrand.show();
   setTimeout(function(e) {
+    sStart.play();
     cNav.show();
     cOverlay.show();
     initGameContext();
