@@ -1,5 +1,5 @@
 
-<h2>排行</h2>
+<h2>世界排名</h2>
 <div class="content">
   <table class="table">
     <thead>
@@ -13,4 +13,5 @@
       
     </tbody>
   </table>
+  <div style="text-align: center;margin-top: 75px;">世界排名功能暂未开放哦~</div>
 </div>

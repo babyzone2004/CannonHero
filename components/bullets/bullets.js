@@ -10,6 +10,10 @@ var right;
 var top;
 var bottom;
 
+var sExplosion = new Howl({
+  urls: [__uri('/assets/sounds/explosion.wav')]
+});
+
 function update(context, fps, stageWidth, stageHeight) {
   // 循环遍历子弹
   bullets = bullets.filter(function(bullet) {
@@ -37,14 +41,20 @@ function update(context, fps, stageWidth, stageHeight) {
     if (isCollision) {
       !target.isEnemy && bullet.missCb();
       console.log('isCollision', isCollision);
+      sExplosion.play();
       return false;
     }
 
     var isOutStage = bulletX < left || bulletX > right || bulletY < top;
-    if (isOutStage || isTouchBottom) {
-      console.log('isTouchBottom', isTouchBottom);
+    if (isOutStage) {
       console.log('isOutStage', isOutStage);
       bullet.missCb();
+      return false;
+    }
+    if(isTouchBottom){
+      console.log('isTouchBottom', isTouchBottom);
+      bullet.missCb();
+      sExplosion.play();
       return false;
     }
 

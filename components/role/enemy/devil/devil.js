@@ -19,10 +19,10 @@ var weaponOffsetY;
 var weaponRelativeX = -weapon.width / 2;
 var weaponRelativeY = -weaponHeight / 2;
 
-// var sounder = require('/assets/js/module/sounder.js');
-// var sHited = new Howl({
-//   urls: [__uri('/assets/sounds/coin.mp3'), __uri('/assets/sounds/coin.wav')]
-// });
+var sounder = require('/assets/js/module/sounder.js');
+var sHited = new Howl({
+  urls: [__uri('/assets/sounds/hited2.wav')]
+});
 
 // 出场位置
 var firstY = 1080;
@@ -102,14 +102,13 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.drawImage(weapon, weaponRelativeX, weaponRelativeY);
   ctx.restore();
   // shape.lineWidth = 1;
-  shape.stroke(ctx);
-  shape.fill(ctx);
+  // shape.stroke(ctx);
+  // shape.fill(ctx);
 }
 
 var score = require('/components/score/score.js');
 
 function destroy(bingo) {
-  // sHited.play();
   // 如果是致命一击
   if (bingo) {
     score.add(3);
@@ -119,11 +118,12 @@ function destroy(bingo) {
   isLive = false;
   console.log('enemy destroy', isLive);
   document.dispatchEvent(new Event('destroyEnemy'));
+  sHited.play();
 }
 
-// function reset() {
-//   console.log('reset enemy');
-// }
+function reset() {
+  console.log('reset enemy');
+}
 
 function create(firstX, firstY) {
   resetShape(firstX, firstY);
@@ -164,7 +164,7 @@ module.exports = {
   visible: true,
   shape: shape,
   create: create,
-  reset: create,
+  reset: reset,
   destroy: destroy,
   isEnemy: true,
   fire: fire

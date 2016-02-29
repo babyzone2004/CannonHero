@@ -1,10 +1,11 @@
 
 <h2>庄子工作室</h2>
 <div class="content">
-  <p>是故无冥冥之志者，无昭昭之名，无昏昏之事者，无赫赫之功</p>
+  <p>夏虫不可语于冰,井蛙不可语于海</p>
+  <p>跨越冰与海，发现新快乐</p>
   <div class="key-value">
-    <span class="key">关注我们：</span>
-    <span class="value">微信，微博</span>
+    <span class="key">微信公众号平台：</span>
+    <img class="value" src="wxqcode.jpg" width="100" height="100">
   </div>
   <div class="key-value">
     <span class="key">Email：</span>

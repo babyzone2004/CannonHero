@@ -9,6 +9,10 @@ var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 var sFire = new Howl({
   urls: [__uri('/assets/sounds/fire.mp3')]
 });
+var sDestroy = new Howl({
+  urls: [__uri('/assets/sounds/hited1.wav')]
+});
+
 // var sReload = sounder.init(__uri('reload1.wav'), 1);
 // var sFire = sounder.init(__uri('fire1.wav'), 1);
 
@@ -166,6 +170,7 @@ function stopRoate() {
 
 function destroy() {
   isLive = false;
+  sDestroy.play();
 }
 
 module.exports = {

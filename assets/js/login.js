@@ -1,7 +1,7 @@
-window.isLogin = false;
+window.isLogin = true;
 var request = require('/assets/js/request.js');
-var loading = require('/components/loading/loading.js');
-loading.set('登录中…', '登录失败', 'bottom');
+// var loading = require('/components/loading/loading.js');
+// loading.set('登录中…', '登录失败', 'bottom');
 
 function check() {
   if (isLogin) {

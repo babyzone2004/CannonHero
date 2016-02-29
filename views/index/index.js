@@ -149,6 +149,7 @@ document.addEventListener('fireMiss', function(e) {
   enemy.fire();
 });
 
+
 function showGameOver() {
   console.log('gameOver');
   console.log(bullets.getBullets());
@@ -158,6 +159,8 @@ function showGameOver() {
   // bgMusic.fade(1, 0, 500);
   var scrore = cScore.getScore();
   cResultScore.show(scrore);
+  
+  // sEnd.play();
   // loading.set('存档…', '存档失败！', 'bottom');
   // request({
   //   url: 'http://zz-game.com/score',

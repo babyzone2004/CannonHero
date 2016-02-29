@@ -8,16 +8,16 @@ var tpl = __inline('list.tpl');
 var rankBody = rank.$modal.find('tbody')[0];
 
 rank.showCb = function() {
-  request({
-    url: 'http://zz-game.com/top',
-    success: function(msg) {
-      render({
-        contain: rankBody,
-        tpl: tpl,
-        list: msg
-      });
-    }
-  });
+  // request({
+  //   url: 'http://zz-game.com/top',
+  //   success: function(msg) {
+  //     render({
+  //       contain: rankBody,
+  //       tpl: tpl,
+  //       list: msg
+  //     });
+  //   }
+  // });
 }
 
 module.exports = rank;

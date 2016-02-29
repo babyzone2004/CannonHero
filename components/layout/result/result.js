@@ -21,7 +21,15 @@ function show (score) {
     $tip.show();
   }
   contain.className = 'result';
-  localStorage.setItem('score', score);
+  localStorage.setItem('topScore', score);
+  var playTimes = localStorage.getItem('playTimes') || 0;
+  // var destroyEnemys = localStorage.getItem('destroyEnemys') || 0;
+  var topScore = localStorage.getItem('topScore') || 0;
+  if(score > topScore) {
+    localStorage.setItem('topScore', score);
+  }
+  localStorage.setItem('playTimes', ++playTimes);
+  // localStorage.setItem('destroyEnemys', ++destroyEnemys);
 }
 
 function hide () {
