@@ -109,7 +109,8 @@ fis.config.merge({
       'uglify-js': {
         compress: {
           drop_console: true
-        }
+        },
+        sourceMap: false
       }
     },
     lint: {

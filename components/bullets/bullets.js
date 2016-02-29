@@ -11,7 +11,7 @@ var top;
 var bottom;
 
 var sExplosion = new Howl({
-  urls: [__uri('/assets/sounds/explosion.wav')]
+  urls: [__uri('/assets/sounds/explosion.mp3'), __uri('/assets/sounds/explosion.wav')]
 });
 
 function update(context, fps, stageWidth, stageHeight) {
