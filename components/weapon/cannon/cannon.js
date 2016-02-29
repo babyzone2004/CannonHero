@@ -6,9 +6,9 @@ var animationTimer = new AnimationTimer(100, AnimationTimer.makeEaseOut(2));
 // var sReload = new Howl({
 //   urls: [__uri('/assets/sounds/reload5.wav')]
 // });
-// var sFire = new Howl({
-//   urls: [__uri('/assets/sounds/fire3.wav')]
-// });
+var sFire = new Howl({
+  urls: [__uri('/assets/sounds/fire.mp3')]
+});
 // var sReload = sounder.init(__uri('reload1.wav'), 1);
 // var sFire = sounder.init(__uri('fire1.wav'), 1);
 
@@ -150,12 +150,17 @@ function rotateStart() {
 
 function reset() {
   rotate = rotageAngle = 0;
+  isLive = true;
+  rotateVelocity = 50;
+  moveDistantX = 0;
+  moveDistantY = 0;
+  gVelocity = 0;
 }
 
 function stopRoate() {
   isRoate = false;
   // sReload.stop();
-  // sFire.play();
+  sFire.play();
   fire();
 }
 

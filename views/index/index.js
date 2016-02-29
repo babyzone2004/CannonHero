@@ -5,14 +5,12 @@ var cNav = require('/components/nav/nav.js');
 var cOverlay = require('/components/overlay/overlay.js');
 
 // 登录
-var login = require('/assets/js/login.js');
+// var login = require('/assets/js/login.js');
 // login.check();
 
 var resources = [
   // __uri('/assets/sounds/coin.mp3'),
-  // __uri('/components/weapon/cannon/reload.mp3'),
   // __uri('/components/weapon/cannon/fire.mp3'),
-
 
   __uri('/components/bg/img/clound-s.png'),
   __uri('/components/bg/img/clound-l.png'),
@@ -89,7 +87,7 @@ document.addEventListener('gameOver', function(e) {
   showGameOver();
 });
 
-var bgMusic;
+// var bgMusic;
 
 function initGameContext() {
   initFps(game);
@@ -173,7 +171,6 @@ function showGameOver() {
   //   }
   // });
   game.togglePaused();
-
 }
 
 document.addEventListener('gameStart', function(e) {

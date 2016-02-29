@@ -4,13 +4,7 @@ var animationTimer = new AnimationTimer(800, AnimationTimer.makeElastic(1));
 var player = new Image();
 player.src = __uri('player.png');
 
-// 出场位置
-var firstY = 1300;
-var firstX = 80;
-var offsetPoint = {
-    x: 0,
-    y: 0
-  }
+
   // 源尺寸
 var sWidth = player.width;
 var sHeight = player.height;
@@ -18,18 +12,37 @@ var sHeight = player.height;
 var dWidth = player.width;
 var dHeight = player.height;
 
-// 目标是否存在
-var isLive = true;
-
-var gVelocity = 0;
-
+// 出场位置
+var firstY;
+var firstX;
+var offsetPoint;
 // 运动的移动距离
-var moveDistantY = 0;
-var moveDistantX = 0;
-var velocityY = 15;
-var lastTime = 0;
-animationTimer.start();
+var moveDistantY;
+var moveDistantX;
+var gVelocity;
+var velocityY;
 
+// 目标是否存在
+var isLive;
+var lastTime;
+function init() {
+  firstY = 1300;
+  firstX = 80;
+  offsetPoint = {
+    x: 0,
+    y: 0
+  }
+  moveDistantY = 0;
+  moveDistantX = 0;
+  gVelocity = 0;
+  velocityY = 15;
+  isLive = true;
+  lastTime = 0;
+}
+init();
+
+
+animationTimer.start();
 // 武器相对位置
 var weapon;
 var weaponX = 56;
@@ -102,8 +115,8 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.translate(offsetPoint.x, offsetPoint.y);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.restore();
-  // shape.stroke(ctx);
-  // shape.fill(ctx);
+  shape.stroke(ctx);
+  shape.fill(ctx);
 
 }
 
@@ -122,6 +135,7 @@ function destroy() {
 
 function reset() {
   addEvent();
+  init();
 }
 
 var bullets = require('/components/bullets/bullets.js');
