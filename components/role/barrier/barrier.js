@@ -137,9 +137,10 @@ function destroy() {
 
 function reset() {
   moveDistantX = 0;
-  firstY = randomRange(950, 1000);
+  firstY = randomRange(1050, 1200);
   pillarHeight = floorY - barrierHeight - firstY;
   resetShape(firstX, firstY);
+  enemy.create(firstX, firstY);
 }
 
 function move() {

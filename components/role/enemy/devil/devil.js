@@ -121,9 +121,9 @@ function destroy(bingo) {
   document.dispatchEvent(new Event('destroyEnemy'));
 }
 
-function reset() {
-  console.log('reset enemy');
-}
+// function reset() {
+//   console.log('reset enemy');
+// }
 
 function create(firstX, firstY) {
   resetShape(firstX, firstY);
@@ -164,7 +164,7 @@ module.exports = {
   visible: true,
   shape: shape,
   create: create,
-  reset: reset,
+  reset: create,
   destroy: destroy,
   isEnemy: true,
   fire: fire
