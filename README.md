@@ -1,3 +1,0 @@
-# gameShot
-
-npm install -g 
