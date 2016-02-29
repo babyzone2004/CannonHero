@@ -26,7 +26,10 @@ var resources = [
   __uri('/components/role/player/player.png'),
   __uri('/components/weapon/cannon/cannon.png'),
   __uri('/components/bullets/bullet-pea/bullet-pea.png'),
-  __uri('/components/bullets/rocket/rocket.png')
+  __uri('/components/bullets/rocket/rocket.png'),
+  __uri('/components/layout/about/wxqcode.jpg'),
+  __uri('/views/index/bg.png'),
+  __uri('/views/index/index-bg.png')
 ];
 // 加载资源.......................................................................
 
