@@ -138,7 +138,8 @@ function destroy() {
 function reset() {
   moveDistantX = 0;
   firstY = randomRange(950, 1000);
-  resetShape();
+  pillarHeight = floorY - barrierHeight - firstY;
+  resetShape(firstX, firstY);
 }
 
 function move() {

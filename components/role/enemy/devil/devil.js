@@ -102,8 +102,8 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.drawImage(weapon, weaponRelativeX, weaponRelativeY);
   ctx.restore();
   // shape.lineWidth = 1;
-  // shape.stroke(ctx);
-  // shape.fill(ctx);
+  shape.stroke(ctx);
+  shape.fill(ctx);
 }
 
 var score = require('/components/score/score.js');
@@ -151,7 +151,7 @@ function fire() {
   console.log(fireX, fireY);
   setTimeout(function() {
     var rotate = Math.atan2(fireY - player.point.y - 80, fireX - player.point.x);
-    console.log(rotate);
+    console.log(rotate,player.point.y,player.point.x);
     bullets.add(pea.create(fireX, fireY, Math.sin(rotate), Math.cos(rotate), rotate));
     console.log('bullets', bullets.getBullets());
   });

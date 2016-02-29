@@ -15,7 +15,10 @@ var dHeight = player.height;
 // 出场位置
 var firstY;
 var firstX;
-var offsetPoint;
+var offsetPoint = {
+    x: 0,
+    y: 0
+  };
 // 运动的移动距离
 var moveDistantY;
 var moveDistantX;
@@ -28,10 +31,8 @@ var lastTime;
 function init() {
   firstY = 1300;
   firstX = 80;
-  offsetPoint = {
-    x: 0,
-    y: 0
-  }
+  offsetPoint.x = 0;
+  offsetPoint.y = 0;
   moveDistantY = 0;
   moveDistantX = 0;
   gVelocity = 0;
@@ -115,8 +116,8 @@ function paint(ctx, stageWidth, stageHeight) {
   ctx.translate(offsetPoint.x, offsetPoint.y);
   ctx.drawImage(player, 0, 0, sWidth, sHeight, 0, 0, dWidth, dHeight);
   ctx.restore();
-  shape.stroke(ctx);
-  shape.fill(ctx);
+  // shape.stroke(ctx);
+  // shape.fill(ctx);
 
 }
 
